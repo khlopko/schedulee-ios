@@ -6,12 +6,21 @@
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
-import UIKit
+import CustomUI
+import Tools
 
 class LectorsViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initView()
+    }
+}
+
+private extension LectorsViewController {
+    
+    func initView() {
         view.backgroundColor = .white
+        navigationController?.navigationBar.barTintColor = Color.midnightBlue
     }
 }

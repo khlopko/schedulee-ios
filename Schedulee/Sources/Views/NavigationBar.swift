@@ -13,7 +13,6 @@ class NavigationBar: UINavigationBar {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        barTintColor = Color.dodgerBlue
         shadowImage = UIImage()
         setBackgroundImage(UIImage(), for: .default)
     }

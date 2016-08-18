@@ -12,5 +12,6 @@ class TimetableViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
     }
 }

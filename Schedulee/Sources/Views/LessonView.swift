@@ -13,10 +13,12 @@ import Tools
 fileprivate struct Constant {
     
     static let inset: CGFloat = 20
+    static let smallInset: CGFloat = 10
     static let titleFont = Font.regular.withSize(27)
     static let roomFont = Font.regular.withSize(15)
+    static let timeFont = Font.light.withSize(14)
     static let nowFont = Font.light.withSize(13)
-    static let nowText = "зараз!".uppercased()
+    static let nowText = "сейчас!".uppercased()
 }
 
 class LessonView: UIView {
@@ -24,7 +26,8 @@ class LessonView: UIView {
     private let titleLabel = UILabel() ->> LessonView.initialize(titleLabel:)
     private let roomLabel = UILabel() ->> LessonView.initialize(roomLabel:)
     private let lectorLabel = UILabel() ->> LessonView.initialize(lectorLabel:)
-    private let periodLabel = UILabel() ->> LessonView.initialize(periodLabel:)
+    private let startTime = UILabel() ->> LessonView.initialize(periodLabel:)
+    private let endTime = UILabel() ->> LessonView.initialize(periodLabel:)
     private let now = UILabel() ->> LessonView.initialize(now:)
     private let progressLine = UIView() ->> LessonView.initialize(progressLine:)
     private let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
@@ -46,17 +49,21 @@ class LessonView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutNow()
-        layoutTitleLabel()
-        layoutRoomLabel()
+        layoutInfoViews()
         layoutProgressLine()
+        layoutStartEndTime()
     }
 }
 
 private extension LessonView {
     
     func updateView() {
-        let title = "Введення до курсу комп'ютерних наук"
-        titleLabel.text = title
+        guard let lesson = lesson else { return }
+        titleLabel.text = lesson.title
+        roomLabel.text = lesson.room
+        lectorLabel.text = lesson.lector.fullname
+        startTime.text = DateDecorator.time(from: lesson.start)
+        endTime.text = DateDecorator.time(from: lesson.end)
         setNeedsLayout()
     }
 }
@@ -73,23 +80,26 @@ private extension LessonView {
             height: height)
     }
     
-    func layoutTitleLabel() {
-        let x = Constant.inset
-        let width = now.frame.minX - x
-        let height = titleLabel.text?.height(for: width, font: Constant.titleFont) ?? minTitleHeight
-        titleLabel.frame = CGRect(
-            x: x,
-            y: Constant.inset,
-            width: width,
-            height: height)
-    }
-    
-    func layoutRoomLabel() {
-        roomLabel.frame = CGRect(
-            x: titleLabel.frame.minX,
-            y: titleLabel.frame.maxY + Constant.inset * 0.25,
-            width: titleLabel.frame.width,
-            height: ceil(Constant.roomFont.lineHeight))
+    func layoutInfoViews() {
+        let width = now.frame.minX - Constant.inset
+        let topShift = Constant.inset * 0.25
+        let infoViews = [titleLabel, lectorLabel, roomLabel]
+        let heights = [
+            titleLabel.text?.height(for: width, font: Constant.titleFont) ?? minTitleHeight,
+            ceil(Constant.roomFont.lineHeight),
+            ceil(Constant.roomFont.lineHeight)
+        ]
+        var prevFrame: CGRect?
+        for (view, height) in zip(infoViews, heights) {
+            let y: CGFloat
+            if let prevFrame = prevFrame {
+                y = prevFrame.maxY + topShift
+            } else {
+                y = Constant.inset
+            }
+            view.frame = CGRect(x: Constant.inset, y: y, width: width, height: height)
+            prevFrame = view.frame
+        }
     }
     
     func layoutProgressLine() {
@@ -106,6 +116,23 @@ private extension LessonView {
             height: height)
     }
     
+    func layoutStartEndTime() {
+        let startTimeWidth = ceil(startTime.text?.width(font: Constant.timeFont) ?? 0)
+        let endTimeWidth = ceil(endTime.text?.width(font: Constant.timeFont) ?? 0)
+        let height: CGFloat = 20
+        let y = progressLine.frame.minY - height - Constant.smallInset
+        startTime.frame = CGRect(
+            x: Constant.inset,
+            y: y,
+            width: startTimeWidth,
+            height: height)
+        endTime.frame = CGRect(
+            x: bounds.width - endTimeWidth - Constant.inset,
+            y: y,
+            width: endTimeWidth,
+            height: height)
+    }
+    
     var minTitleHeight: CGFloat {
         return ceil(Constant.titleFont.lineHeight)
     }
@@ -114,7 +141,7 @@ private extension LessonView {
 private extension LessonView {
  
     var all: [UIView] {
-        return [titleLabel, roomLabel, lectorLabel, periodLabel, now, progressLine]
+        return [titleLabel, roomLabel, lectorLabel, startTime, endTime, now, progressLine]
     }
 }
 
@@ -128,19 +155,18 @@ private extension LessonView {
     }
     
     static func initialize(roomLabel: UILabel) {
-        roomLabel.text = "2-406"
         roomLabel.textColor = Color.dodgerBlue
         roomLabel.font = Constant.roomFont
     }
     
     static func initialize(lectorLabel: UILabel) {
-        lectorLabel.text = "Дивний доктор"
         lectorLabel.textColor = Color.dodgerBlue
+        lectorLabel.font = Constant.roomFont
     }
     
     static func initialize(periodLabel: UILabel) {
-        periodLabel.text = "10:30 - 11:20"
-        periodLabel.textColor = Color.dodgerBlue
+        periodLabel.textColor = Color.carrotOrange
+        periodLabel.font = Constant.timeFont
     }
     
     static func initialize(now: UILabel) {

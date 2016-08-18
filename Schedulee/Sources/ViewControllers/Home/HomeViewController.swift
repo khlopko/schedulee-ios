@@ -7,6 +7,9 @@
 //
 
 import CustomUI
+import Models
+import ServerClient
+import Tools
 
 class HomeViewController: ViewController {
 
@@ -21,7 +24,19 @@ class HomeViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView?.delegate = self
-        contentView?.currentLesson.lesson = nil
+        ServerClient.instance.getLesson { [weak self] result in
+            switch result {
+            case .success(let lesson):
+                self?.contentView?.currentLesson.lesson = lesson
+            case .failure(let error):
+                log.e(error)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -30,7 +45,7 @@ class HomeViewController: ViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 }
 

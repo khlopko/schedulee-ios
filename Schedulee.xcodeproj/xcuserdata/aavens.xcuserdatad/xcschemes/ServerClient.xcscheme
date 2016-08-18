@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A22BDFB01D5F5A0B00DCF8DA"
-               BuildableName = "Schedulee.app"
-               BlueprintName = "Schedulee"
+               BlueprintIdentifier = "A2C025611D659579001865EC"
+               BuildableName = "ServerClient.framework"
+               BlueprintName = "ServerClient"
                ReferencedContainer = "container:Schedulee.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A2C025691D659579001865EC"
-               BuildableName = "ServerClientTests.xctest"
-               BlueprintName = "ServerClientTests"
-               ReferencedContainer = "container:Schedulee.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A22BDFB01D5F5A0B00DCF8DA"
-            BuildableName = "Schedulee.app"
-            BlueprintName = "Schedulee"
-            ReferencedContainer = "container:Schedulee.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -61,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A22BDFB01D5F5A0B00DCF8DA"
-            BuildableName = "Schedulee.app"
-            BlueprintName = "Schedulee"
+            BlueprintIdentifier = "A2C025611D659579001865EC"
+            BuildableName = "ServerClient.framework"
+            BlueprintName = "ServerClient"
             ReferencedContainer = "container:Schedulee.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A22BDFB01D5F5A0B00DCF8DA"
-            BuildableName = "Schedulee.app"
-            BlueprintName = "Schedulee"
+            BlueprintIdentifier = "A2C025611D659579001865EC"
+            BuildableName = "ServerClient.framework"
+            BlueprintName = "ServerClient"
             ReferencedContainer = "container:Schedulee.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
