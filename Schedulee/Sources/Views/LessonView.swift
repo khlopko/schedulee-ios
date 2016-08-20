@@ -14,11 +14,12 @@ fileprivate struct Constant {
     
     static let inset: CGFloat = 20
     static let smallInset: CGFloat = 10
-    static let titleFont = Font.regular.withSize(27)
-    static let roomFont = Font.regular.withSize(15)
-    static let timeFont = Font.light.withSize(14)
-    static let nowFont = Font.light.withSize(13)
-    static let nowText = "сейчас!".uppercased()
+    static let titleFont = Font.regular.withSize(26)
+    static let roomFont = Font.regular.withSize(14)
+    static let timeFont = Font.regular.withSize(14)
+    static let nowFont = Font.regular.withSize(14)
+    static let nowText = "сейчас".uppercased()
+    static let tomorrowText = "завтра".uppercased()
 }
 
 class LessonView: UIView {
@@ -28,7 +29,7 @@ class LessonView: UIView {
     private let lectorLabel = UILabel() ->> LessonView.initialize(lectorLabel:)
     private let startTime = UILabel() ->> LessonView.initialize(periodLabel:)
     private let endTime = UILabel() ->> LessonView.initialize(periodLabel:)
-    private let now = UILabel() ->> LessonView.initialize(now:)
+    private let indicatorLabel = UILabel() ->> LessonView.initialize(indicatorLabel:)
     private let progressLine = UIView() ->> LessonView.initialize(progressLine:)
     private let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
 
@@ -38,6 +39,7 @@ class LessonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = Color.whiteBlue
         all.forEach(addSubview)
         progressLine.addSubview(lineRounder)
     }
@@ -64,16 +66,20 @@ private extension LessonView {
         lectorLabel.text = lesson.lector.fullname
         startTime.text = DateDecorator.time(from: lesson.start)
         endTime.text = DateDecorator.time(from: lesson.end)
+        indicatorLabel.text = lesson.isCurrent ? Constant.nowText : Constant.tomorrowText
+        viewsToHide.forEach { $0.isHidden = !lesson.isCurrent }
         setNeedsLayout()
     }
 }
+
+// MARK: - Layout
 
 private extension LessonView {
     
     func layoutNow() {
         let width = Constant.nowText.width(font: Constant.nowFont)
         let height = ceil(Constant.nowFont.lineHeight)
-        now.frame = CGRect(
+        indicatorLabel.frame = CGRect(
             x: bounds.width - Constant.inset - width,
             y: Constant.inset + minTitleHeight * 0.5 - height * 0.5,
             width: width,
@@ -81,7 +87,7 @@ private extension LessonView {
     }
     
     func layoutInfoViews() {
-        let width = now.frame.minX - Constant.inset
+        let width = indicatorLabel.frame.minX - Constant.inset
         let topShift = Constant.inset * 0.25
         let infoViews = [titleLabel, lectorLabel, roomLabel]
         let heights = [
@@ -103,24 +109,27 @@ private extension LessonView {
     }
     
     func layoutProgressLine() {
+        let pastPercents = CGFloat(lesson?.pastPercents ?? 0)
         let height: CGFloat = 20
+        let side = pastPercents > 0 ? height : 0
         progressLine.frame = CGRect(
             x: 0,
             y: bounds.height - height,
-            width: bounds.width * 0.57,
+            width: bounds.width * pastPercents,
             height: height)
         lineRounder.frame = CGRect(
             x: progressLine.frame.width - height * 0.5,
             y: 0,
-            width: height,
-            height: height)
+            width: side,
+            height: side)
     }
     
     func layoutStartEndTime() {
         let startTimeWidth = ceil(startTime.text?.width(font: Constant.timeFont) ?? 0)
         let endTimeWidth = ceil(endTime.text?.width(font: Constant.timeFont) ?? 0)
         let height: CGFloat = 20
-        let y = progressLine.frame.minY - height - Constant.smallInset
+        let startY = progressLine.isHidden ? bounds.height : progressLine.frame.minY
+        let y = startY - height - Constant.smallInset
         startTime.frame = CGRect(
             x: Constant.inset,
             y: y,
@@ -138,12 +147,22 @@ private extension LessonView {
     }
 }
 
+// MARK: - Private computed properties
+
 private extension LessonView {
  
     var all: [UIView] {
-        return [titleLabel, roomLabel, lectorLabel, startTime, endTime, now, progressLine]
+        return [
+            titleLabel, roomLabel, lectorLabel,
+            startTime, endTime, indicatorLabel, progressLine,
+        ]
+    }
+    var viewsToHide: [UIView] {
+        return [progressLine, lineRounder]
     }
 }
+
+// MARK: - Init subviews
 
 private extension LessonView {
     
@@ -169,10 +188,10 @@ private extension LessonView {
         periodLabel.font = Constant.timeFont
     }
     
-    static func initialize(now: UILabel) {
-        now.text = Constant.nowText
-        now.textColor = Color.carrotOrange
-        now.font = Constant.nowFont
+    static func initialize(indicatorLabel: UILabel) {
+        indicatorLabel.textColor = Color.carrotOrange
+        indicatorLabel.text = Constant.nowText
+        indicatorLabel.font = Constant.nowFont
     }
     
     static func initialize(progressLine: UIView) {

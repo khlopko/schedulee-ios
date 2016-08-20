@@ -11,10 +11,21 @@ import Foundation
 public struct Lector: WebEntity {
     
     public let id: String
-    public let fullname: String
+    public let firstname: String
+    public let lastname: String
+    public let sorname: String
     
-    init(_ json: JSON?) {
+    public init(_ json: JSON?) {
         id = parse(json?[.id])
-        fullname = parse(json?[.fullname])
+        firstname = parse(json?[.firstname])
+        lastname = parse(json?[.lastname])
+        sorname = parse(json?[.sorname])
+    }
+}
+
+public extension Lector {
+    
+    var fullname: String {
+        return "\(lastname) \(firstname) \(sorname)"
     }
 }

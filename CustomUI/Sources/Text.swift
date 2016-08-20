@@ -10,8 +10,9 @@ import Foundation
 
 public enum Text: String {
     
-    case lectors = "Викладачі"
-    case timetable = "Розклад"
+    case lectors = "Преподаватели"
+    case timetable = "Рассписание"
+    case today = "Сегодня"
     
     var text: String {
         return rawValue

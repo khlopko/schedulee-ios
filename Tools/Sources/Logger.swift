@@ -12,29 +12,25 @@ public let log = Logger()
 
 public final class Logger {
     
-    private let formatter = DateFormatter() ->> {
-        $0.dateFormat = "dd/MM/yyyy HH:mm:ss:ms"
-    }
-    
     public func d(_ params: AnyObject...,
                     file: String = #file,
                     function: String = #function,
                     line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .error))
+        print(makeString(params, file: file, function: function, line: line, level: .debug))
     }
     
     public func i(_ params: AnyObject...,
                     file: String = #file,
                     function: String = #function,
                     line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .error))
+        print(makeString(params, file: file, function: function, line: line, level: .info))
     }
     
     public func w(_ params: AnyObject...,
                     file: String = #file,
                     function: String = #function,
                     line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .error))
+        print(makeString(params, file: file, function: function, line: line, level: .warning))
     }
     
     public func e(_ params: AnyObject...,
@@ -55,6 +51,10 @@ public final class Logger {
         return "[\(date)][\(level.presentationFormat)] \(shortFilename)::\(function)[\(line)]: " + output
     }
     
+    private let formatter = DateFormatter() ->> {
+        $0.dateFormat = "dd/MM/yyyy HH:mm:ss:ms"
+    }
+    
     private enum Level: String {
         
         case debug = "debug"
@@ -63,7 +63,7 @@ public final class Logger {
         case error = "error"
         
         var presentationFormat: String {
-            return "[\(rawValue.uppercased())]"
+            return "\(rawValue.uppercased())"
         }
     }
 }

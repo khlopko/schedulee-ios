@@ -7,20 +7,52 @@
 //
 
 import Foundation
+import Models
 
 func imitateResponse(_ closure: () -> ()) {
     let deadline = DispatchTime(uptimeNanoseconds: NSEC_PER_SEC * 1000)
     DispatchQueue.main.asyncAfter(deadline: deadline, execute: closure)
 }
 
-let lessonJSON = [
+let lessonJSON: JSON = [
     "id": 1,
-    "title": "Основы магии",
+    "title": "Введение в компьютерные науки",
     "room": "2-406",
-    "lector": [
-        "id": 1,
-        "fullname": "Доктор Стрендж",
+    "lector": lectorJSON,
+    "startTimestamp": 1471629273,
+    "endTimestamp": 1471634673,
+]
+
+let lessonsJSON: JSON = [
+    "lessons": [
+        lessonJSON,
+        lessonJSON,
+        lessonJSON,
+        lessonJSON,
+    ]
+]
+
+let lectorJSON: JSON = [
+    "id": 1,
+    "firstname": "Максим",
+    "lastname": "Мусиенко",
+    "sorname": "Павлович",
+]
+
+let lectorsJSON: JSON = [
+    "lectors": [
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
+        lectorJSON,
     ],
-    "startTimestamp": 148320,
-    "endTimestamp": 153720,
 ]

@@ -11,10 +11,10 @@ import Foundation
 public enum Font: String {
     
     case regular = "-Regular"
-    case italic = " Italic"
+    case italic = "-Italic"
     case light = "-Light"
-    case bold = " Bold"
-    case thin = " Thin"
+    case bold = "-Bold"
+    case thin = "-Thin"
     
     public func withSize(_ size: CGFloat) -> UIFont {
         let fontName = "Lato" + rawValue

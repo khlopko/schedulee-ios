@@ -28,3 +28,12 @@ public func => <In, Out>(result: Result<In>, closure: (In) -> (Out)) -> Result<O
         return Result<Out>.failure(error)
     }
 }
+
+public extension Array where Element: WebEntity {
+    
+    init(webkey: WebKey, json: JSON) {
+        let jsons: [JSON] = parse(json[webkey])
+        let value = jsons.map(Element.init)
+        self.init(value)
+    }
+}

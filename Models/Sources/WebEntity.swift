@@ -10,6 +10,6 @@ import Foundation
 
 public typealias JSON = Dictionary<String, AnyObject>
 
-protocol WebEntity {
+public protocol WebEntity {
     init(_ json: JSON?)
 }

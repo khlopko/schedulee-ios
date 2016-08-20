@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let minutesHoursFormat = "hh:mm"
+private let minutesHoursFormat = "HH:mm"
 
 private let formatter = DateFormatter() ->> {
     $0.dateFormat = minutesHoursFormat

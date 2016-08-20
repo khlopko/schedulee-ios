@@ -24,6 +24,7 @@ class HomeView: UIView {
 
     weak var delegate: HomeViewDelegate?
     
+    let header = HomeHeaderView() ->> HomeView.initialize(header:)
     let timetable = HomeView.makeButton(text: .timetable, backgroundColor: Color.dodgerBlue)
     let lectors = HomeView.makeButton(text: .lectors, backgroundColor: Color.midnightBlue)
     let currentLesson = LessonView() ->> HomeView.initialize(currentLesson:)
@@ -42,9 +43,10 @@ class HomeView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let k: CGFloat = 0.4
-        let currentLessonHeight = bounds.height * k
-        let buttonHeight = bounds.height * (1 - k) * 0.5
-        let heights = [buttonHeight, buttonHeight, currentLessonHeight]
+        let itemsHeight: CGFloat = bounds.height - 64
+        let currentLessonHeight = itemsHeight * k
+        let buttonHeight = itemsHeight * (1 - k) * 0.5
+        let heights = [64, buttonHeight, buttonHeight, currentLessonHeight]
         var prevFrame: CGRect?
         for (view, height) in zip(all, heights) {
             let y = prevFrame?.maxY ?? 0
@@ -87,7 +89,7 @@ private extension HomeView {
 private extension HomeView {
     
     var all: [UIView] {
-        return [timetable, lectors, currentLesson]
+        return [header, timetable, lectors, currentLesson]
     }
     var buttons: [UIButton] {
         return [timetable, lectors]
@@ -105,12 +107,16 @@ private extension HomeView {
         return UIButton() ->> {
             $0.backgroundColor = backgroundColor
             $0.setTitle(text, for: .normal)
-            $0.titleLabel?.font = Font.regular.withSize(29)
+            $0.titleLabel?.font = Font.regular.withSize(25)
             $0.setTitleColor(Color.whiteBlue, for: .normal)
         }
     }
     
     static func initialize(currentLesson: LessonView) {
         currentLesson.backgroundColor = Color.whiteBlue
+    }
+    
+    static func initialize(header: HomeHeaderView) {
+        header.backgroundColor = Color.dodgerBlue
     }
 }

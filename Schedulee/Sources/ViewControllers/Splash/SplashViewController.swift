@@ -38,6 +38,10 @@ class SplashViewController: ViewController {
         super.viewDidAppear(animated)
         startAnimation()
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }
 
 // MARK: - Animations

@@ -24,14 +24,9 @@ class HomeViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView?.delegate = self
-        ServerClient.instance.getLesson { [weak self] result in
-            switch result {
-            case .success(let lesson):
-                self?.contentView?.currentLesson.lesson = lesson
-            case .failure(let error):
-                log.e(error)
-            }
-        }
+        ServerClient.instance.getCurrentLesson(
+            success: { [weak self] in self?.contentView?.currentLesson.lesson = $0 },
+            failure: { log.e($0) })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,10 +37,6 @@ class HomeViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
 }
 

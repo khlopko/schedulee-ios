@@ -10,4 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    override var navigationController: NavigationController? {
+        return super.navigationController as? NavigationController
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
