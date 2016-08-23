@@ -10,60 +10,233 @@ import Foundation
 
 public let log = Logger()
 
+// MARK: - Logger
+
 public final class Logger {
+
+    public var config = Configuration()
     
-    public func d(_ params: AnyObject...,
-                    file: String = #file,
-                    function: String = #function,
-                    line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .debug))
+    private let formatter = DateFormatter()
+    
+    init() {
+        formatter.dateFormat = dateFormat
+    }
+}
+
+public extension Logger {
+    
+    typealias Parameter = Any
+    
+    func d(_ params: Parameter...,
+           separator: String = ",",
+           file: String = #file,
+           function: String = #function,
+           line: Int = #line) {
+        printMessage(
+            params: params, separator: separator,
+            file: file, function: function, line: line,
+            level: .error)
     }
     
-    public func i(_ params: AnyObject...,
-                    file: String = #file,
-                    function: String = #function,
-                    line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .info))
+    func i(_ params: Parameter...,
+           separator: String = ",",
+           file: String = #file,
+           function: String = #function,
+           line: Int = #line) {
+        printMessage(
+            params: params, separator: separator,
+            file: file, function: function, line: line,
+            level: .error)
     }
     
-    public func w(_ params: AnyObject...,
-                    file: String = #file,
-                    function: String = #function,
-                    line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .warning))
+    func w(_ params: Parameter...,
+           separator: String = ",",
+           file: String = #file,
+           function: String = #function,
+           line: Int = #line) {
+        printMessage(
+            params: params, separator: separator,
+            file: file, function: function, line: line,
+            level: .error)
     }
     
-    public func e(_ params: AnyObject...,
-                    file: String = #file,
-                    function: String = #function,
-                    line: Int = #line) {
-        print(makeString(params, file: file, function: function, line: line, level: .error))
+    func e(_ params: Parameter...,
+           separator: String = ",",
+           file: String = #file,
+           function: String = #function,
+           line: Int = #line) {
+        printMessage(
+            params: params, separator: separator,
+            file: file, function: function, line: line,
+            level: .error)
     }
+}
+
+private extension Logger {
     
-    private func makeString(_ params: AnyObject...,
-                              file: String,
-                              function: String,
-                              line: Int,
-                              level: Level) -> String {
-        let output = params.map {"\($0)"}.joined(separator: ", ").trimmingCharacters(in: .newlines)
+    func printMessage(params: Parameter...,
+                      separator: String,
+                      file: String,
+                      function: String,
+                      line: Int,
+                      level: Level) {
+        if level <= config.minimalLogLevel {
+            return
+        }
+        let message = params
+            .map { "\($0)" }
+            .joined(separator: separator)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
         let shortFilename = file.components(separatedBy: "/").last ?? ""
         let date = formatter.string(from: Date())
-        return "[\(date)][\(level.presentationFormat)] \(shortFilename)::\(function)[\(line)]: " + output
+        let details = Details(
+            level: level, message: message, file: shortFilename,
+            function: function, line: line, dateString: date)
+        let logString = processDetails(details)
+        print(logString)
     }
     
-    private let formatter = DateFormatter() ->> {
-        $0.dateFormat = "dd/MM/yyyy HH:mm:ss:ms"
+    func processDetails(_ details: Details) -> String {
+        var string = ""
+        if config.showDateAndTime {
+            string += "[\(details.dateString)]"
+        }
+        if config.showLevel {
+            string += "[\(details.level.presentationFormat.uppercased())]"
+        }
+        if config.showThread {
+            string += "[\(makeThreadName())]"
+        }
+        if config.showFile {
+            string += "[\(details.file)]"
+        }
+        if config.showFunction {
+            string += "[\(details.function)]"
+        }
+        if config.showLine {
+            string += "[\(details.line)]"
+        }
+        string += " > \(details.message)"
+        return string
     }
     
-    private enum Level: String {
+    func makeThreadName() -> String {
+        var str = "Thread "
+        if Thread.isMainThread {
+            str += "main"
+        } else {
+            if let threadName = Thread.current.name, threadName != "" {
+                str += threadName
+            } else {
+                str += String(format:"%p", Thread.current)
+            }
+        }
+        return str
+    }
+    
+    func updateDateFormatter() {
+        formatter.dateFormat = dateFormat
+    }
+    
+    var dateFormat: String {
+        var str = ""
+        if config.showDate {
+            str += "dd/MM/yyyy"
+        }
+        if config.showTime {
+            if !str.isEmpty {
+                str += " "
+            }
+            str += "HH:mm:ss:ms"
+        }
+        return str
+    }
+}
+
+// MARK: - Configuration
+
+extension Logger {
+    
+    public struct Configuration {
         
-        case debug = "debug"
-        case info = "info"
-        case warning = "warning"
-        case error = "error"
+        var showDate = false {
+            didSet { log.updateDateFormatter() }
+        }
+        var showTime = true {
+            didSet { log.updateDateFormatter() }
+        }
+        var showDateAndTime = true
+        var showLine = true
+        var showFunction = true
+        var showFile = true
+        var showLevel = true
+        var minimalLogLevel: Level = .debug
+        var showThread = false
+        
+        fileprivate init() {
+        }
+    }
+}
+
+// MARK: - Level
+
+extension Logger {
+    
+    public enum Level: Int {
+        
+        case debug = 1
+        case info = 2
+        case warning = 3
+        case error = 4
+        case none = 100
         
         var presentationFormat: String {
-            return "\(rawValue.uppercased())"
+            switch self {
+            case .debug:
+                return "debug"
+            case .info:
+                return "info"
+            case .warning:
+                return "warning"
+            case .error:
+                return "error"
+            case .none:
+                return "none"
+            }
         }
+    }
+}
+
+extension Logger.Level: Comparable {
+}
+
+public func <(lhs: Logger.Level, rhs: Logger.Level) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+}
+
+public func <=(lhs: Logger.Level, rhs: Logger.Level) -> Bool {
+    return lhs.rawValue <= rhs.rawValue
+}
+
+public func >(lhs: Logger.Level, rhs: Logger.Level) -> Bool {
+    return lhs.rawValue > rhs.rawValue
+}
+
+public func >=(lhs: Logger.Level, rhs: Logger.Level) -> Bool {
+    return lhs.rawValue >= rhs.rawValue
+}
+
+// MARK: - Details
+
+extension Logger {
+    
+    private struct Details {
+        
+        let level: Level
+        let message: String
+        let file: String
+        let function: String
+        let line: Int
+        let dateString: String
     }
 }
