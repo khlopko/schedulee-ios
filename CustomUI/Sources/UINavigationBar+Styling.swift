@@ -46,8 +46,8 @@ public extension UINavigationItem {
         
         var color: UIColor {
             switch self {
-            case .dark: return Color.midnightBlue
-            case .light: return Color.whiteBlue
+            case .dark: return Color.eastBay
+            case .light: return Color.beige
             }
         }
     }

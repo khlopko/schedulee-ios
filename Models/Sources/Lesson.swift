@@ -36,11 +36,19 @@ public extension Lesson {
         let nowTimestamp = Date().timeIntervalSince1970
         let past = nowTimestamp - start.timeIntervalSince1970
         let percents = past / duration
-        return percents
+        let r = Double(arc4random() % 100) / 100.0
+        return r
     }
     var isCurrent: Bool {
         let now = Date().timeIntervalSince1970
         let result = (start.timeIntervalSince1970...end.timeIntervalSince1970).contains(now)
-        return result
+        let r = (arc4random() % 7)
+        let b = hasCurrent ? false : r == 1
+        if !hasCurrent {
+            hasCurrent = r == 1
+        }
+        return b
     }
 }
+
+private var hasCurrent = false

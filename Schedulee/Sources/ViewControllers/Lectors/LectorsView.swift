@@ -15,7 +15,7 @@ class LectorsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.white
+        backgroundColor = Color.beige
         all.forEach(addSubview)
     }
     
@@ -40,8 +40,9 @@ private extension LectorsView {
     
     static func initialize(table: UITableView) {
         table.allowsMultipleSelection = false
+        table.backgroundColor = .clear
         table.tableFooterView = UIView()
         table.separatorInset = .zero
-        table.separatorColor = Color.whiteBlue
+        table.separatorColor = Color.zanah
     }
 }

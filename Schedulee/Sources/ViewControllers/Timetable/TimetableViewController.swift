@@ -37,11 +37,12 @@ private extension TimetableViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.dodgerBlue
+        navigationController?.navigationBar.barTintColor = Color.doublePearlLusta
         navigationController?.navigationBar.decorateTitle(
             font: Font.regular.withSize(21),
-            color: Color.white)
+            color: Color.bossanova)
         navigationItem.title = Text.timetable.rawValue
-        navigationItem.setLeftButton(withTitle: "Назад", target: self, action: #selector(handle(back:)))
+        navigationItem.setLeftButton(
+            withTitle: "Назад", style: .dark, target: self, action: #selector(handle(back:)))
     }
 }

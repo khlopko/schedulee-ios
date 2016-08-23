@@ -35,7 +35,7 @@ public extension Logger {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
-            level: .error)
+            level: .debug)
     }
     
     func i(_ params: Parameter...,
@@ -46,7 +46,7 @@ public extension Logger {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
-            level: .error)
+            level: .info)
     }
     
     func w(_ params: Parameter...,
@@ -57,7 +57,7 @@ public extension Logger {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
-            level: .error)
+            level: .warning)
     }
     
     func e(_ params: Parameter...,

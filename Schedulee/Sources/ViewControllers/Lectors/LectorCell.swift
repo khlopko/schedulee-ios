@@ -25,6 +25,8 @@ class LectorCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        backgroundColor = .clear
         all.forEach(addSubview)
     }
     
@@ -81,11 +83,11 @@ private extension LectorCell {
     static func initialize(photoView: UIImageView) {
         photoView.contentMode = .center
         photoView.clipsToBounds = true
-        photoView.backgroundColor = Color.amber
+        photoView.backgroundColor = Color.zanah
     }
     
     static func initialize(fullnameLabel: UILabel) {
         fullnameLabel.font = Font.regular.withSize(18)
-        fullnameLabel.textColor = Color.midnightBlue
+        fullnameLabel.textColor = Color.eastBay
     }
 }

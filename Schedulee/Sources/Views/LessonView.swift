@@ -14,10 +14,6 @@ fileprivate struct Constant {
     
     static let inset: CGFloat = 20
     static let smallInset: CGFloat = 10
-    static let titleFont = Font.regular.withSize(26)
-    static let roomFont = Font.regular.withSize(14)
-    static let timeFont = Font.regular.withSize(14)
-    static let nowFont = Font.regular.withSize(14)
     static let nowText = "сейчас".uppercased()
     static let tomorrowText = "завтра".uppercased()
 }
@@ -33,13 +29,29 @@ class LessonView: UIView {
     private let progressLine = UIView() ->> LessonView.initialize(progressLine:)
     private let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
 
+    var viewModel: CurrentLessonViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            backgroundColor = viewModel.backgroundColor
+            titleLabel.textColor = viewModel.titleColor
+            titleLabel.font = viewModel.titleFont
+            inscriptionLabels.forEach {
+                $0.font = viewModel.inscriptionFont
+                $0.textColor = viewModel.inscriptionColor
+            }
+            progressLine.backgroundColor = viewModel.progressColor
+            lineRounder.fillColor = viewModel.progressColor
+            setNeedsLayout()
+        }
+    }
+    
     var lesson: Lesson? {
         didSet { updateView() }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.whiteBlue
+        backgroundColor = Color.white
         all.forEach(addSubview)
         progressLine.addSubview(lineRounder)
     }
@@ -77,8 +89,9 @@ private extension LessonView {
 private extension LessonView {
     
     func layoutNow() {
-        let width = Constant.nowText.width(font: Constant.nowFont)
-        let height = ceil(Constant.nowFont.lineHeight)
+        guard let viewModel = viewModel else { return }
+        let width = Constant.nowText.width(font: viewModel.inscriptionFont)
+        let height = ceil(viewModel.inscriptionFont.lineHeight)
         indicatorLabel.frame = CGRect(
             x: bounds.width - Constant.inset - width,
             y: Constant.inset + minTitleHeight * 0.5 - height * 0.5,
@@ -87,13 +100,14 @@ private extension LessonView {
     }
     
     func layoutInfoViews() {
+        guard let viewModel = viewModel else { return }
         let width = indicatorLabel.frame.minX - Constant.inset
         let topShift = Constant.inset * 0.25
         let infoViews = [titleLabel, lectorLabel, roomLabel]
         let heights = [
-            titleLabel.text?.height(for: width, font: Constant.titleFont) ?? minTitleHeight,
-            ceil(Constant.roomFont.lineHeight),
-            ceil(Constant.roomFont.lineHeight)
+            titleLabel.text?.height(for: width, font: viewModel.titleFont) ?? minTitleHeight,
+            ceil(viewModel.inscriptionFont.lineHeight),
+            ceil(viewModel.inscriptionFont.lineHeight)
         ]
         var prevFrame: CGRect?
         for (view, height) in zip(infoViews, heights) {
@@ -125,8 +139,9 @@ private extension LessonView {
     }
     
     func layoutStartEndTime() {
-        let startTimeWidth = ceil(startTime.text?.width(font: Constant.timeFont) ?? 0)
-        let endTimeWidth = ceil(endTime.text?.width(font: Constant.timeFont) ?? 0)
+        guard let viewModel = viewModel else { return }
+        let startTimeWidth = ceil(startTime.text?.width(font: viewModel.inscriptionFont) ?? 0)
+        let endTimeWidth = ceil(endTime.text?.width(font: viewModel.inscriptionFont) ?? 0)
         let height: CGFloat = 20
         let startY = progressLine.isHidden ? bounds.height : progressLine.frame.minY
         let y = startY - height - Constant.smallInset
@@ -143,7 +158,8 @@ private extension LessonView {
     }
     
     var minTitleHeight: CGFloat {
-        return ceil(Constant.titleFont.lineHeight)
+        guard let viewModel = viewModel else { return 0 }
+        return ceil(viewModel.titleFont.lineHeight)
     }
 }
 
@@ -157,6 +173,11 @@ private extension LessonView {
             startTime, endTime, indicatorLabel, progressLine,
         ]
     }
+    var inscriptionLabels: [UILabel] {
+        return [
+            roomLabel, lectorLabel, startTime, endTime, indicatorLabel,
+        ]
+    }
     var viewsToHide: [UIView] {
         return [progressLine, lineRounder]
     }
@@ -167,38 +188,33 @@ private extension LessonView {
 private extension LessonView {
     
     static func initialize(titleLabel: UILabel) {
-        titleLabel.font = Constant.titleFont
-        titleLabel.textColor = Color.midnightBlue
+        titleLabel.textColor = Color.doublePearlLusta
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
     }
     
     static func initialize(roomLabel: UILabel) {
-        roomLabel.textColor = Color.dodgerBlue
-        roomLabel.font = Constant.roomFont
+        roomLabel.textColor = Color.beige
     }
     
     static func initialize(lectorLabel: UILabel) {
-        lectorLabel.textColor = Color.dodgerBlue
-        lectorLabel.font = Constant.roomFont
+        lectorLabel.textColor = Color.beige
     }
     
     static func initialize(periodLabel: UILabel) {
-        periodLabel.textColor = Color.carrotOrange
-        periodLabel.font = Constant.timeFont
+        periodLabel.textColor = Color.beige
     }
     
     static func initialize(indicatorLabel: UILabel) {
-        indicatorLabel.textColor = Color.carrotOrange
+        indicatorLabel.textColor = Color.beige
         indicatorLabel.text = Constant.nowText
-        indicatorLabel.font = Constant.nowFont
     }
     
     static func initialize(progressLine: UIView) {
-        progressLine.backgroundColor = Color.amber
+        progressLine.backgroundColor = Color.doublePearlLusta
     }
     
     static func initialize(lineRounder: CircleView) {
-        lineRounder.fillColor = Color.amber
+        lineRounder.fillColor = Color.doublePearlLusta
     }
 }

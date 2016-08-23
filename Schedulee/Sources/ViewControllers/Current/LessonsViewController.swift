@@ -50,7 +50,7 @@ class LessonsViewController: ViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 }
 
@@ -118,12 +118,12 @@ private extension LessonsViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.white
+        navigationController?.navigationBar.barTintColor = Color.bossanova
         navigationController?.navigationBar.decorateTitle(
             font: Font.regular.withSize(21),
-            color: Color.midnightBlue)
+            color: Color.doublePearlLusta)
         navigationItem.title = Text.today.rawValue
         navigationItem.setLeftButton(
-            withTitle: "Назад", style: .dark, target: self, action: #selector(handle(back:)))
+            withTitle: "Назад", target: self, action: #selector(handle(back:)))
     }
 }

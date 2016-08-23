@@ -15,7 +15,7 @@ class LessonsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.white
+        backgroundColor = Color.bossanova
         all.forEach(addSubview)
     }
     

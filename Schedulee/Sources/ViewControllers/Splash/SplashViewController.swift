@@ -95,7 +95,7 @@ private extension SplashViewController {
     func finalAnimation() {
         UIView.animate(
             withDuration: 1,
-            delay: 2,
+            delay: 1,
             options: [.curveEaseInOut],
             animations: {
                 self.verticalLines.forEach {

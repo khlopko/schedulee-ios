@@ -33,6 +33,10 @@ class LectorsViewController: ViewController {
             },
             failure: { log.e($0) })
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension LectorsViewController {
@@ -85,9 +89,12 @@ private extension LectorsViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.midnightBlue
-        navigationController?.navigationBar.decorateTitle(font: Font.regular.withSize(21), color: Color.white)
+        navigationController?.navigationBar.barTintColor = Color.zanah
+        navigationController?.navigationBar.decorateTitle(
+            font: Font.regular.withSize(21),
+            color: Color.beige)
         navigationItem.title = Text.lectors.rawValue
-        navigationItem.setLeftButton(withTitle: "Назад", target: self, action: #selector(handle(back:)))
+        navigationItem.setLeftButton(
+            withTitle: "Назад", style: .light, target: self, action: #selector(handle(back:)))
     }
 }

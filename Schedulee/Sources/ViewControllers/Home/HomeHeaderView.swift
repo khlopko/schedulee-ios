@@ -52,7 +52,7 @@ private extension HomeHeaderView {
     static func makeButton(imageName: String) -> UIButton {
         return UIButton(type: .custom) ->> {
             $0.setImage(UIImage(named: imageName), for: .normal)
-            $0.tintColor = Color.whiteBlue
+            $0.tintColor = Color.bossanova
         }
     }
 }

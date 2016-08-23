@@ -98,5 +98,9 @@ private extension DayCell {
     
     static func initialize(lessonView: LessonView) {
         lessonView.isHidden = true
+        lessonView.viewModel = CurrentLessonViewModel(
+            titleColor: Color.bossanova, inscriptionColor: Color.eastBay,
+            backgroundColor: Color.doublePearlLusta , progressColor: Color.zanah,
+            titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
     }
 }
