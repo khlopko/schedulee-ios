@@ -8,9 +8,13 @@
 
 import Foundation
 
+// MARK: - Parse function
+
 public func parse<In, Out: Convertible>(_ input: In?) -> Out {
     return Out.cast(input)
 }
+
+// MARK: - Convertible
 
 public protocol Convertible {
     static func cast<T>(_ input: T) -> Self

@@ -58,6 +58,11 @@ class DayCell: UICollectionViewCell {
             prevFrame = item.frame
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        scroll.contentOffset = .zero
+    }
 }
 
 // MARK: - Update

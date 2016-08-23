@@ -11,5 +11,5 @@ import Foundation
 public typealias JSON = Dictionary<String, AnyObject>
 
 public protocol WebEntity {
-    init(_ json: JSON?)
+    init(_ json: JSON)
 }

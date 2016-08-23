@@ -15,11 +15,11 @@ public struct Lector: WebEntity {
     public let lastname: String
     public let sorname: String
     
-    public init(_ json: JSON?) {
-        id = parse(json?[.id])
-        firstname = parse(json?[.firstname])
-        lastname = parse(json?[.lastname])
-        sorname = parse(json?[.sorname])
+    public init(_ json: JSON) {
+        id = parse(json[.id])
+        firstname = parse(json[.firstname])
+        lastname = parse(json[.lastname])
+        sorname = parse(json[.sorname])
     }
 }
 
