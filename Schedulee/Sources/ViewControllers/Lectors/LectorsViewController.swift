@@ -13,6 +13,13 @@ import Tools
 
 class LectorsViewController: ViewController {
 
+    private(set) weak var transitionView: UIView?
+    private(set) var expandViewBackgroundColor: UIColor?
+    private(set) var slideText: String?
+    private(set) var slideTextFont: UIFont?
+    private(set) var slideTextColor: UIColor?
+    var mainView: UIView { return view }
+    
     private weak var contentView: LectorsView?
     
     private var lectors: [Lector] = []
@@ -21,6 +28,7 @@ class LectorsViewController: ViewController {
         let contentView = LectorsView()
         self.contentView = contentView
         view = contentView
+        transitionView = navigationController?.navigationBar
     }
     
     override func viewDidLoad() {
@@ -39,9 +47,12 @@ class LectorsViewController: ViewController {
     }
 }
 
+// MARK: - Actions
+
 extension LectorsViewController {
     
     func handle(back: UIBarButtonItem) {
+        transitionView = navigationController?.navigationBar
         router?.back()
     }
 }
@@ -88,13 +99,19 @@ private extension LectorsViewController {
     }
     
     func setupNavigation() {
+        let backgroundColor = Color.zanah
+        let title = Text.lectors.rawValue
+        let font = Font.regular.withSize(21)
+        let color = Color.beige
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.zanah
-        navigationController?.navigationBar.decorateTitle(
-            font: Font.regular.withSize(21),
-            color: Color.beige)
-        navigationItem.title = Text.lectors.rawValue
+        navigationController?.navigationBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.decorateTitle(font: font, color: color)
+        navigationItem.title = title
         navigationItem.setLeftButton(
             withTitle: "Назад", style: .light, target: self, action: #selector(handle(back:)))
+        expandViewBackgroundColor = backgroundColor
+        slideText = navigationItem.title
+        slideTextFont = font
+        slideTextColor = color
     }
 }

@@ -13,6 +13,13 @@ import Tools
 
 class HomeViewController: ViewController {
 
+    private(set) weak var transitionView: UIView?
+    private(set) var expandViewBackgroundColor: UIColor?
+    private(set) var slideText: String?
+    private(set) var slideTextFont: UIFont?
+    private(set) var slideTextColor: UIColor?
+    var mainView: UIView { return view }
+    
     private weak var contentView: HomeView?
     
     override func loadView() {
@@ -36,7 +43,7 @@ class HomeViewController: ViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
@@ -45,16 +52,27 @@ class HomeViewController: ViewController {
 extension HomeViewController: HomeViewDelegate {
     
     func handleTimetable(onHomeView view: HomeView) {
+        updateAnimationProperties(view: view.timetable, label: view.timetable.titleLabel)
         router?.push(route: .timetable, from: navigationController)
     }
     
     func handleLectors(onHomeView view: HomeView) {
+        updateAnimationProperties(view: view.lectors, label: view.lectors.titleLabel)
         router?.push(route: .lectors, from: navigationController)
     }
     
     func handleCurrentLesson(onHomeView view: HomeView) {
         guard let lesson = currentLesson?.lesson else { return }
+        updateAnimationProperties(view: view.currentLesson, label: nil)
         router?.push(route: .lessons(current: lesson), from: navigationController)
+    }
+    
+    private func updateAnimationProperties(view: UIView?, label: UILabel?) {
+        transitionView = view
+        expandViewBackgroundColor = view?.backgroundColor
+        slideText = label?.text
+        slideTextFont = label?.font
+        slideTextColor = label?.textColor
     }
 }
 
