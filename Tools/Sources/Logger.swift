@@ -14,19 +14,23 @@ public let log = Logger()
 
 public final class Logger {
 
+    /// Logger configuration parameters.
     public var config = Configuration()
     
-    private let formatter = DateFormatter()
+    fileprivate let formatter = DateFormatter()
     
-    init() {
+    public init() {
         formatter.dateFormat = dateFormat
     }
 }
+
+// MARK: - Interface
 
 public extension Logger {
     
     typealias Parameter = Any
     
+    /// Debug level logging.
     func d(_ params: Parameter...,
            separator: String = ",",
            file: String = #file,
@@ -38,6 +42,7 @@ public extension Logger {
             level: .debug)
     }
     
+    /// Info level logging.
     func i(_ params: Parameter...,
            separator: String = ",",
            file: String = #file,
@@ -49,6 +54,7 @@ public extension Logger {
             level: .info)
     }
     
+    /// Warning level logging.
     func w(_ params: Parameter...,
            separator: String = ",",
            file: String = #file,
@@ -60,6 +66,7 @@ public extension Logger {
             level: .warning)
     }
     
+    /// Error level loggin.
     func e(_ params: Parameter...,
            separator: String = ",",
            file: String = #file,
@@ -72,7 +79,9 @@ public extension Logger {
     }
 }
 
-private extension Logger {
+// MARK: - Private
+
+fileprivate extension Logger {
     
     func printMessage(params: Parameter...,
                       separator: String,
@@ -80,7 +89,7 @@ private extension Logger {
                       function: String,
                       line: Int,
                       level: Level) {
-        if level <= config.minimalLogLevel {
+        if level < config.minimalLogLevel {
             return
         }
         let message = params
@@ -157,21 +166,39 @@ private extension Logger {
 
 extension Logger {
     
+    /// Loggers structure that defines logger configuration.
     public struct Configuration {
         
-        var showDate = false {
+        /// Should be date included to log message.
+        public var showDate = false {
             didSet { log.updateDateFormatter() }
         }
-        var showTime = true {
+        
+        /// Should be time included to log message.
+        public var showTime = true {
             didSet { log.updateDateFormatter() }
         }
-        var showDateAndTime = true
-        var showLine = true
-        var showFunction = true
-        var showFile = true
-        var showLevel = true
-        var minimalLogLevel: Level = .debug
-        var showThread = false
+        
+        /// Should be date and included to log message.
+        public var showDateAndTime = true
+        
+        /// Should include line number to log message.
+        public var showLine = true
+        
+        /// Should include function name to log message.
+        public var showFunction = true
+        
+        /// Should include file name to log message.
+        public var showFile = true
+        
+        /// Should include log level to log message.
+        public var showLevel = true
+        
+        /// Current minimal level of logs that showing.
+        public var minimalLogLevel: Level = .debug
+        
+        /// Should include thread to log message.
+        public var showThread = false
         
         fileprivate init() {
         }
@@ -182,6 +209,7 @@ extension Logger {
 
 extension Logger {
     
+    /// Logging level.
     public enum Level: Int {
         
         case debug = 1
@@ -190,7 +218,7 @@ extension Logger {
         case error = 4
         case none = 100
         
-        var presentationFormat: String {
+        fileprivate var presentationFormat: String {
             switch self {
             case .debug:
                 return "debug"
@@ -206,6 +234,8 @@ extension Logger {
         }
     }
 }
+
+// MARK: - Comparable
 
 extension Logger.Level: Comparable {
 }
@@ -230,7 +260,7 @@ public func >=(lhs: Logger.Level, rhs: Logger.Level) -> Bool {
 
 extension Logger {
     
-    private struct Details {
+    fileprivate struct Details {
         
         let level: Level
         let message: String
