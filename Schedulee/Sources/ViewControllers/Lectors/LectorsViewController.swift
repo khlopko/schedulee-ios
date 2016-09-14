@@ -11,18 +11,18 @@ import Models
 import ServerClient
 import Tools
 
-class LectorsViewController: ViewController {
+class LectorsViewController: ViewController, SlideViewControllerAnimatorProtocol {
 
-    private(set) weak var transitionView: UIView?
-    private(set) var expandViewBackgroundColor: UIColor?
-    private(set) var slideText: String?
-    private(set) var slideTextFont: UIFont?
-    private(set) var slideTextColor: UIColor?
+    fileprivate(set) weak var transitionView: UIView?
+    fileprivate(set) var expandViewBackgroundColor: UIColor?
+    fileprivate(set) var slideText: String?
+    fileprivate(set) var slideTextFont: UIFont?
+    fileprivate(set) var slideTextColor: UIColor?
     var mainView: UIView { return view }
     
-    private weak var contentView: LectorsView?
+    fileprivate weak var contentView: LectorsView?
     
-    private var lectors: [Lector] = []
+    fileprivate var lectors: [Lector] = []
     
     override func loadView() {
         let contentView = LectorsView()

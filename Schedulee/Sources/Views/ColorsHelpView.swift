@@ -11,7 +11,7 @@ import Tools
 
 class ColorsHelpView: UIView {
     
-    let table = UITableView() ->> ColorsHelpView.initialize(table:)
+    let table = UITableView(frame: .zero, style: .grouped) ->> ColorsHelpView.initialize(table:)
     
     private static func initialize(table: UITableView) {
         table.allowsMultipleSelection = false
@@ -19,6 +19,8 @@ class ColorsHelpView: UIView {
         table.backgroundColor = .clear
         table.bounces = false
         table.separatorColor = .clear
+        table.tableFooterView = UIView()
+        table.tableHeaderView = UIView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
     }
     
@@ -61,13 +63,17 @@ class ColorsHelpView: UIView {
 
 extension ColorsHelpView: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return Color.allColors.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Color.allColors[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseId, for: indexPath)
-        let color = Color.allColors[indexPath.row]
+        let color = Color.allColors[indexPath.section][indexPath.row]
         cell.backgroundColor = color
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = Font.regular.withSize(16)
@@ -77,6 +83,10 @@ extension ColorsHelpView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 128
     }
 }
 

@@ -15,8 +15,8 @@ fileprivate struct Constant {
 
 class HomeHeaderView: HeaderView {
 
-    private let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
-    private let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
+    fileprivate let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
+    fileprivate let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,14 +40,14 @@ class HomeHeaderView: HeaderView {
     }
 }
 
-private extension HomeHeaderView {
+fileprivate extension HomeHeaderView {
     
     var all: [UIView] {
         return [settings, loop]
     }
 }
 
-private extension HomeHeaderView {
+fileprivate extension HomeHeaderView {
     
     static func makeButton(imageName: String) -> UIButton {
         return UIButton(type: .custom) ->> {

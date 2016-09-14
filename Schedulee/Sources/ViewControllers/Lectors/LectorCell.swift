@@ -20,8 +20,8 @@ fileprivate struct Constant {
 
 class LectorCell: UITableViewCell {
     
-    private let photoView = UIImageView() ->> LectorCell.initialize(photoView:)
-    private let fullnameLabel = UILabel() ->> LectorCell.initialize(fullnameLabel:)
+    fileprivate let photoView = UIImageView() ->> LectorCell.initialize(photoView:)
+    fileprivate let fullnameLabel = UILabel() ->> LectorCell.initialize(fullnameLabel:)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

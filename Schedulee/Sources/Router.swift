@@ -13,7 +13,7 @@ final class Router {
     
     let mainWindow = UIWindow(frame: UIScreen.main.bounds)
     
-    private var lastRouteType: RouteType?
+    fileprivate var lastRouteType: RouteType?
 }
 
 // MARK: - Main window
@@ -70,7 +70,7 @@ extension Router {
     
     enum Route {
         
-        case lessons(current: Lesson)
+        case lessons(current: Lesson?)
         case lectors
         case timetable
         

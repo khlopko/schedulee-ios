@@ -9,11 +9,23 @@
 import CustomUI
 import Tools
 
-class TimetableViewController: ViewController {
+class TimetableViewController: ViewController, SlideViewControllerAnimatorProtocol {
 
+    fileprivate(set) weak var transitionView: UIView?
+    fileprivate(set) var expandViewBackgroundColor: UIColor?
+    fileprivate(set) var slideText: String?
+    fileprivate(set) var slideTextFont: UIFont?
+    fileprivate(set) var slideTextColor: UIColor?
+    var mainView: UIView { return view }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        transitionView = navigationController?.navigationBar
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
 }
 
@@ -36,13 +48,19 @@ private extension TimetableViewController {
     }
     
     func setupNavigation() {
+        let backgroundColor = Color.doublePearlLusta
+        let font = Font.regular.withSize(21)
+        let color = Color.bossanova
+        let text = Text.timetable.rawValue
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.doublePearlLusta
-        navigationController?.navigationBar.decorateTitle(
-            font: Font.regular.withSize(21),
-            color: Color.bossanova)
-        navigationItem.title = Text.timetable.rawValue
+        navigationController?.navigationBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.decorateTitle(font: font, color: color)
+        navigationItem.title = text
         navigationItem.setLeftButton(
             withTitle: "Назад", style: .dark, target: self, action: #selector(handle(back:)))
+        slideText = text
+        slideTextFont = font
+        slideTextColor = color
+        expandViewBackgroundColor = backgroundColor
     }
 }

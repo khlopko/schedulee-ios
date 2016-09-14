@@ -26,9 +26,9 @@ class HomeView: UIView {
     
     let header = HomeHeaderView() ->> HomeView.initialize(header:)
     let timetable = HomeView.makeButton(
-        text: .timetable, backgroundColor: Color.doublePearlLusta, titleColor: Color.bossanova)
+        text: .timetable, backgroundColor: Color.mainLight, titleColor: Color.mainDark)
     let lectors = HomeView.makeButton(
-        text: .lectors, backgroundColor: Color.zanah, titleColor: Color.beige)
+        text: .lectors, backgroundColor: Color.middle, titleColor: Color.mainDark)
     let currentLesson = LessonView() ->> HomeView.initialize(currentLesson:)
     
     override init(frame: CGRect) {
@@ -116,12 +116,12 @@ private extension HomeView {
     
     static func initialize(currentLesson: LessonView) {
         currentLesson.viewModel = CurrentLessonViewModel(
-            titleColor: Color.doublePearlLusta, inscriptionColor: Color.beige,
-            backgroundColor: Color.bossanova, progressColor: Color.doublePearlLusta,
+            titleColor: Color.mainLight, inscriptionColor: Color.secondaryLight,
+            backgroundColor: Color.mainDark, progressColor: Color.secondaryLight,
             titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
     }
     
     static func initialize(header: HomeHeaderView) {
-        header.backgroundColor = Color.bossanova
+        header.backgroundColor = Color.mainDark
     }
 }

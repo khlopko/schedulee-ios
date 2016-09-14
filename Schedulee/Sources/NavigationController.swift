@@ -10,7 +10,7 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
-    private let slideAnimator = SlideAnimator()
+    fileprivate let slideAnimator = SlideAnimator()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return viewControllers.last?.preferredStatusBarStyle ?? .lightContent
@@ -45,7 +45,7 @@ extension NavigationController: UINavigationControllerDelegate {
                               animationControllerFor operation: UINavigationControllerOperation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if fromVC is SlideViewControllerAnimatorProtocol && toVC is SlideViewControllerAnimatorProtocol {
+        if slideAnimator.validate(from: fromVC, to: toVC) {
             return slideAnimator
         }
         return nil

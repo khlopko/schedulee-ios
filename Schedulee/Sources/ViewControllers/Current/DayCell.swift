@@ -21,8 +21,8 @@ fileprivate struct Constant {
 
 class DayCell: UICollectionViewCell {
     
-    private let scroll = UIScrollView() ->> DayCell.initialize(scroll:)
-    private let items = [
+    fileprivate let scroll = UIScrollView() ->> DayCell.initialize(scroll:)
+    fileprivate let items = [
         LessonView() ->> DayCell.initialize(lessonView:),
         LessonView() ->> DayCell.initialize(lessonView:),
         LessonView() ->> DayCell.initialize(lessonView:),
@@ -31,7 +31,7 @@ class DayCell: UICollectionViewCell {
         LessonView() ->> DayCell.initialize(lessonView:),
     ]
     
-    private var lessons: [Lesson] = []
+    fileprivate var lessons: [Lesson] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)

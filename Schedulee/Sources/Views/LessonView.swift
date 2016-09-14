@@ -20,14 +20,14 @@ fileprivate struct Constant {
 
 class LessonView: UIView {
 
-    private let titleLabel = UILabel() ->> LessonView.initialize(titleLabel:)
-    private let roomLabel = UILabel() ->> LessonView.initialize(roomLabel:)
-    private let lectorLabel = UILabel() ->> LessonView.initialize(lectorLabel:)
-    private let startTime = UILabel() ->> LessonView.initialize(periodLabel:)
-    private let endTime = UILabel() ->> LessonView.initialize(periodLabel:)
-    private let indicatorLabel = UILabel() ->> LessonView.initialize(indicatorLabel:)
-    private let progressLine = UIView() ->> LessonView.initialize(progressLine:)
-    private let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
+    fileprivate let titleLabel = UILabel() ->> LessonView.initialize(titleLabel:)
+    fileprivate let roomLabel = UILabel() ->> LessonView.initialize(roomLabel:)
+    fileprivate let lectorLabel = UILabel() ->> LessonView.initialize(lectorLabel:)
+    fileprivate let startTime = UILabel() ->> LessonView.initialize(periodLabel:)
+    fileprivate let endTime = UILabel() ->> LessonView.initialize(periodLabel:)
+    fileprivate let indicatorLabel = UILabel() ->> LessonView.initialize(indicatorLabel:)
+    fileprivate let progressLine = UIView() ->> LessonView.initialize(progressLine:)
+    fileprivate let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
 
     var viewModel: CurrentLessonViewModel? {
         didSet {

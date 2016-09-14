@@ -13,13 +13,13 @@ import Tools
 
 class LessonsViewController: ViewController {
 
-    private weak var contentView: LessonsView?
+    fileprivate weak var contentView: LessonsView?
     
-    private var currentLesson: Lesson
-    private var days: [[Lesson]] = []
-    private var current = 0
+    fileprivate var currentLesson: Lesson?
+    fileprivate var days: [[Lesson]] = []
+    fileprivate var current = 0
     
-    init(currentLesson: Lesson) {
+    init(currentLesson: Lesson? = nil) {
         self.currentLesson = currentLesson
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,20 +37,22 @@ class LessonsViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        while current < 7 {
-            ServerClient.instance.loadLessons(
-                on: Date(),
-                success: { [weak self] in
-                    self?.days.append($0)
-                    self?.current += 1
-                },
-                failure: { log.e($0) })
-        }
-        collection?.reloadData()
+        /*ServerClient.instance.loadLessons(
+            on: Date(),
+            success: { [weak self] in
+                self?.days.append($0)
+                self?.current += 1
+            },
+            failure: { log.e($0) })
+        collection?.reloadData()*/
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    deinit {
+        log.d("exec")
     }
 }
 
@@ -69,7 +71,7 @@ extension LessonsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return days.count
     }
     
     func collectionView(_ collectionView: UICollectionView,

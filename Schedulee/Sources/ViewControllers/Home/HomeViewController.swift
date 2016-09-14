@@ -11,16 +11,16 @@ import Models
 import ServerClient
 import Tools
 
-class HomeViewController: ViewController {
+class HomeViewController: ViewController, SlideViewControllerAnimatorProtocol {
 
-    private(set) weak var transitionView: UIView?
-    private(set) var expandViewBackgroundColor: UIColor?
-    private(set) var slideText: String?
-    private(set) var slideTextFont: UIFont?
-    private(set) var slideTextColor: UIColor?
+    fileprivate(set) weak var transitionView: UIView?
+    fileprivate(set) var expandViewBackgroundColor: UIColor?
+    fileprivate(set) var slideText: String?
+    fileprivate(set) var slideTextFont: UIFont?
+    fileprivate(set) var slideTextColor: UIColor?
     var mainView: UIView { return view }
     
-    private weak var contentView: HomeView?
+    fileprivate weak var contentView: HomeView?
     
     override func loadView() {
         let contentView = HomeView()
@@ -30,10 +30,19 @@ class HomeViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        log.d("exec")
         contentView?.delegate = self
-        ServerClient.instance.getCurrentLesson(
+        ServerClient.instance.loadLessons(
+            on: Date(),
+            success: { lessons in
+                log.i(lessons)
+            },
+            failure: { error in
+                log.e(error)
+        })
+        /*ServerClient.instance.getCurrentLesson(
             success: { [weak self] in self?.contentView?.currentLesson.lesson = $0 },
-            failure: { log.e($0) })
+            failure: { log.e($0) })*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,9 +71,8 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func handleCurrentLesson(onHomeView view: HomeView) {
-        guard let lesson = currentLesson?.lesson else { return }
         updateAnimationProperties(view: view.currentLesson, label: nil)
-        router?.push(route: .lessons(current: lesson), from: navigationController)
+        router?.push(route: .lessons(current: nil), from: navigationController)
     }
     
     private func updateAnimationProperties(view: UIView?, label: UILabel?) {

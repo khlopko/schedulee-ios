@@ -4,57 +4,53 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-        <string>Lato-Black.ttf</string>
-        <string>Lato-BlackItalic.ttf</string>
-        <string>Lato-Bold.ttf</string>
-        <string>Lato-BoldItalic.ttf</string>
-        <string>Lato-Hairline.ttf</string>
-        <string>Lato-HairlineItalic.ttf</string>
-        <string>Lato-Heavy.ttf</string>
-        <string>Lato-HeavyItalic.ttf</string>
-        <string>Lato-Italic.ttf</string>
-        <string>Lato-Light.ttf</string>
-        <string>Lato-LightItalic.ttf</string>
-        <string>Lato-Medium.ttf</string>
-        <string>Lato-MediumItalic.ttf</string>
-        <string>Lato-Regular.ttf</string>
-        <string>Lato-Semibold.ttf</string>
-        <string>Lato-SemiboldItalic.ttf</string>
-        <string>Lato-Thin.ttf</string>
-        <string>Lato-ThinItalic.ttf</string>
-        
+		<string>Lato-Black.ttf</string>
+		<string>Lato-BlackItalic.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-BoldItalic.ttf</string>
+		<string>Lato-Hairline.ttf</string>
+		<string>Lato-HairlineItalic.ttf</string>
+		<string>Lato-Heavy.ttf</string>
+		<string>Lato-HeavyItalic.ttf</string>
+		<string>Lato-Italic.ttf</string>
+		<string>Lato-Light.ttf</string>
+		<string>Lato-LightItalic.ttf</string>
+		<string>Lato-Medium.ttf</string>
+		<string>Lato-MediumItalic.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Semibold.ttf</string>
+		<string>Lato-SemiboldItalic.ttf</string>
+		<string>Lato-Thin.ttf</string>
+		<string>Lato-ThinItalic.ttf</string>
 		<string>ClearSans-Regular.ttf</string>
 		<string>ClearSans-Thin.ttf</string>
 		<string>ClearSans-Bold.ttf</string>
 		<string>ClearSans-Light.ttf</string>
 		<string>ClearSans-Italic.ttf</string>
-        
-        <string>Blogger_Sans-Bold.otf</string>
-        <string>Blogger_Sans-Bold_Italic.otf</string>
-        <string>Blogger_Sans-Italic.otf</string>
-        <string>Blogger_Sans-Light.otf</string>
-        <string>Blogger_Sans-Light_Italic.otf</string>
-        <string>Blogger_Sans-Medium.otf</string>
-        <string>Blogger_Sans-Medium_Italic.otf</string>
-        <string>Blogger_Sans.otf</string>
-        
-        <string>Neris-Black.otf</string>
-        <string>Neris-Light.otf</string>
-        <string>Neris-SemiBoldItalic.otf</string>
-        <string>Neris-BlackItalic.otf</string>
-        <string>Neris-LightItalic.otf</string>
-        <string>Neris-Thin.otf</string>
-        <string>Neris-BoldItalic.otf</string>
-        <string>Neris-SemiBold.otf</string>
-        <string>Neris-ThinItalic.otf</string>
-        
-        <string>Phenomena-Black.otf</string>
-        <string>Phenomena-ExtraLight.otf</string>
-        <string>Phenomena-Thin.otf</string>
-        <string>Phenomena-Bold.otf</string>
-        <string>Phenomena-Light.otf</string>
-        <string>Phenomena-ExtraBold.otf</string>
-        <string>Phenomena-Regular.otf</string>
+		<string>Blogger_Sans-Bold.otf</string>
+		<string>Blogger_Sans-Bold_Italic.otf</string>
+		<string>Blogger_Sans-Italic.otf</string>
+		<string>Blogger_Sans-Light.otf</string>
+		<string>Blogger_Sans-Light_Italic.otf</string>
+		<string>Blogger_Sans-Medium.otf</string>
+		<string>Blogger_Sans-Medium_Italic.otf</string>
+		<string>Blogger_Sans.otf</string>
+		<string>Neris-Black.otf</string>
+		<string>Neris-Light.otf</string>
+		<string>Neris-SemiBoldItalic.otf</string>
+		<string>Neris-BlackItalic.otf</string>
+		<string>Neris-LightItalic.otf</string>
+		<string>Neris-Thin.otf</string>
+		<string>Neris-BoldItalic.otf</string>
+		<string>Neris-SemiBold.otf</string>
+		<string>Neris-ThinItalic.otf</string>
+		<string>Phenomena-Black.otf</string>
+		<string>Phenomena-ExtraLight.otf</string>
+		<string>Phenomena-Thin.otf</string>
+		<string>Phenomena-Bold.otf</string>
+		<string>Phenomena-Light.otf</string>
+		<string>Phenomena-ExtraBold.otf</string>
+		<string>Phenomena-Regular.otf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -93,5 +89,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>http://localhost</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

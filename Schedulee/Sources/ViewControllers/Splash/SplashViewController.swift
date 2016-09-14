@@ -10,17 +10,17 @@ import UIKit
 
 class SplashViewController: ViewController {
 
-    private weak var contentView: SplashView?
+    fileprivate weak var contentView: SplashView?
     
-    private let duration: TimeInterval = 0.75
-    private var verticalLinesAnimated = 0 {
+    fileprivate let duration: TimeInterval = 0.75
+    fileprivate var verticalLinesAnimated = 0 {
         didSet {
             if verticalLinesAnimated == verticalLines.count {
                 animateHorizontalLines()
             }
         }
     }
-    private var horizontalLinesAnimated = 0 {
+    fileprivate var horizontalLinesAnimated = 0 {
         didSet {
             if horizontalLinesAnimated == horizontalLines.count {
                 finalAnimation()
@@ -46,7 +46,7 @@ class SplashViewController: ViewController {
 
 // MARK: - Animations
 
-private extension SplashViewController {
+fileprivate extension SplashViewController {
     
     func startAnimation() {
         animateVerticalLines()
@@ -78,8 +78,8 @@ private extension SplashViewController {
     
     func animate(line: UIView,
                  delay: TimeInterval,
-                 animation: () -> (),
-                 completion: () -> ()) {
+                 animation: @escaping () -> (),
+                 completion: @escaping () -> ()) {
         UIView.animate(
             withDuration: duration,
             delay: delay,
@@ -116,7 +116,7 @@ private extension SplashViewController {
 
 // MARK: - Computed properties
 
-private extension SplashViewController {
+fileprivate extension SplashViewController {
     
     var verticalLines: [UIView] {
         return contentView?.verticalLines ?? []
