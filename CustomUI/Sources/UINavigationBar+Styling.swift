@@ -18,6 +18,8 @@ public extension UINavigationBar {
     }
 }
 
+// MARK: - Set custom button
+
 public extension UINavigationItem {
 
     func setLeftButton(withTitle title: String,
@@ -37,6 +39,8 @@ public extension UINavigationItem {
     }
 }
 
+// MARK: - Style
+
 public extension UINavigationItem {
     
     public enum Style {
@@ -52,6 +56,8 @@ public extension UINavigationItem {
         }
     }
 }
+
+// MARK: - Private support
 
 private func makeButton(title: String,
                         style: UINavigationItem.Style,

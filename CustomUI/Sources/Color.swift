@@ -14,6 +14,12 @@ public struct Color {
     
     public static let white = rgba(255, 255, 255)
     
+    public static let mainDark = bossanova
+    public static let secondaryDark = eastBay
+    public static let middle = zanah
+    public static let mainLight = doublePearlLusta
+    public static let secondaryLight = beige
+    
     public static let mayaBlue = rgba(79, 209, 255)
     public static let dodgerBlue = rgba(55, 152, 242)
     public static let midnightBlue = rgba(17, 21, 68)
@@ -52,39 +58,41 @@ public struct Color {
     public static let peach = rgba(255, 202, 175)
     public static let calico = rgba(218, 184, 148)
     
-    public static var allColors: [UIColor] {
+    public static let unnamed1 = rgba(221, 216, 184)
+    public static let unnamed2 = rgba(179, 203, 185)
+    public static let unnamed3 = rgba(132, 169, 192)
+    public static let unnamed4 = rgba(106, 102, 163)
+    public static let unnamed5 = rgba(84, 46, 113)
+    
+    public static let unnamed6 = rgba(129, 132, 121)
+    public static let unnamed7 = rgba(181, 203, 183)
+    public static let unnamed8 = rgba(210, 228, 196)
+    public static let unnamed9 = rgba(228, 233, 178)
+    public static let unnamed10 = rgba(231, 224, 139)
+    
+    public static let unnamed11 = rgba(237, 106, 90)
+    public static let unnamed12 = rgba(244, 241, 187)
+    public static let unnamed13 = rgba(155, 193, 188)
+    public static let unnamed14 = rgba(93, 87, 107)
+    public static let unnamed15 = rgba(230, 235, 224)
+    
+    public static var allColors: [[UIColor]] {
          return [
-            mayaBlue, dodgerBlue, midnightBlue, amber, carrotOrange, faluRed, whiteBlue, sulu,
-            mediumAquamarine, scooter, eastBay, bossanova, peachPuff, roseBud, kobi, rosyBrown,
-            dolphin, tomato, marzipan, athsSpecial, snowyMint, beige, kimberly, bermudaGrey,
-            seaNymph, zanah, doublePearlLusta, spindle, pattensBlue, cream, peach, calico,
+            [mayaBlue, dodgerBlue, midnightBlue, amber, carrotOrange, faluRed, whiteBlue],
+            [sulu, mediumAquamarine, scooter, eastBay, bossanova],
+            [peachPuff, roseBud, kobi, rosyBrown, dolphin],
+            [tomato, marzipan, athsSpecial, snowyMint, beige],
+            [kimberly, bermudaGrey, seaNymph, zanah, doublePearlLusta],
+            [spindle, pattensBlue, cream, peach, calico],
+            [unnamed1, unnamed2, unnamed3, unnamed4, unnamed5],
+            [unnamed6, unnamed7, unnamed8, unnamed9, unnamed10],
+            [unnamed11, unnamed12, unnamed13, unnamed14, unnamed15],
         ]
     }
 }
 
+// MARK: - Private
+
 private func rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1) -> UIColor {
     return UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
 }
-
-/*
- public static let main1 = rgba(221, 216, 184)
- public static let main2 = rgba(179, 203, 185)
- public static let main3 = rgba(132, 169, 192)
- public static let main4 = rgba(106, 102, 163)
- public static let main5 = rgba(84, 46, 113)
- */
-/*
- public static let main1 = rgba(129, 132, 121)
- public static let main2 = rgba(181, 203, 183)
- public static let main3 = rgba(210, 228, 196)
- public static let main4 = rgba(228, 233, 178)
- public static let main5 = rgba(231, 224, 139)
- */
-/*
- public static let main1 = rgba(237, 106, 90)
- public static let main2 = rgba(244, 241, 187)
- public static let main3 = rgba(155, 193, 188)
- public static let main4 = rgba(93, 87, 107)
- public static let main5 = rgba(230, 235, 224)
- */
-

@@ -16,7 +16,7 @@ public final class CircleView: UIView {
         didSet { setNeedsDisplay() }
     }
     
-    public final override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         path = UIBezierPath(ovalIn: rect)
         fillColor.setFill()
         path.fill()
