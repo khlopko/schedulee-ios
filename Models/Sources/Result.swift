@@ -13,7 +13,7 @@ import Foundation
 public enum Result<Data> {
     
     case success(Data)
-    case failure(NSError)
+    case failure(Error)
 }
 
 // MARK: - Map operator
@@ -26,14 +26,5 @@ public func => <In, Out>(result: Result<In>, closure: (In) -> (Out)) -> Result<O
         return Result<Out>.success(closure(data))
     case .failure(let error):
         return Result<Out>.failure(error)
-    }
-}
-
-public extension Array where Element: WebEntity {
-    
-    init(webkey: WebKey, json: JSON) {
-        let jsons: [JSON] = parse(json[webkey])
-        let value = jsons.map(Element.init)
-        self.init(value)
     }
 }

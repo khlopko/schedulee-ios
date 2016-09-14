@@ -10,6 +10,7 @@ import Foundation
 
 public enum WebKey: String {
     
+    case dayOfWeek = "dayOfWeek"
     case endTimestamp = "endTimestamp"
     case firstname = "firstname"
     case id = "id"
@@ -27,13 +28,17 @@ public enum WebKey: String {
     }
 }
 
+// MARK: - Protocol StringKey
+
 protocol StringKey {
 }
 
 extension String: StringKey {
 }
 
-extension Dictionary where Key: StringKey, Value: AnyObject {
+// MARK: - Subscript dictionary
+
+extension Dictionary where Key: StringKey, Value: Any {
     
     subscript(webKey: WebKey) -> Value? {
         return self[webKey.value as! Key]

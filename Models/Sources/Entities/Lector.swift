@@ -10,7 +10,7 @@ import Foundation
 
 public struct Lector: WebEntity {
     
-    public let id: String
+    public let id: Int
     public let firstname: String
     public let lastname: String
     public let sorname: String

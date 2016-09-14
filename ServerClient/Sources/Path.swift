@@ -9,26 +9,23 @@
 import Foundation
 import Models
 
-fileprivate let serverURLString = "http://localhost/api/v1/"
+fileprivate let serverURLString = "http://localhost:5000/api/v0.1/"
 
-enum Path: String {
+enum Path {
     
-    case currentLesson = "currentLesson"
-    case lectors = "lectors/all"
-    case lessons = "lessons/all"
+    case lessons(group: Int)
+    case groups
     
     var full: String {
-        return serverURLString + rawValue
+        return serverURLString + route
     }
     
-    var temp: JSON {
+    private var route: String {
         switch self {
-        case .currentLesson:
-            return lessonJSON
-        case .lectors:
-            return lectorsJSON
-        case .lessons:
-            return lessonsJSON
+        case .lessons(let group):
+            return "groups/\(group)"
+        case .groups:
+            return "groups"
         }
     }
 }

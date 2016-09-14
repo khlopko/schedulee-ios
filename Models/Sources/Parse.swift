@@ -61,3 +61,14 @@ extension Dictionary: Convertible {
         return input as? Dictionary ?? [:]
     }
 }
+
+// MARK: - Array specification for WebEntity
+
+public extension Array where Element: WebEntity {
+    
+    init(webkey: WebKey, json: JSON) {
+        let jsons: [JSON] = parse(json[webkey])
+        let value = jsons.map(Element.init)
+        self.init(value)
+    }
+}

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias JSON = Dictionary<String, AnyObject>
+public typealias JSON = Dictionary<String, Any>
 
 public protocol WebEntity {
     init(_ json: JSON)

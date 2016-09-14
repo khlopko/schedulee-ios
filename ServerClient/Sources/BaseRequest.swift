@@ -10,6 +10,11 @@ import Foundation
 
 class BaseRequest {
     
+    static let session: URLSession = {
+        let session = URLSession(configuration: .default)
+        return session
+    }()
+    
     let path: Path
     
     init(path: Path) {
@@ -22,7 +27,7 @@ class BaseRequest {
 extension BaseRequest: Hashable {
     
     var hashValue: Int {
-        return path.hashValue
+        return path.full.hashValue
     }
 }
 
