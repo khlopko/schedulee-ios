@@ -12,9 +12,14 @@ import Foundation
 /// - parameter object: Object to specify.
 /// - parameter closure: Closure with operations to apply.
 /// - returns: Object after applying changes in closure.
-public func ->> <T>(_ object: T, _ closure: @noescape (T) -> ()) -> T {
+public func ->> <T>(_ object: T, _ closure: (T) -> ()) -> T {
     closure(object)
     return object
 }
 
-infix operator ->> { associativity left precedence 105 }
+precedencegroup Specify {
+    associativity: left
+    higherThan: AssignmentPrecedence
+}
+
+infix operator ->> : Specify

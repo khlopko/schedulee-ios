@@ -6,10 +6,10 @@
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
-import Foundation
 import Models
+import Tools
 
-open class ServerClient {
+public final class ServerClient {
     
     public static let instance = ServerClient()
     
@@ -30,17 +30,30 @@ open class ServerClient {
 
 public extension ServerClient {
     
-    func loadLectors(success: Success<[Lector]>, failure: Failure) {
-        /*let request = Request(path: .lectors, parse: { [Lector](webkey: .lectors, json: $0) })
-        request.success = success
-        request.failure = failure
-        addRequest(request)*/
-    }
-    
-    func loadLessons(on date: Date, success: Success<[Lesson]>, failure: Failure) {
-        let request = Request(path: .lessons(group: 301), parse: { [Lesson](webkey: .lessons, json: $0) })
+    @discardableResult
+    func loadLectors(success: @escaping Success<[Lector]>, failure: @escaping Failure) -> Cancellable {
+        let request = Request(path: .lectors, parse: { [Lector](webkey: .lectors, json: $0) })
         request.success = success
         request.failure = failure
         addRequest(request)
+        return request
+    }
+    
+    @discardableResult
+    func loadLessons(groupId: Int, success: @escaping Success<[Lesson]>, failure: @escaping Failure) -> Cancellable {
+        let request = Request(path: .lessons(groupId: groupId), parse: { [Lesson](webkey: .lessons, json: $0) })
+        request.success = success
+        request.failure = failure
+        addRequest(request)
+        return request
+    }
+    
+    @discardableResult
+    func loadGroups(success: @escaping Success<[Group]>, failure: @escaping Failure) -> Cancellable {
+        let request = Request(path: .groups, parse: { [Group](webkey: .groups, json: $0) })
+        request.success = success
+        request.failure = failure
+        addRequest(request)
+        return request
     }
 }

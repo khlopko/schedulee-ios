@@ -107,7 +107,6 @@
 		A2C025771D659579001865EC /* ServerClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C025621D659579001865EC /* ServerClient.framework */; };
 		A2C025781D659579001865EC /* ServerClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A2C025621D659579001865EC /* ServerClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A2C025811D659593001865EC /* ServerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C025801D659593001865EC /* ServerClient.swift */; };
-		A2C0258B1D659AE5001865EC /* TestJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0258A1D659AE5001865EC /* TestJSON.swift */; };
 		A2C0258F1D659DBD001865EC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0258E1D659DBD001865EC /* Result.swift */; };
 		A2C025911D65AB23001865EC /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C025901D65AB23001865EC /* Parse.swift */; };
 		A2C025931D65AC00001865EC /* DateDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C025921D65AC00001865EC /* DateDecorator.swift */; };
@@ -376,7 +375,6 @@
 		A2C025711D659579001865EC /* ServerClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerClientTests.swift; sourceTree = "<group>"; };
 		A2C025731D659579001865EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2C025801D659593001865EC /* ServerClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerClient.swift; sourceTree = "<group>"; };
-		A2C0258A1D659AE5001865EC /* TestJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestJSON.swift; sourceTree = "<group>"; };
 		A2C0258E1D659DBD001865EC /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A2C025901D65AB23001865EC /* Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
 		A2C025921D65AC00001865EC /* DateDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateDecorator.swift; sourceTree = "<group>"; };
@@ -845,7 +843,6 @@
 				A296C81E1D682A110094123D /* Path.swift */,
 				A296C81C1D6829CF0094123D /* Request.swift */,
 				A2C025801D659593001865EC /* ServerClient.swift */,
-				A2C0258A1D659AE5001865EC /* TestJSON.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1441,7 +1438,6 @@
 				A2C025811D659593001865EC /* ServerClient.swift in Sources */,
 				A296C81D1D6829CF0094123D /* Request.swift in Sources */,
 				A296C81F1D682A110094123D /* Path.swift in Sources */,
-				A2C0258B1D659AE5001865EC /* TestJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

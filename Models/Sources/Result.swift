@@ -6,7 +6,7 @@
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
-import Foundation
+import Tools
 
 // MARK: - Result
 
@@ -18,7 +18,12 @@ public enum Result<Data> {
 
 // MARK: - Map operator
 
-infix operator => { associativity left precedence 110 }
+precedencegroup Map {
+    associativity: left
+    higherThan: Specify
+}
+
+infix operator => : Map
 
 public func => <In, Out>(result: Result<In>, closure: (In) -> (Out)) -> Result<Out> {
     switch result {

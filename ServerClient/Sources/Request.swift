@@ -28,7 +28,7 @@ final class Request<Value>: BaseRequest {
     
     fileprivate var task: URLSessionTask?
     
-    init(path: Path, parse: ParseClosure) {
+    init(path: Path, parse: @escaping ParseClosure) {
         self.parse = parse
         super.init(path: path)
         guard let url = URL(string: path.full) else { fatalError("Not convertible to URL!") }
@@ -65,7 +65,7 @@ final class Request<Value>: BaseRequest {
 
 extension Request: Cancellable {
     
-    func cancel() {
+    public func cancel() {
         task?.cancel()
         task = nil
     }
