@@ -10,49 +10,35 @@ import Foundation
 import Models
 import Tools
 
-enum RequestError: Error {
-    case badResponse
-    case undefined
-}
-
 // MARK: - Request
 
 final class Request<Value>: BaseRequest {
+    
+    typealias ParseClosure = (JSON) -> (Value)
+    let parse: ParseClosure
+    
+    var method: Method = .get
     
     var success: (Value) -> () = { _ in }
     var failure: (Error) -> () = { _ in }
     var completion: (Request) -> () = { _ in }
     
-    typealias ParseClosure = @escaping (JSON) -> (Value)
-    let parse: ParseClosure
-    
-    fileprivate var task: URLSessionTask?
+    var request: URLRequest? { return task?.originalRequest }
+    var response: HTTPURLResponse? { return task?.response as? HTTPURLResponse }
+    fileprivate(set) var task: URLSessionTask?
     
     init(path: Path, parse: @escaping ParseClosure) {
         self.parse = parse
         super.init(path: path)
         guard let url = URL(string: path.full) else { fatalError("Not convertible to URL!") }
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = method.rawValue
         task = BaseRequest.session.dataTask(with: request) { [weak self] data, response, error in
-            let result: Result<JSON>
-            if let data = data {
-                do {
-                    let object = try JSONSerialization.jsonObject(
-                        with: data, options: [.mutableContainers, .allowFragments])
-                    if let json = object as? JSON {
-                        result = Result.success(json)
-                    } else {
-                        result = Result.failure(RequestError.badResponse)
-                    }
-                } catch {
-                    result = Result.failure(error)
+            self?.jsonResult(data: data, error: error, completion: { result in
+                DispatchQueue.main.async {
+                    self?.handleResult(result)
                 }
-            } else {
-                let error = error ?? RequestError.undefined
-                result = Result.failure(error)
-            }
-            self?.handleResult(result)
+            })
         }
     }
     
