@@ -114,6 +114,11 @@
 		A2C025991D66212C001865EC /* LectorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C025981D66212C001865EC /* LectorsView.swift */; };
 		A2C0259D1D662DBA001865EC /* UINavigationBar+Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0259C1D662DBA001865EC /* UINavigationBar+Styling.swift */; };
 		A2D73BC81D6A1EA0000684EA /* SlideAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D73BC71D6A1EA0000684EA /* SlideAnimator.swift */; };
+		A2E633E51D909C4F00E9C3FA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E633E41D909C4F00E9C3FA /* Group.swift */; };
+		A2E633E81D909EDF00E9C3FA /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E633E71D909EDF00E9C3FA /* SelectGroupViewController.swift */; };
+		A2E633EA1D909EF600E9C3FA /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E633E91D909EF600E9C3FA /* SelectGroupView.swift */; };
+		A2E633EC1D909FD300E9C3FA /* SelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E633EB1D909FD300E9C3FA /* SelectCell.swift */; };
+		A2E633EE1D90A2B000E9C3FA /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E633ED1D90A2B000E9C3FA /* UserSettings.swift */; };
 		A2E713911D68323A00B5F6C3 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E713901D68323A00B5F6C3 /* BaseRequest.swift */; };
 		A2E713951D68328A00B5F6C3 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E713941D68328A00B5F6C3 /* Cancellable.swift */; };
 /* End PBXBuildFile section */
@@ -382,6 +387,11 @@
 		A2C025981D66212C001865EC /* LectorsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectorsView.swift; sourceTree = "<group>"; };
 		A2C0259C1D662DBA001865EC /* UINavigationBar+Styling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Styling.swift"; sourceTree = "<group>"; };
 		A2D73BC71D6A1EA0000684EA /* SlideAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideAnimator.swift; sourceTree = "<group>"; };
+		A2E633E41D909C4F00E9C3FA /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		A2E633E71D909EDF00E9C3FA /* SelectGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
+		A2E633E91D909EF600E9C3FA /* SelectGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
+		A2E633EB1D909FD300E9C3FA /* SelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCell.swift; sourceTree = "<group>"; };
+		A2E633ED1D90A2B000E9C3FA /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		A2E713901D68323A00B5F6C3 /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		A2E713941D68328A00B5F6C3 /* Cancellable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -744,6 +754,7 @@
 				A22BE0061D5F5AFA00DCF8DA /* AppDelegate.swift */,
 				A223FDC01D5F920300B6ECEF /* NavigationController.swift */,
 				A22BE00E1D5F5D2D00DCF8DA /* Router.swift */,
+				A2E633ED1D90A2B000E9C3FA /* UserSettings.swift */,
 				A22BE0101D5F5DAB00DCF8DA /* ViewController.swift */,
 				A2D73BC61D6A1E8D000684EA /* Animators */,
 				A22BE0071D5F5AFA00DCF8DA /* ViewControllers */,
@@ -755,6 +766,7 @@
 		A22BE0071D5F5AFA00DCF8DA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A2E633E61D909ECF00E9C3FA /* SelectGroup */,
 				A218571A1D63B1FF00719E6F /* Current */,
 				A22BE0081D5F5AFA00DCF8DA /* Home */,
 				A218571B1D63B1FF00719E6F /* Lectors */,
@@ -810,6 +822,7 @@
 		A23AFB6F1D6F5C9C0056E658 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				A2E633E41D909C4F00E9C3FA /* Group.swift */,
 				A23AFB701D6F5C9C0056E658 /* Lector.swift */,
 				A23AFB711D6F5C9C0056E658 /* Lesson.swift */,
 				A23AFB721D6F5C9C0056E658 /* WebEntity.swift */,
@@ -854,6 +867,16 @@
 				A2527D1A1D6C4316001D3643 /* AnimatorProtocol.swift */,
 			);
 			path = Animators;
+			sourceTree = "<group>";
+		};
+		A2E633E61D909ECF00E9C3FA /* SelectGroup */ = {
+			isa = PBXGroup;
+			children = (
+				A2E633E71D909EDF00E9C3FA /* SelectGroupViewController.swift */,
+				A2E633EB1D909FD300E9C3FA /* SelectCell.swift */,
+				A2E633E91D909EF600E9C3FA /* SelectGroupView.swift */,
+			);
+			path = SelectGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1346,6 +1369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E633E51D909C4F00E9C3FA /* Group.swift in Sources */,
 				A23AFB731D6F5C9C0056E658 /* Lector.swift in Sources */,
 				A23AFB741D6F5C9C0056E658 /* Lesson.swift in Sources */,
 				A2C025911D65AB23001865EC /* Parse.swift in Sources */,
@@ -1373,15 +1397,19 @@
 				A22BE0111D5F5DAB00DCF8DA /* ViewController.swift in Sources */,
 				A2C025991D66212C001865EC /* LectorsView.swift in Sources */,
 				A223FDB91D5F907300B6ECEF /* HomeView.swift in Sources */,
+				A2E633E81D909EDF00E9C3FA /* SelectGroupViewController.swift in Sources */,
 				A22CE6471D67967000CD7091 /* DayCell.swift in Sources */,
 				A218571D1D63B21500719E6F /* LectorsViewController.swift in Sources */,
 				A2527D1B1D6C4316001D3643 /* AnimatorProtocol.swift in Sources */,
 				A223FDC31D5F99A300B6ECEF /* LessonView.swift in Sources */,
+				A2E633EC1D909FD300E9C3FA /* SelectCell.swift in Sources */,
 				A2527D191D6C311D001D3643 /* CurrentLessonViewModel.swift in Sources */,
+				A2E633EE1D90A2B000E9C3FA /* UserSettings.swift in Sources */,
 				A22BE00F1D5F5D2D00DCF8DA /* Router.swift in Sources */,
 				A22CE6411D6785E900CD7091 /* LectorCell.swift in Sources */,
 				A21857211D63B2EE00719E6F /* TimetableViewController.swift in Sources */,
 				A223FD8E1D5F634A00B6ECEF /* SplashView.swift in Sources */,
+				A2E633EA1D909EF600E9C3FA /* SelectGroupView.swift in Sources */,
 				A22BE00C1D5F5AFA00DCF8DA /* AppDelegate.swift in Sources */,
 				A223FDCD1D5FC5C000B6ECEF /* HeaderView.swift in Sources */,
 				A2D73BC81D6A1EA0000684EA /* SlideAnimator.swift in Sources */,

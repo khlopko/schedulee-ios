@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Tools
 
 class SplashViewController: ViewController {
 
@@ -108,7 +109,10 @@ fileprivate extension SplashViewController {
                 }
             }, completion: { finished in
                 if finished {
-                    self.router?.changeRootViewController(to: HomeViewController(), animated: true)
+                    let viewController = UserSettings.default.currentGroupID == 0
+                        ? SelectGroupViewController()
+                        : HomeViewController()
+                    self.router?.changeRootViewController(to: viewController, animated: true)
                 }
         })
     }
