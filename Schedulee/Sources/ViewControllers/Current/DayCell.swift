@@ -30,6 +30,7 @@ class DayCell: UICollectionViewCell {
         LessonView() ->> DayCell.initialize(lessonView:),
         LessonView() ->> DayCell.initialize(lessonView:),
     ]
+    private let emptyLabel = UILabel() ->> DayCell.initialize(emptyLabel:)
     
     fileprivate var lessons: [Lesson] = []
     
@@ -37,6 +38,7 @@ class DayCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview(scroll)
         items.forEach(scroll.addSubview)
+        scroll.addSubview(emptyLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,6 +48,7 @@ class DayCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         scroll.frame = bounds
+        emptyLabel.frame = scroll.frame
         var prevFrame: CGRect?
         for item in items {
             let y: CGFloat
@@ -63,14 +66,10 @@ class DayCell: UICollectionViewCell {
         super.prepareForReuse()
         scroll.contentOffset = .zero
     }
-}
-
-// MARK: - Update
-
-extension DayCell {
     
     func update(with lessons: [Lesson]) {
         self.lessons = lessons
+        emptyLabel.isHidden = !lessons.isEmpty
         updateContentSize(itemsCount: lessons.count)
         for (index, item) in items.enumerated() {
             let show = index < lessons.count
@@ -102,5 +101,13 @@ private extension DayCell {
             titleColor: Color.bossanova, inscriptionColor: Color.eastBay,
             backgroundColor: Color.doublePearlLusta , progressColor: Color.zanah,
             titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
+    }
+    
+    static func initialize(emptyLabel: UILabel) {
+        emptyLabel.isHidden = true
+        emptyLabel.font = Font.regular.withSize(19)
+        emptyLabel.textColor = Color.beige.withAlphaComponent(0.85)
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = "Занятий нет."
     }
 }

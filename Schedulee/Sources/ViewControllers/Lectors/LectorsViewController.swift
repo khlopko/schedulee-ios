@@ -34,6 +34,7 @@ class LectorsViewController: ViewController, SlideViewControllerAnimatorProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        table?.contentInset.top = 64
         ServerClient.instance.loadLectors(
             success: { [weak self] in
                 self?.lectors = $0

@@ -32,17 +32,13 @@ class HomeViewController: ViewController, SlideViewControllerAnimatorProtocol {
         super.viewDidLoad()
         log.d("exec")
         contentView?.delegate = self
-        ServerClient.instance.loadLessons(
-            on: Date(),
-            success: { lessons in
-                log.i(lessons)
+        ServerClient.instance.loadGroups(
+            success: { groups in
+                log.d(groups)
             },
             failure: { error in
                 log.e(error)
         })
-        /*ServerClient.instance.getCurrentLesson(
-            success: { [weak self] in self?.contentView?.currentLesson.lesson = $0 },
-            failure: { log.e($0) })*/
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -16,7 +16,7 @@ class LessonsViewController: ViewController {
     fileprivate weak var contentView: LessonsView?
     
     fileprivate var currentLesson: Lesson?
-    fileprivate var days: [[Lesson]] = []
+    fileprivate var days = [[Lesson]](repeating: [], count: 7)
     fileprivate var current = 0
     
     init(currentLesson: Lesson? = nil) {
@@ -37,14 +37,25 @@ class LessonsViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        /*ServerClient.instance.loadLessons(
-            on: Date(),
-            success: { [weak self] in
-                self?.days.append($0)
-                self?.current += 1
+        indicator?.startAnimating()
+        ServerClient.instance.loadLessons(
+            groupId: UserSettings.default.currentGroupID,
+            success: { [weak self] lessons in
+                self?.handleLessons(lessons)
+                self?.indicator?.stopAnimating()
             },
             failure: { log.e($0) })
-        collection?.reloadData()*/
+    }
+    
+    private func handleLessons(_ lessons: [Lesson]) {
+        for index in 0..<days.count {
+            days[index] = lessons.filter { $0.dayOfWeek == Lesson.DayOfWeek(rawValue: index) }
+        }
+        let currentIndex = Calendar.current.component(.weekdayOrdinal, from: Date()) - 1
+        navigationItem.title = dayDescr[currentIndex]
+        let indexPath = IndexPath(row: currentIndex, section: 0)
+        collection?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        collection?.reloadData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -93,7 +104,15 @@ extension LessonsViewController: UICollectionViewDelegateFlowLayout {
         let size = collectionView.frame.size
         return size
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let apprxIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+        let index = min(max(0, apprxIndex), days.count - 1)
+        navigationItem.title = dayDescr[index]
+    }
 }
+
+let dayDescr = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
 
 // MARK: - Private computed properties
 
@@ -101,6 +120,9 @@ private extension LessonsViewController {
     
     var collection: UICollectionView? {
         return contentView?.collection
+    }
+    var indicator: UIActivityIndicatorView? {
+        return contentView?.indicator
     }
     var flowLayout: UICollectionViewFlowLayout? {
         return collection?.collectionViewLayout as? UICollectionViewFlowLayout
@@ -124,7 +146,6 @@ private extension LessonsViewController {
         navigationController?.navigationBar.decorateTitle(
             font: Font.regular.withSize(21),
             color: Color.doublePearlLusta)
-        navigationItem.title = Text.today.rawValue
         navigationItem.setLeftButton(
             withTitle: "Назад", target: self, action: #selector(handle(back:)))
     }

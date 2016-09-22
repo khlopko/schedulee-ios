@@ -9,14 +9,18 @@
 import CustomUI
 import Tools
 
-class LessonsView: UIView {
+final class LessonsView: UIView {
 
     let collection = LessonsView.makeCollection()
+    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge) ->> {
+        $0.hidesWhenStopped = true
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Color.bossanova
-        all.forEach(addSubview)
+        addSubview(collection)
+        collection.addSubview(indicator)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,13 +30,7 @@ class LessonsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         collection.frame = bounds
-    }
-}
-
-private extension LessonsView {
-
-    var all: [UIView] {
-        return [collection]
+        indicator.frame = collection.frame
     }
 }
 
@@ -48,6 +46,7 @@ private extension LessonsView {
             $0.allowsMultipleSelection = false
             $0.backgroundColor = Color.clear
             $0.isPagingEnabled = true
+            $0.bounces = true
             $0.showsHorizontalScrollIndicator = false
             $0.showsVerticalScrollIndicator = false
         }
