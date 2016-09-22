@@ -11,17 +11,18 @@ import Foundation
 public enum WebKey: String {
     
     case dayOfWeek = "dayOfWeek"
-    case endTimestamp = "endTimestamp"
     case firstname = "firstname"
+    case groups = "groups"
     case id = "id"
     case lastname = "lastname"
     case lector = "lector"
     case lectors = "lectors"
     case lessons = "lessons"
+    case position = "position"
     case room = "room"
     case title = "title"
-    case startTimestamp = "startTimestamp"
     case sorname = "sorname"
+    case weekNumber = "weekNumber"
         
     var value: String {
         return rawValue

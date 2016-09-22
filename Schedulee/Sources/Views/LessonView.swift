@@ -76,10 +76,6 @@ private extension LessonView {
         titleLabel.text = lesson.title
         roomLabel.text = lesson.room
         lectorLabel.text = lesson.lector.fullname
-        startTime.text = DateDecorator.time(from: lesson.start)
-        endTime.text = DateDecorator.time(from: lesson.end)
-        indicatorLabel.text = lesson.isCurrent ? Constant.nowText : Constant.tomorrowText
-        viewsToHide.forEach { $0.isHidden = !lesson.isCurrent }
         setNeedsLayout()
     }
 }
@@ -123,19 +119,19 @@ private extension LessonView {
     }
     
     func layoutProgressLine() {
-        let pastPercents = CGFloat(lesson?.pastPercents ?? 0)
-        let height: CGFloat = 20
-        let side = pastPercents > 0 ? height : 0
-        progressLine.frame = CGRect(
-            x: 0,
-            y: bounds.height - height,
-            width: bounds.width * pastPercents,
-            height: height)
-        lineRounder.frame = CGRect(
-            x: progressLine.frame.width - height * 0.5,
-            y: 0,
-            width: side,
-            height: side)
+//        let pastPercents = CGFloat(lesson?.pastPercents ?? 0)
+//        let height: CGFloat = 20
+//        let side = pastPercents > 0 ? height : 0
+//        progressLine.frame = CGRect(
+//            x: 0,
+//            y: bounds.height - height,
+//            width: bounds.width * pastPercents,
+//            height: height)
+//        lineRounder.frame = CGRect(
+//            x: progressLine.frame.width - height * 0.5,
+//            y: 0,
+//            width: side,
+//            height: side)
     }
     
     func layoutStartEndTime() {
