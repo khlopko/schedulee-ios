@@ -1,14 +1,12 @@
 //
 //  Result.swift
-//  Schedulee
+//  WebLibrary
 //
-//  Created by Kirill Khlopko on 8/18/16.
+//  Created by Kirill Khlopko on 10/6/16.
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
 import Tools
-
-// MARK: - Result
 
 public enum Result<Data> {
     

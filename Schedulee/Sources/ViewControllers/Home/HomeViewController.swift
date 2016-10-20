@@ -11,14 +11,7 @@ import Models
 import ServerClient
 import Tools
 
-class HomeViewController: ViewController, SlideViewControllerAnimatorProtocol {
-
-    fileprivate(set) weak var transitionView: UIView?
-    fileprivate(set) var expandViewBackgroundColor: UIColor?
-    fileprivate(set) var slideText: String?
-    fileprivate(set) var slideTextFont: UIFont?
-    fileprivate(set) var slideTextColor: UIColor?
-    var mainView: UIView { return view }
+class HomeViewController: ViewController {
     
     fileprivate weak var contentView: HomeView?
     
@@ -30,9 +23,8 @@ class HomeViewController: ViewController, SlideViewControllerAnimatorProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        log.d("exec")
         contentView?.delegate = self
-        ServerClient.instance.loadGroups(
+        WebClient.instance.loadGroups(
             success: { groups in
                 log.d(groups)
             },
@@ -57,26 +49,15 @@ class HomeViewController: ViewController, SlideViewControllerAnimatorProtocol {
 extension HomeViewController: HomeViewDelegate {
     
     func handleTimetable(onHomeView view: HomeView) {
-        updateAnimationProperties(view: view.timetable, label: view.timetable.titleLabel)
         router?.push(route: .timetable, from: navigationController)
     }
     
     func handleLectors(onHomeView view: HomeView) {
-        updateAnimationProperties(view: view.lectors, label: view.lectors.titleLabel)
         router?.push(route: .lectors, from: navigationController)
     }
     
     func handleCurrentLesson(onHomeView view: HomeView) {
-        updateAnimationProperties(view: view.currentLesson, label: nil)
         router?.push(route: .lessons(current: nil), from: navigationController)
-    }
-    
-    private func updateAnimationProperties(view: UIView?, label: UILabel?) {
-        transitionView = view
-        expandViewBackgroundColor = view?.backgroundColor
-        slideText = label?.text
-        slideTextFont = label?.font
-        slideTextColor = label?.textColor
     }
 }
 

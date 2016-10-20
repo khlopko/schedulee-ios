@@ -11,14 +11,7 @@ import Models
 import ServerClient
 import Tools
 
-class LectorsViewController: ViewController, SlideViewControllerAnimatorProtocol {
-
-    fileprivate(set) weak var transitionView: UIView?
-    fileprivate(set) var expandViewBackgroundColor: UIColor?
-    fileprivate(set) var slideText: String?
-    fileprivate(set) var slideTextFont: UIFont?
-    fileprivate(set) var slideTextColor: UIColor?
-    var mainView: UIView { return view }
+class LectorsViewController: ViewController {
     
     fileprivate weak var contentView: LectorsView?
     
@@ -28,14 +21,13 @@ class LectorsViewController: ViewController, SlideViewControllerAnimatorProtocol
         let contentView = LectorsView()
         self.contentView = contentView
         view = contentView
-        transitionView = navigationController?.navigationBar
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         table?.contentInset.top = 64
-        ServerClient.instance.loadLectors(
+        WebClient.instance.loadLectors(
             success: { [weak self] in
                 self?.lectors = $0
                 self?.table?.reloadData()
@@ -53,7 +45,6 @@ class LectorsViewController: ViewController, SlideViewControllerAnimatorProtocol
 extension LectorsViewController {
     
     func handle(back: UIBarButtonItem) {
-        transitionView = navigationController?.navigationBar
         router?.back()
     }
 }
@@ -110,9 +101,5 @@ private extension LectorsViewController {
         navigationItem.title = title
         navigationItem.setLeftButton(
             withTitle: "Назад", style: .light, target: self, action: #selector(handle(back:)))
-        expandViewBackgroundColor = backgroundColor
-        slideText = navigationItem.title
-        slideTextFont = font
-        slideTextColor = color
     }
 }

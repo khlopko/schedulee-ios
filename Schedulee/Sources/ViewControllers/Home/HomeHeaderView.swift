@@ -9,18 +9,18 @@
 import CustomUI
 import Tools
 
-fileprivate struct Constant {
+private struct Constant {
     static let inset: CGFloat = 10
 }
 
-class HomeHeaderView: HeaderView {
+final class HomeHeaderView: HeaderView {
 
-    fileprivate let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
-    fileprivate let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
+    private let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
+    private let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        all.forEach(addSubview)
+        [settings, loop].forEach(addSubview)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,27 +29,18 @@ class HomeHeaderView: HeaderView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        let views = [settings, loop]
         let side: CGFloat = 44
         var prevFrame: CGRect?
         var x: CGFloat
-        for view in all {
+        for view in views {
             x = (prevFrame?.minX ?? bounds.width) - side
             view.frame = CGRect(x: x, y: 20, width: side, height: side)
             prevFrame = view.frame
         }
     }
-}
-
-fileprivate extension HomeHeaderView {
     
-    var all: [UIView] {
-        return [settings, loop]
-    }
-}
-
-fileprivate extension HomeHeaderView {
-    
-    static func makeButton(imageName: String) -> UIButton {
+    private static func makeButton(imageName: String) -> UIButton {
         return UIButton(type: .custom) ->> {
             $0.setImage(UIImage(named: imageName), for: .normal)
             $0.tintColor = Color.bossanova

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
-import Foundation
+import Tools
 
 public struct Lector: WebEntity {
     

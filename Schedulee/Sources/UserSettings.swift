@@ -2,7 +2,7 @@
 //  UserSettings.swift
 //  Schedulee
 //
-//  Created by Kirill Khlopko on 9/20/16.
+//  Created on 9/20/16.
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 

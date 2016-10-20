@@ -10,10 +10,7 @@ import Foundation
 
 class BaseRequest {
     
-    static let session: URLSession = {
-        let session = URLSession(configuration: .default)
-        return session
-    }()
+    static let session = URLSession(configuration: .default)
     
     let path: Path
     

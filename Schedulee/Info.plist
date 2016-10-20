@@ -95,11 +95,21 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>http://api.localhost</key>
+			<dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
 			<key>http://localhost</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
+            <key>http://127.0.0.1</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
 		</dict>
 	</dict>
 </dict>

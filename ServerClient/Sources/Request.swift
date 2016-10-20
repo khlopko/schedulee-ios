@@ -10,9 +10,7 @@ import Foundation
 import Models
 import Tools
 
-// MARK: - Request
-
-final class Request<Value>: BaseRequest {
+final class Request<Value>: BaseRequest, Cancellable {
     
     typealias ParseClosure = (JSON) -> (Value)
     let parse: ParseClosure
@@ -23,41 +21,24 @@ final class Request<Value>: BaseRequest {
     var failure: (Error) -> () = { _ in }
     var completion: (Request) -> () = { _ in }
     
-    var request: URLRequest? { return task?.originalRequest }
-    var response: HTTPURLResponse? { return task?.response as? HTTPURLResponse }
-    fileprivate(set) var task: URLSessionTask?
+    private let request: DataRequest
     
     init(path: Path, parse: @escaping ParseClosure) {
         self.parse = parse
+        request = DataRequest(urlString: path.full)
         super.init(path: path)
-        guard let url = URL(string: path.full) else { fatalError("Not convertible to URL!") }
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        task = BaseRequest.session.dataTask(with: request) { [weak self] data, response, error in
-            self?.jsonResult(data: data, error: error, completion: { result in
-                DispatchQueue.main.async {
-                    self?.handleResult(result)
-                }
-            })
+        request.resultClosure = { [weak self] in
+            self?.handleResult($0)
         }
     }
     
     func execute() {
-        task?.resume()
+        request.resume()
     }
-}
-
-// MARK: - Cancellable
-
-extension Request: Cancellable {
     
     public func cancel() {
-        task?.cancel()
-        task = nil
+        request.cancel()
     }
-}
-
-private extension Request {
     
     func handleResult(_ result: Result<JSON>) {
         switch result => parse {

@@ -38,7 +38,7 @@ class LessonsViewController: ViewController {
         super.viewDidLoad()
         initView()
         indicator?.startAnimating()
-        ServerClient.instance.loadLessons(
+        WebClient.instance.loadLessons(
             groupId: UserSettings.default.currentGroupID,
             success: { [weak self] lessons in
                 self?.handleLessons(lessons)

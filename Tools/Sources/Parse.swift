@@ -1,8 +1,8 @@
 //
-//  Mappable.swift
+//  Parse.swift
 //  Schedulee
 //
-//  Created by Kirill Khlopko on 8/18/16.
+//  Created by Kirill Khlopko on 10/10/16.
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
@@ -23,7 +23,14 @@ public protocol Convertible {
 extension String: Convertible {
     
     public static func cast<T>(_ input: T) -> String {
-        return input as? String ?? ""
+        switch input {
+        case let str as String:
+            return str
+        case let conv as CustomStringConvertible:
+            return conv.description
+        default:
+            return ""
+        }
     }
 }
 
@@ -59,16 +66,5 @@ extension Dictionary: Convertible {
     
     public static func cast<T>(_ input: T) -> Dictionary {
         return input as? Dictionary ?? [:]
-    }
-}
-
-// MARK: - Array specification for WebEntity
-
-public extension Array where Element: WebEntity {
-    
-    init(webkey: WebKey, json: JSON) {
-        let jsons: [JSON] = parse(json[webkey])
-        let value = jsons.map(Element.init)
-        self.init(value)
     }
 }

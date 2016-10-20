@@ -9,7 +9,7 @@
 import Foundation
 import Models
 
-private let serverURLString = "http://localhost:5000/api/v0.1/"
+private let serverURLString = "http://localhost:5000/api/"
 
 enum Path {
     

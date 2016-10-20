@@ -7,6 +7,7 @@
 //
 
 import Models
+import Tools
 
 enum SerializationError: Error {
     case dataEmptyOrNil
@@ -29,17 +30,17 @@ struct ResponseSerializer<Value>: ResponseSerializerProtocol {
     }
 }
 
-extension Request {
+extension DataRequest {
     
     func jsonResult(data: Data?, error: Error?, completion: (Result<JSON>) -> ()) {
         let serializer = ResponseSerializer<JSON> { response, data, error in
-            if error != nil {
-                return Result.failure(error!)
+            if let error = error {
+                return Result.failure(error)
             }
             guard let data = data else { return Result.failure(SerializationError.dataEmptyOrNil) }
             do {
-                let object = try JSONSerialization.jsonObject(
-                    with: data, options: [.mutableContainers, .allowFragments])
+                let object = try JSONSerialization
+                    .jsonObject(with: data, options: [.mutableContainers, .allowFragments])
                 if let json = object as? JSON {
                     return Result.success(json)
                 } else {

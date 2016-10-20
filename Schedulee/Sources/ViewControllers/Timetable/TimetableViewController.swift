@@ -9,19 +9,11 @@
 import CustomUI
 import Tools
 
-class TimetableViewController: ViewController, SlideViewControllerAnimatorProtocol {
-
-    fileprivate(set) weak var transitionView: UIView?
-    fileprivate(set) var expandViewBackgroundColor: UIColor?
-    fileprivate(set) var slideText: String?
-    fileprivate(set) var slideTextFont: UIFont?
-    fileprivate(set) var slideTextColor: UIColor?
-    var mainView: UIView { return view }
+class TimetableViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        transitionView = navigationController?.navigationBar
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -58,9 +50,5 @@ private extension TimetableViewController {
         navigationItem.title = text
         navigationItem.setLeftButton(
             withTitle: "Назад", style: .dark, target: self, action: #selector(handle(back:)))
-        slideText = text
-        slideTextFont = font
-        slideTextColor = color
-        expandViewBackgroundColor = backgroundColor
     }
 }

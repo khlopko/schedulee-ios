@@ -64,7 +64,7 @@ final class SelectGroupViewController: ViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         indicator?.startAnimating()
-        ServerClient.instance.loadGroups(
+        WebClient.instance.loadGroups(
             success: { [weak self] groups in
                 self?.groups = groups
                 self?.table?.reloadData()

@@ -9,9 +9,9 @@
 import Models
 import Tools
 
-public final class ServerClient {
+public final class WebClient {
     
-    public static let instance = ServerClient()
+    public static let instance = WebClient()
     
     public typealias Success<T> = (T) -> ()
     public typealias Failure = (Error) -> ()
@@ -28,7 +28,7 @@ public final class ServerClient {
     }
 }
 
-public extension ServerClient {
+public extension WebClient {
     
     @discardableResult
     func loadLectors(success: @escaping Success<[Lector]>, failure: @escaping Failure) -> Cancellable {
@@ -55,5 +55,16 @@ public extension ServerClient {
         request.failure = failure
         addRequest(request)
         return request
+    }
+}
+
+// MARK: - Array specification for WebEntity
+    
+public extension Array where Element: WebEntity {
+    
+    init(webkey: WebKey, json: JSON) {
+        let jsons: [JSON] = parse(json[webkey])
+        let value = jsons.map { Element($0) }
+        self.init(value)
     }
 }

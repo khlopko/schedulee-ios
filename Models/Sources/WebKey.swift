@@ -6,7 +6,7 @@
 //  Copyright © 2016 Kirill Khlopko. All rights reserved.
 //
 
-import Foundation
+import Tools
 
 public enum WebKey: String {
     
@@ -29,17 +29,9 @@ public enum WebKey: String {
     }
 }
 
-// MARK: - Protocol StringKey
-
-protocol StringKey {
-}
-
-extension String: StringKey {
-}
-
 // MARK: - Subscript dictionary
 
-extension Dictionary where Key: StringKey, Value: Any {
+public extension Dictionary where Key: StringKey, Value: Any {
     
     subscript(webKey: WebKey) -> Value? {
         return self[webKey.value as! Key]
