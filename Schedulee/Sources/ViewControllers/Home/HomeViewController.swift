@@ -7,10 +7,13 @@
 //
 
 import CustomUI
+import Models
+import ServerClient
+import Tools
 
 class HomeViewController: ViewController {
-
-    private weak var contentView: HomeView?
+    
+    fileprivate weak var contentView: HomeView?
     
     override func loadView() {
         let contentView = HomeView()
@@ -21,16 +24,23 @@ class HomeViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView?.delegate = self
-        contentView?.currentLesson.lesson = nil
+        WebClient.instance.loadGroups(
+            success: { groups in
+                log.d(groups)
+            },
+            failure: { error in
+                log.e(error)
+        })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
@@ -47,8 +57,7 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func handleCurrentLesson(onHomeView view: HomeView) {
-        guard let lesson = currentLesson?.lesson else { return }
-        router?.push(route: .lessons(current: lesson), from: navigationController)
+        router?.push(route: .lessons(current: nil), from: navigationController)
     }
 }
 

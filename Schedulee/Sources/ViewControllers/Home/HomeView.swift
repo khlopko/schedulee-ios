@@ -24,8 +24,11 @@ class HomeView: UIView {
 
     weak var delegate: HomeViewDelegate?
     
-    let timetable = HomeView.makeButton(text: .timetable, backgroundColor: Color.dodgerBlue)
-    let lectors = HomeView.makeButton(text: .lectors, backgroundColor: Color.midnightBlue)
+    let header = HomeHeaderView() ->> HomeView.initialize(header:)
+    let timetable = HomeView.makeButton(
+        text: .timetable, backgroundColor: Color.mainLight, titleColor: Color.mainDark)
+    let lectors = HomeView.makeButton(
+        text: .lectors, backgroundColor: Color.middle, titleColor: Color.mainDark)
     let currentLesson = LessonView() ->> HomeView.initialize(currentLesson:)
     
     override init(frame: CGRect) {
@@ -42,9 +45,10 @@ class HomeView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let k: CGFloat = 0.4
-        let currentLessonHeight = bounds.height * k
-        let buttonHeight = bounds.height * (1 - k) * 0.5
-        let heights = [buttonHeight, buttonHeight, currentLessonHeight]
+        let itemsHeight: CGFloat = bounds.height - 64
+        let currentLessonHeight = itemsHeight * k
+        let buttonHeight = itemsHeight * (1 - k) * 0.5
+        let heights = [64, currentLessonHeight, buttonHeight, buttonHeight]
         var prevFrame: CGRect?
         for (view, height) in zip(all, heights) {
             let y = prevFrame?.maxY ?? 0
@@ -87,7 +91,7 @@ private extension HomeView {
 private extension HomeView {
     
     var all: [UIView] {
-        return [timetable, lectors, currentLesson]
+        return [header, currentLesson, lectors, timetable]
     }
     var buttons: [UIButton] {
         return [timetable, lectors]
@@ -101,16 +105,23 @@ private extension HomeView {
 
 private extension HomeView {
     
-    static func makeButton(text: Text, backgroundColor: UIColor) -> UIButton {
+    static func makeButton(text: Text, backgroundColor: UIColor, titleColor: UIColor) -> UIButton {
         return UIButton() ->> {
             $0.backgroundColor = backgroundColor
             $0.setTitle(text, for: .normal)
-            $0.titleLabel?.font = Font.regular.withSize(29)
-            $0.setTitleColor(Color.whiteBlue, for: .normal)
+            $0.titleLabel?.font = Font.regular.withSize(25)
+            $0.setTitleColor(titleColor, for: .normal)
         }
     }
     
     static func initialize(currentLesson: LessonView) {
-        currentLesson.backgroundColor = Color.whiteBlue
+        currentLesson.viewModel = CurrentLessonViewModel(
+            titleColor: Color.mainLight, inscriptionColor: Color.secondaryLight,
+            backgroundColor: Color.mainDark, progressColor: Color.secondaryLight,
+            titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
+    }
+    
+    static func initialize(header: HomeHeaderView) {
+        header.backgroundColor = Color.mainDark
     }
 }

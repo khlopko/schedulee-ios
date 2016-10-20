@@ -34,7 +34,7 @@ class SplashView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.midnightBlue
+        backgroundColor = Color.mainDark
         verticalLines.forEach(addSubview)
         horizontalLines.forEach(addSubview)
     }
@@ -83,7 +83,7 @@ private extension SplashView {
     
     static func makeLine() -> UIView {
         return UIView() ->> {
-            $0.backgroundColor = Color.dodgerBlue
+            $0.backgroundColor = Color.mainLight
         }
     }
 }

@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import Tools
 
 class SplashViewController: ViewController {
 
-    private weak var contentView: SplashView?
+    fileprivate weak var contentView: SplashView?
     
-    private let duration: TimeInterval = 0.75
-    private var verticalLinesAnimated = 0 {
+    fileprivate let duration: TimeInterval = 0.75
+    fileprivate var verticalLinesAnimated = 0 {
         didSet {
             if verticalLinesAnimated == verticalLines.count {
                 animateHorizontalLines()
             }
         }
     }
-    private var horizontalLinesAnimated = 0 {
+    fileprivate var horizontalLinesAnimated = 0 {
         didSet {
             if horizontalLinesAnimated == horizontalLines.count {
                 finalAnimation()
@@ -38,11 +39,15 @@ class SplashViewController: ViewController {
         super.viewDidAppear(animated)
         startAnimation()
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }
 
 // MARK: - Animations
 
-private extension SplashViewController {
+fileprivate extension SplashViewController {
     
     func startAnimation() {
         animateVerticalLines()
@@ -74,8 +79,8 @@ private extension SplashViewController {
     
     func animate(line: UIView,
                  delay: TimeInterval,
-                 animation: () -> (),
-                 completion: () -> ()) {
+                 animation: @escaping () -> (),
+                 completion: @escaping () -> ()) {
         UIView.animate(
             withDuration: duration,
             delay: delay,
@@ -91,7 +96,7 @@ private extension SplashViewController {
     func finalAnimation() {
         UIView.animate(
             withDuration: 1,
-            delay: 2,
+            delay: 1,
             options: [.curveEaseInOut],
             animations: {
                 self.verticalLines.forEach {
@@ -104,7 +109,10 @@ private extension SplashViewController {
                 }
             }, completion: { finished in
                 if finished {
-                    self.router?.changeRootViewController(to: HomeViewController(), animated: true)
+                    let viewController = UserSettings.default.currentGroupID == 0
+                        ? SelectGroupViewController()
+                        : HomeViewController()
+                    self.router?.changeRootViewController(to: viewController, animated: true)
                 }
         })
     }
@@ -112,7 +120,7 @@ private extension SplashViewController {
 
 // MARK: - Computed properties
 
-private extension SplashViewController {
+fileprivate extension SplashViewController {
     
     var verticalLines: [UIView] {
         return contentView?.verticalLines ?? []

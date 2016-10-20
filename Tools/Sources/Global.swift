@@ -8,9 +8,18 @@
 
 import Foundation
 
-infix operator ->> { associativity left precedence 105 }
-
-public func ->> <T>(_ object: T, _ closure: @noescape (T) -> ()) -> T {
+/// Operator that helps to setup object properies after creating object.
+/// - parameter object: Object to specify.
+/// - parameter closure: Closure with operations to apply.
+/// - returns: Object after applying changes in closure.
+public func ->> <T>(_ object: T, _ closure: (T) -> ()) -> T {
     closure(object)
     return object
 }
+
+precedencegroup Specify {
+    associativity: left
+    higherThan: AssignmentPrecedence
+}
+
+infix operator ->> : Specify

@@ -12,6 +12,8 @@ import Models
 final class Router {
     
     let mainWindow = UIWindow(frame: UIScreen.main.bounds)
+    
+    fileprivate var lastRouteType: RouteType?
 }
 
 // MARK: - Main window
@@ -26,7 +28,7 @@ extension Router {
     
     func changeRootViewController(to viewController: ViewController, animated: Bool) {
         let duration: TimeInterval = animated ? 1 : 0
-        let navigation = UINavigationController(navigationBarClass: NavigationBar.self, toolbarClass: nil)
+        let navigation = NavigationController(navigationBarClass: NavigationBar.self, toolbarClass: nil)
         navigation.pushViewController(viewController, animated: false)
         navigation.setNavigationBarHidden(true, animated: false)
         UIView.transition(
@@ -40,14 +42,27 @@ extension Router {
 
 extension Router {
     
-    func push(route: Route, from navigation: UINavigationController?) {
+    func push(route: Route, from navigation: NavigationController?) {
         let viewController = route.viewController
         navigation?.pushViewController(viewController, animated: true)
+        lastRouteType = .push(navigation)
     }
     
     func present(route: Route, from parentViewController: ViewController) {
         let viewController = route.viewController
         parentViewController.present(viewController, animated: true, completion: nil)
+        lastRouteType = .present(viewController)
+    }
+    
+    func back() {
+        guard let lastRouteType = lastRouteType else { return }
+        switch lastRouteType {
+        case .push(let navigation):
+            _ = navigation?.popViewController(animated: true)
+        case .present(let viewController):
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        self.lastRouteType = nil
     }
 }
 
@@ -55,7 +70,7 @@ extension Router {
     
     enum Route {
         
-        case lessons(current: Lesson)
+        case lessons(current: Lesson?)
         case lectors
         case timetable
         
@@ -69,5 +84,11 @@ extension Router {
                 return TimetableViewController()
             }
         }
+    }
+    
+    enum RouteType {
+        
+        case push(NavigationController?)
+        case present(ViewController)
     }
 }

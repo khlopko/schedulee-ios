@@ -18,17 +18,19 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>Schedulee 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
 		<key>Schedulee.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>ServerClient.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Tools.xcscheme</key>
 		<dict>
@@ -81,6 +83,16 @@
 			<true/>
 		</dict>
 		<key>A22BDFEE1D5F5A8F00DCF8DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2C025611D659579001865EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2C025691D659579001865EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
