@@ -10,8 +10,6 @@ import Foundation
 
 public let log = Logger()
 
-// MARK: - Logger
-
 public final class Logger {
 
     /// Logger configuration parameters.
@@ -22,20 +20,22 @@ public final class Logger {
     public init() {
         formatter.dateFormat = dateFormat
     }
-}
-
-// MARK: - Interface
-
-public extension Logger {
     
-    typealias Parameter = Any
+    public typealias Parameter = Any
     
     /// Debug level logging.
-    func d(_ params: Parameter...,
-           separator: String = ",",
-           file: String = #file,
-           function: String = #function,
-           line: Int = #line) {
+    ///
+    /// - parameter params: Array of objects to log.
+    /// - parameter separator: Separator between passed `params`.
+    /// - parameter file: File in project.
+    /// - parameter function: Called function.
+    /// - parameter line: Line in function that called.
+    ///
+    public func d(_ params: Parameter...,
+                    separator: String = ",",
+                    file: String = #file,
+                    function: String = #function,
+                    line: Int = #line) {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
@@ -43,11 +43,18 @@ public extension Logger {
     }
     
     /// Info level logging.
-    func i(_ params: Parameter...,
-           separator: String = ",",
-           file: String = #file,
-           function: String = #function,
-           line: Int = #line) {
+    ///
+    /// - parameter params: Array of objects to log.
+    /// - parameter separator: Separator between passed `params`.
+    /// - parameter file: File in project.
+    /// - parameter function: Called function.
+    /// - parameter line: Line in function that called.
+    ///
+    public func i(_ params: Parameter...,
+                    separator: String = ",",
+                    file: String = #file,
+                    function: String = #function,
+                    line: Int = #line) {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
@@ -55,35 +62,67 @@ public extension Logger {
     }
     
     /// Warning level logging.
-    func w(_ params: Parameter...,
-           separator: String = ",",
-           file: String = #file,
-           function: String = #function,
-           line: Int = #line) {
+    ///
+    /// - parameter params: Array of objects to log.
+    /// - parameter separator: Separator between passed `params`.
+    /// - parameter file: File in project.
+    /// - parameter function: Called function.
+    /// - parameter line: Line in function that called.
+    ///
+    public func w(_ params: Parameter...,
+                    separator: String = ",",
+                    file: String = #file,
+                    function: String = #function,
+                    line: Int = #line) {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
             level: .warning)
     }
     
-    /// Error level loggin.
-    func e(_ params: Parameter...,
-           separator: String = ",",
-           file: String = #file,
-           function: String = #function,
-           line: Int = #line) {
+    /// Error level logging.
+    ///
+    /// - parameter params: Array of objects to log.
+    /// - parameter separator: Separator between passed `params`.
+    /// - parameter file: File in project.
+    /// - parameter function: Called function.
+    /// - parameter line: Line in function that called.
+    ///
+    public func e(_ params: Parameter...,
+                    separator: String = ",",
+                    file: String = #file,
+                    function: String = #function,
+                    line: Int = #line) {
         printMessage(
             params: params, separator: separator,
             file: file, function: function, line: line,
             level: .error)
     }
-}
 
-// MARK: - Private
+    /// Measures time of executing code
+    ///
+    /// - parameter separator: Separator between passed `params`.
+    /// - parameter file: File in project.
+    /// - parameter function: Called function.
+    /// - parameter line: Line in function that called.
+    /// - parameter closure: Code to be measured.
+    ///
+    public func measure<T>(file: String = #file,
+                           function: String = #function,
+                           line: Int = #line,
+                           _ closure: () -> (T)) -> T {
+        let begin = CFAbsoluteTimeGetCurrent()
+        let result = closure()
+        printMessage(
+            params: CFAbsoluteTimeGetCurrent() - begin, separator: "",
+            file: file, function: function, line: line,
+            level: .debug)
+        return result
+    }
 
-fileprivate extension Logger {
+    // MARK: - Private
     
-    func printMessage(params: Parameter...,
+    private func printMessage(params: Parameter...,
                       separator: String,
                       file: String,
                       function: String,
@@ -105,7 +144,7 @@ fileprivate extension Logger {
         print(logString)
     }
     
-    func processDetails(_ details: Details) -> String {
+    private func processDetails(_ details: Details) -> String {
         var string = ""
         if config.showDateAndTime {
             string += "[\(details.dateString)]"
@@ -129,7 +168,7 @@ fileprivate extension Logger {
         return string
     }
     
-    func makeThreadName() -> String {
+    private func makeThreadName() -> String {
         var str = "Thread "
         if Thread.isMainThread {
             str += "main"
@@ -143,11 +182,7 @@ fileprivate extension Logger {
         return str
     }
     
-    func updateDateFormatter() {
-        formatter.dateFormat = dateFormat
-    }
-    
-    var dateFormat: String {
+    private var dateFormat: String {
         var str = ""
         if config.showDate {
             str += "dd/MM/yyyy"
@@ -160,44 +195,47 @@ fileprivate extension Logger {
         }
         return str
     }
+    
+    fileprivate func updateDateFormatter() {
+        formatter.dateFormat = dateFormat
+    }
 }
 
 // MARK: - Configuration
 
 extension Logger {
     
-    /// Loggers structure that defines logger configuration.
     public struct Configuration {
         
-        /// Should be date included to log message.
+        /// Should be date included to log message. Default is `false`
         public var showDate = false {
             didSet { log.updateDateFormatter() }
         }
         
-        /// Should be time included to log message.
+        /// Should be time included to log message. Default is `true`
         public var showTime = true {
             didSet { log.updateDateFormatter() }
         }
         
-        /// Should be date and included to log message.
+        /// Should be date and included to log message. Default is `true`
         public var showDateAndTime = true
         
-        /// Should include line number to log message.
+        /// Should include line number to log message. Default is `true`
         public var showLine = true
         
-        /// Should include function name to log message.
+        /// Should include function name to log message. Default is `true`
         public var showFunction = true
         
-        /// Should include file name to log message.
+        /// Should include file name to log message. Default is `true`
         public var showFile = true
         
-        /// Should include log level to log message.
+        /// Should include log level to log message. Default is `true`
         public var showLevel = true
         
-        /// Current minimal level of logs that showing.
+        /// Current minimal level of logs that showing. Default is `debug`
         public var minimalLogLevel: Level = .debug
         
-        /// Should include thread to log message.
+        /// Should include thread to log message. Default is `false`
         public var showThread = false
         
         fileprivate init() {
