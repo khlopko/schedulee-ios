@@ -12,7 +12,7 @@ import Tools
 
 // MARK: - File constants
 
-fileprivate struct Constant {
+private struct Constant {
     static let inset: CGFloat = 10
 }
 
@@ -20,8 +20,8 @@ fileprivate struct Constant {
 
 class LectorCell: UITableViewCell {
     
-    fileprivate let photoView = UIImageView() ->> LectorCell.initialize(photoView:)
-    fileprivate let fullnameLabel = UILabel() ->> LectorCell.initialize(fullnameLabel:)
+    private let photoView = LectorCell.makePhotoView()
+    private let fullnameLabel = LectorCell.makeFullnameLabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,34 +39,25 @@ class LectorCell: UITableViewCell {
         layoutPhotoView()
         layoutFullnameLabel()
     }
-}
-
-extension LectorCell {
     
     func update(with lector: Lector) {
         fullnameLabel.text = lector.fullname
     }
-}
 
-// MARK: - Private computed properties
-
-private extension LectorCell {
+    // MARK: - Private computed properties
     
-    var all: [UIView] {
+    private var all: [UIView] {
         return [photoView, fullnameLabel]
     }
-}
 
-// MARK: - Layout
-
-private extension LectorCell {
+    // MARK: - Layout
     
-    func layoutPhotoView() {
+    private func layoutPhotoView() {
         let side = contentView.bounds.height - Constant.inset * 2
         photoView.frame = CGRect(x: Constant.inset, y: Constant.inset, width: side, height: side)
     }
     
-    func layoutFullnameLabel() {
+    private func layoutFullnameLabel() {
         let x = photoView.frame.maxX + Constant.inset
         fullnameLabel.frame = CGRect(
             x: x,
@@ -74,20 +65,21 @@ private extension LectorCell {
             width: bounds.width - x - Constant.inset,
             height: photoView.frame.height)
     }
-}
 
-// MARK: - Init subviews
-
-private extension LectorCell {
+    // MARK: - Init subviews
     
-    static func initialize(photoView: UIImageView) {
+    private static func makePhotoView() -> UIImageView {
+        let photoView = UIImageView()
         photoView.contentMode = .center
         photoView.clipsToBounds = true
         photoView.backgroundColor = Color.zanah
+        return photoView
     }
     
-    static func initialize(fullnameLabel: UILabel) {
+    private static func makeFullnameLabel() -> UILabel {
+        let fullnameLabel = UILabel()
         fullnameLabel.font = Font.regular.withSize(18)
         fullnameLabel.textColor = Color.eastBay
+        return fullnameLabel
     }
 }

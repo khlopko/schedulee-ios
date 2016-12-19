@@ -11,16 +11,20 @@ import Tools
 
 final class SelectGroupView: UIView {
 
-    let table = UITableView() ->> {
-        $0.tableFooterView = UIView()
-        $0.backgroundColor = Color.mainLight
-        $0.separatorInset = .zero
-        $0.separatorColor = Color.secondaryDark
-    }
-    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge) ->> {
-        $0.hidesWhenStopped = true
-        $0.color = Color.mainDark
-    }
+    let table: UITableView = {
+        let table = UITableView()
+        table.tableFooterView = UIView()
+        table.backgroundColor = Color.mainLight
+        table.separatorInset = .zero
+        table.separatorColor = Color.secondaryDark
+        return table
+    }()
+    let indicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = Color.mainDark
+        return view
+    }()
 
     convenience init() {
         self.init(frame: .zero)

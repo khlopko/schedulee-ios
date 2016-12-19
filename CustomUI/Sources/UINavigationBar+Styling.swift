@@ -65,10 +65,10 @@ private func makeButton(title: String,
                         action: Selector) -> UIButton {
     let font = Font.regular.withSize(14)
     let width = ceil(title.width(font: font))
-    return UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 44)) ->> {
-        $0.addTarget(target, action: action, for: .touchUpInside)
-        $0.setTitle(title, for: .normal)
-        $0.setTitleColor(style.color, for: .normal)
-        $0.titleLabel?.font = font
-    }
+    let button = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+    button.addTarget(target, action: action, for: .touchUpInside)
+    button.setTitle(title, for: .normal)
+    button.setTitleColor(style.color, for: .normal)
+    button.titleLabel?.font = font
+    return button
 }

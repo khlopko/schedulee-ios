@@ -20,14 +20,14 @@ fileprivate struct Constant {
 
 class LessonView: UIView {
 
-    fileprivate let titleLabel = UILabel() ->> LessonView.initialize(titleLabel:)
-    fileprivate let roomLabel = UILabel() ->> LessonView.initialize(roomLabel:)
-    fileprivate let lectorLabel = UILabel() ->> LessonView.initialize(lectorLabel:)
-    fileprivate let startTime = UILabel() ->> LessonView.initialize(periodLabel:)
-    fileprivate let endTime = UILabel() ->> LessonView.initialize(periodLabel:)
-    fileprivate let indicatorLabel = UILabel() ->> LessonView.initialize(indicatorLabel:)
-    fileprivate let progressLine = UIView() ->> LessonView.initialize(progressLine:)
-    fileprivate let lineRounder = CircleView() ->> LessonView.initialize(lineRounder:)
+    private let titleLabel = LessonView.makeTitleLabel()
+    private let roomLabel = LessonView.makeRoomLabel()
+    private let lectorLabel = LessonView.makeLectorLabel()
+    private let startTime = LessonView.makePeriodLabel()
+    private let endTime = LessonView.makePeriodLabel()
+    private let indicatorLabel = LessonView.makeIndicatorLabel()
+    private let progressLine = LessonView.makeProgressLine()
+    private let lineRounder = LessonView.makeLineRounder()
 
     var viewModel: CurrentLessonViewModel? {
         didSet {
@@ -67,24 +67,18 @@ class LessonView: UIView {
         layoutProgressLine()
         layoutStartEndTime()
     }
-}
-
-private extension LessonView {
     
-    func updateView() {
+    private func updateView() {
         guard let lesson = lesson else { return }
         titleLabel.text = lesson.title
         roomLabel.text = lesson.room
         lectorLabel.text = lesson.lector.fullname
         setNeedsLayout()
     }
-}
 
-// MARK: - Layout
-
-private extension LessonView {
+    // MARK: - Layout
     
-    func layoutNow() {
+    private func layoutNow() {
         guard let viewModel = viewModel else { return }
         let width = Constant.nowText.width(font: viewModel.inscriptionFont)
         let height = ceil(viewModel.inscriptionFont.lineHeight)
@@ -95,7 +89,7 @@ private extension LessonView {
             height: height)
     }
     
-    func layoutInfoViews() {
+    private func layoutInfoViews() {
         guard let viewModel = viewModel else { return }
         let width = indicatorLabel.frame.minX - Constant.inset
         let topShift = Constant.inset * 0.25
@@ -118,7 +112,7 @@ private extension LessonView {
         }
     }
     
-    func layoutProgressLine() {
+    private func layoutProgressLine() {
 //        let pastPercents = CGFloat(lesson?.pastPercents ?? 0)
 //        let height: CGFloat = 20
 //        let side = pastPercents > 0 ? height : 0
@@ -134,7 +128,7 @@ private extension LessonView {
 //            height: side)
     }
     
-    func layoutStartEndTime() {
+    private func layoutStartEndTime() {
         guard let viewModel = viewModel else { return }
         let startTimeWidth = ceil(startTime.text?.width(font: viewModel.inscriptionFont) ?? 0)
         let endTimeWidth = ceil(endTime.text?.width(font: viewModel.inscriptionFont) ?? 0)
@@ -153,64 +147,72 @@ private extension LessonView {
             height: height)
     }
     
-    var minTitleHeight: CGFloat {
+    private var minTitleHeight: CGFloat {
         guard let viewModel = viewModel else { return 0 }
         return ceil(viewModel.titleFont.lineHeight)
     }
-}
 
-// MARK: - Private computed properties
-
-private extension LessonView {
+    // MARK: - Private computed properties
  
-    var all: [UIView] {
+    private var all: [UIView] {
         return [
             titleLabel, roomLabel, lectorLabel,
             startTime, endTime, indicatorLabel, progressLine,
         ]
     }
-    var inscriptionLabels: [UILabel] {
+    private var inscriptionLabels: [UILabel] {
         return [
             roomLabel, lectorLabel, startTime, endTime, indicatorLabel,
         ]
     }
-    var viewsToHide: [UIView] {
+    private var viewsToHide: [UIView] {
         return [progressLine, lineRounder]
     }
-}
 
-// MARK: - Init subviews
-
-private extension LessonView {
+    // MARK: - Init subviews
     
-    static func initialize(titleLabel: UILabel) {
+    private static func makeTitleLabel() -> UILabel {
+        let titleLabel = UILabel()
         titleLabel.textColor = Color.doublePearlLusta
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
+        return titleLabel
     }
     
-    static func initialize(roomLabel: UILabel) {
+    private static func makeRoomLabel() -> UILabel {
+        let roomLabel = UILabel()
         roomLabel.textColor = Color.beige
+        return roomLabel
     }
     
-    static func initialize(lectorLabel: UILabel) {
+    private static func makeLectorLabel() -> UILabel {
+        let lectorLabel = UILabel()
         lectorLabel.textColor = Color.beige
+        return lectorLabel
     }
     
-    static func initialize(periodLabel: UILabel) {
+    private static func makePeriodLabel() -> UILabel {
+        let periodLabel = UILabel()
         periodLabel.textColor = Color.beige
+        return periodLabel
     }
     
-    static func initialize(indicatorLabel: UILabel) {
+    private static func makeIndicatorLabel() -> UILabel {
+        let indicatorLabel = UILabel()
         indicatorLabel.textColor = Color.beige
         indicatorLabel.text = Constant.nowText
+        return indicatorLabel
     }
     
-    static func initialize(progressLine: UIView) {
+    private static func makeProgressLine() -> UIView {
+        let progressLine = UIView()
         progressLine.backgroundColor = Color.doublePearlLusta
+        return progressLine
     }
     
-    static func initialize(lineRounder: CircleView) {
+    private static func makeLineRounder() -> CircleView {
+        let lineRounder = CircleView()
         lineRounder.fillColor = Color.doublePearlLusta
+        return lineRounder
     }
 }

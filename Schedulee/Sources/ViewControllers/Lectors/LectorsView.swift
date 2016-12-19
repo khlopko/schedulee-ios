@@ -11,7 +11,7 @@ import Tools
 
 class LectorsView: UIView {
 
-    let table = UITableView() ->> LectorsView.initialize(table:)
+    let table = LectorsView.makeTable()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,22 +27,18 @@ class LectorsView: UIView {
         super.layoutSubviews()
         table.frame = bounds
     }
-}
-
-private extension LectorsView {
     
-    var all: [UIView] {
+    private var all: [UIView] {
         return [table]
     }
-}
-
-private extension LectorsView {
     
-    static func initialize(table: UITableView) {
+    private static func makeTable() -> UITableView {
+        let table = UITableView()
         table.allowsMultipleSelection = false
         table.backgroundColor = .clear
         table.tableFooterView = UIView()
         table.separatorInset = .zero
         table.separatorColor = Color.zanah
+        return table
     }
 }

@@ -10,9 +10,11 @@ import Foundation
 
 private let minutesHoursFormat = "HH:mm"
 
-private let formatter = DateFormatter() ->> {
-    $0.dateFormat = minutesHoursFormat
-}
+private let formatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = minutesHoursFormat
+    return formatter
+}()
 
 public final class DateDecorator {
     

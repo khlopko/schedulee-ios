@@ -41,9 +41,9 @@ final class HomeHeaderView: HeaderView {
     }
     
     private static func makeButton(imageName: String) -> UIButton {
-        return UIButton(type: .custom) ->> {
-            $0.setImage(UIImage(named: imageName), for: .normal)
-            $0.tintColor = Color.bossanova
-        }
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.tintColor = Color.unnamed3
+        return button
     }
 }

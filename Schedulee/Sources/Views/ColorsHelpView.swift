@@ -11,9 +11,10 @@ import Tools
 
 class ColorsHelpView: UIView {
     
-    let table = UITableView(frame: .zero, style: .grouped) ->> ColorsHelpView.initialize(table:)
+    let table = ColorsHelpView.makeTable()
     
-    private static func initialize(table: UITableView) {
+    private static func makeTable() -> UITableView {
+        let table = UITableView(frame: .zero, style: .grouped)
         table.allowsMultipleSelection = false
         table.allowsSelection = false
         table.backgroundColor = .clear
@@ -22,6 +23,7 @@ class ColorsHelpView: UIView {
         table.tableFooterView = UIView()
         table.tableHeaderView = UIView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
+        return table
     }
     
     private var startPoint: CGPoint?

@@ -24,12 +24,12 @@ class HomeView: UIView {
 
     weak var delegate: HomeViewDelegate?
     
-    let header = HomeHeaderView() ->> HomeView.initialize(header:)
+    let header = HomeView.makeHeader()
     let timetable = HomeView.makeButton(
-        text: .timetable, backgroundColor: Color.mainLight, titleColor: Color.mainDark)
+        text: .timetable, backgroundColor: Color.unnamed11, titleColor: Color.unnamed15)
     let lectors = HomeView.makeButton(
-        text: .lectors, backgroundColor: Color.middle, titleColor: Color.mainDark)
-    let currentLesson = LessonView() ->> HomeView.initialize(currentLesson:)
+        text: .lectors, backgroundColor: Color.unnamed13, titleColor: Color.unnamed15)
+    let currentLesson = HomeView.makeCurrentLesson()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -106,22 +106,26 @@ private extension HomeView {
 private extension HomeView {
     
     static func makeButton(text: Text, backgroundColor: UIColor, titleColor: UIColor) -> UIButton {
-        return UIButton() ->> {
-            $0.backgroundColor = backgroundColor
-            $0.setTitle(text, for: .normal)
-            $0.titleLabel?.font = Font.regular.withSize(25)
-            $0.setTitleColor(titleColor, for: .normal)
-        }
+        let button = UIButton()
+        button.backgroundColor = backgroundColor
+        button.setTitle(text, for: .normal)
+        button.titleLabel?.font = Font.regular.withSize(25)
+        button.setTitleColor(titleColor, for: .normal)
+        return button
     }
     
-    static func initialize(currentLesson: LessonView) {
+    static func makeCurrentLesson() -> LessonView {
+        let currentLesson = LessonView()
         currentLesson.viewModel = CurrentLessonViewModel(
-            titleColor: Color.mainLight, inscriptionColor: Color.secondaryLight,
-            backgroundColor: Color.mainDark, progressColor: Color.secondaryLight,
+            titleColor: Color.unnamed14, inscriptionColor: Color.unnamed14,
+            backgroundColor: Color.unnamed15, progressColor: Color.unnamed14,
             titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
+        return currentLesson
     }
     
-    static func initialize(header: HomeHeaderView) {
-        header.backgroundColor = Color.mainDark
+    static func makeHeader() -> HomeHeaderView {
+        let header = HomeHeaderView()
+        header.backgroundColor = Color.unnamed15
+        return header
     }
 }

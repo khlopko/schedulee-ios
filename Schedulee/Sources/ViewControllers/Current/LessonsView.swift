@@ -12,13 +12,12 @@ import Tools
 final class LessonsView: UIView {
 
     let collection = LessonsView.makeCollection()
-    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge) ->> {
-        $0.hidesWhenStopped = true
-    }
+    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.bossanova
+        backgroundColor = Color.unnamed15
+        indicator.hidesWhenStopped = true
         addSubview(collection)
         collection.addSubview(indicator)
     }
@@ -32,23 +31,19 @@ final class LessonsView: UIView {
         collection.frame = bounds
         indicator.frame = collection.frame
     }
-}
-
-private extension LessonsView {
     
-    static func makeCollection() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout() ->> {
-            $0.minimumLineSpacing = 0
-            $0.minimumInteritemSpacing = 0
-            $0.scrollDirection = .horizontal
-        }
-        return UICollectionView(frame: .zero, collectionViewLayout: layout) ->> {
-            $0.allowsMultipleSelection = false
-            $0.backgroundColor = Color.clear
-            $0.isPagingEnabled = true
-            $0.bounces = true
-            $0.showsHorizontalScrollIndicator = false
-            $0.showsVerticalScrollIndicator = false
-        }
+    private static func makeCollection() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.allowsMultipleSelection = false
+        view.backgroundColor = Color.clear
+        view.isPagingEnabled = true
+        view.bounces = true
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        return view
     }
 }

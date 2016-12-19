@@ -9,19 +9,19 @@
 import UIKit
 import Tools
 
-class SplashViewController: ViewController {
+final class SplashViewController<Splash: SplashView>: ViewController {
 
-    fileprivate weak var contentView: SplashView?
+    private weak var contentView: Splash?
     
-    fileprivate let duration: TimeInterval = 0.75
-    fileprivate var verticalLinesAnimated = 0 {
+    private let duration: TimeInterval = 0.75
+    private var verticalLinesAnimated = 0 {
         didSet {
             if verticalLinesAnimated == verticalLines.count {
                 animateHorizontalLines()
             }
         }
     }
-    fileprivate var horizontalLinesAnimated = 0 {
+    private var horizontalLinesAnimated = 0 {
         didSet {
             if horizontalLinesAnimated == horizontalLines.count {
                 finalAnimation()
@@ -30,9 +30,9 @@ class SplashViewController: ViewController {
     }
     
     override func loadView() {
-        let contentView = SplashView(frame: UIScreen.main.bounds)
+        let contentView = Splash()
         self.contentView = contentView
-        view = contentView
+        view = contentView.content
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,17 +43,14 @@ class SplashViewController: ViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-}
 
-// MARK: - Animations
-
-fileprivate extension SplashViewController {
+    // MARK: - Animations
     
-    func startAnimation() {
+    private func startAnimation() {
         animateVerticalLines()
     }
     
-    func animateVerticalLines() {
+    private func animateVerticalLines() {
         var delay: TimeInterval = 0
         for line in verticalLines {
             animate(
@@ -65,7 +62,7 @@ fileprivate extension SplashViewController {
         }
     }
     
-    func animateHorizontalLines() {
+    private func animateHorizontalLines() {
         var delay: TimeInterval = 0
         for line in horizontalLines {
             animate(
@@ -77,7 +74,7 @@ fileprivate extension SplashViewController {
         }
     }
     
-    func animate(line: UIView,
+    private func animate(line: UIView,
                  delay: TimeInterval,
                  animation: @escaping () -> (),
                  completion: @escaping () -> ()) {
@@ -93,7 +90,7 @@ fileprivate extension SplashViewController {
         })
     }
     
-    func finalAnimation() {
+    private func finalAnimation() {
         UIView.animate(
             withDuration: 1,
             delay: 1,
@@ -116,16 +113,13 @@ fileprivate extension SplashViewController {
                 }
         })
     }
-}
 
-// MARK: - Computed properties
-
-fileprivate extension SplashViewController {
+    // MARK: - Computed properties
     
-    var verticalLines: [UIView] {
+    private var verticalLines: [UIView] {
         return contentView?.verticalLines ?? []
     }
-    var horizontalLines: [UIView] {
+    private var horizontalLines: [UIView] {
         return contentView?.horizontalLines ?? []
     }
 }

@@ -25,5 +25,4 @@ public extension String {
             context: nil)
         return outputSize.height
     }
-
 }

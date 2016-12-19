@@ -22,31 +22,25 @@ protocol SlideViewControllerAnimatorProtocol: class {
 
 // MARK: - SlideAnimator
 
-class SlideAnimator: NSObject {
+final class SlideAnimator: NSObject, UIViewControllerAnimatedTransitioning, AnimatorProtocol {
     
-    fileprivate var context: UIViewControllerContextTransitioning?
-    fileprivate weak var animatingView: UIView?
-    fileprivate weak var slideLabel: UILabel?
+    private var context: UIViewControllerContextTransitioning?
+    private weak var animatingView: UIView?
+    private weak var slideLabel: UILabel?
     
-    fileprivate var viewsToRemove: [UIView?] {
+    private var viewsToRemove: [UIView?] {
         return [animatingView, slideLabel]
     }
-}
 
-// MARK: - AnimatorProtocol
-
-extension SlideAnimator: AnimatorProtocol {
+    // MARK: - AnimatorProtocol
     
     func validate(from fromViewController: UIViewController, to toViewController: UIViewController) -> Bool {
         return
             fromViewController is SlideViewControllerAnimatorProtocol &&
             toViewController is SlideViewControllerAnimatorProtocol
     }
-}
 
-// MARK: - UIViewControllerAnimatedTransitioning
-
-extension SlideAnimator: UIViewControllerAnimatedTransitioning {
+    // MARK: - UIViewControllerAnimatedTransitioning
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.6
@@ -73,13 +67,10 @@ extension SlideAnimator: UIViewControllerAnimatedTransitioning {
                 
         })
     }
-}
 
-// MARK: - Private support
-
-fileprivate extension SlideAnimator {
+    // MARK: - Private support
     
-    func prepareToAnimation() {
+    private func prepareToAnimation() {
         container.addSubview(toViewController.mainView)
         toViewController.mainView.frame = container.bounds
         toViewController.mainView.alpha = 0
@@ -92,7 +83,7 @@ fileprivate extension SlideAnimator {
         container.backgroundColor = expand.backgroundColor
     }
     
-    func makeAnimationViews() -> (expand: UIView, slide: UIView) {
+    private func makeAnimationViews() -> (expand: UIView, slide: UIView) {
         let expandView = UIView(frame: fromRect)
         expandView.backgroundColor = fromViewController.expandViewBackgroundColor
         let slideLabel = UILabel(frame: fromRect)
@@ -105,7 +96,7 @@ fileprivate extension SlideAnimator {
         return (expandView, slideLabel)
     }
     
-    func completion(_: Bool) {
+    private func completion(_: Bool) {
         guard let context = context else { return }
         let isCancelled = context.transitionWasCancelled
         context.completeTransition(!isCancelled)
@@ -113,41 +104,38 @@ fileprivate extension SlideAnimator {
         toViewController.transitionView?.isHidden = false
         fromViewController.transitionView?.isHidden = false
     }
-}
 
-// MARK: - Private computed properties
-
-fileprivate extension SlideAnimator {
+    // MARK: - Private computed properties
     
-    var container: UIView {
+    private var container: UIView {
         guard let view = context?.containerView else { fatalError("Container view is nil!") }
         return view
     }
-    var fromViewController: SlideViewControllerAnimatorProtocol {
+    private var fromViewController: SlideViewControllerAnimatorProtocol {
         guard let viewController = context?.viewController(
             forKey: UITransitionContextViewControllerKey.from) as? SlideViewControllerAnimatorProtocol else {
                 fatalError("From VC in nil!")
         }
         return viewController
     }
-    var toViewController: SlideViewControllerAnimatorProtocol {
+    private var toViewController: SlideViewControllerAnimatorProtocol {
         guard let viewController = context?.viewController(
             forKey: UITransitionContextViewControllerKey.to) as? SlideViewControllerAnimatorProtocol else {
                 fatalError("To VC in nil!")
         }
         return viewController
     }
-    var fromRect: CGRect {
+    private var fromRect: CGRect {
         return fromViewController.transitionView?.rect(in: container) ?? .zero
     }
-    var toRect: CGRect {
+    private var toRect: CGRect {
         return toViewController.transitionView?.rect(in: container) ?? .zero
     }
 }
 
 // MARK: - Private UIView extension
 
-fileprivate extension UIView {
+private extension UIView {
     
     func rect(in view: UIView) -> CGRect? {
         return superview?.convert(frame, to: view)

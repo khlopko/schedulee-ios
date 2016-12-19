@@ -10,6 +10,27 @@ import UIKit
 import CustomUI
 import Tools
 
+protocol View: class {
+    
+    associatedtype ViewClass: UIView = Self
+    var content: ViewClass { get }
+    
+    init()
+}
+
+extension View {
+    
+    var content: ViewClass {
+        return self as! ViewClass
+    }
+}
+
+protocol SplashView: View {
+    
+    var verticalLines: [UIView] { get }
+    var horizontalLines: [UIView] { get }
+}
+
 fileprivate struct Constant {
     
     static let verticalLineDistances: [CGFloat] = [50, 75, 175]
@@ -17,24 +38,24 @@ fileprivate struct Constant {
     static let horizontalLineDistance: CGFloat = 75
 }
 
-class SplashView: UIView {
+final class SplashViewImplementation: UIView, SplashView {
 
     let verticalLines = [
-        SplashView.makeLine(),
-        SplashView.makeLine(),
-        SplashView.makeLine(),
+        SplashViewImplementation.makeLine(),
+        SplashViewImplementation.makeLine(),
+        SplashViewImplementation.makeLine(),
     ]
     let horizontalLines = [
-        SplashView.makeLine(),
-        SplashView.makeLine(),
-        SplashView.makeLine(),
-        SplashView.makeLine(),
+        SplashViewImplementation.makeLine(),
+        SplashViewImplementation.makeLine(),
+        SplashViewImplementation.makeLine(),
+        SplashViewImplementation.makeLine(),
     ]
     private var previousBounds: CGRect = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.mainDark
+        backgroundColor = Color.unnamed14
         verticalLines.forEach(addSubview)
         horizontalLines.forEach(addSubview)
     }
@@ -52,11 +73,8 @@ class SplashView: UIView {
         layoutVerticalLines()
         layoutHorizontalLines()
     }
-}
-
-private extension SplashView {
     
-    func layoutVerticalLines() {
+    private func layoutVerticalLines() {
         var prevFrame: CGRect?
         var x: CGFloat = 0
         for (line, distance) in zip(verticalLines, Constant.verticalLineDistances) {
@@ -66,7 +84,7 @@ private extension SplashView {
         }
     }
     
-    func layoutHorizontalLines() {
+    private func layoutHorizontalLines() {
         var prevFrame: CGRect?
         var y: CGFloat = 0
         for line in horizontalLines {
@@ -77,13 +95,10 @@ private extension SplashView {
             prevFrame = line.frame
         }
     }
-}
-
-private extension SplashView {
     
-    static func makeLine() -> UIView {
-        return UIView() ->> {
-            $0.backgroundColor = Color.mainLight
-        }
+    private static func makeLine() -> UIView {
+        let view = UIView()
+        view.backgroundColor = Color.unnamed11
+        return view
     }
 }

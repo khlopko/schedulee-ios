@@ -13,12 +13,9 @@ final class Router {
     
     let mainWindow = UIWindow(frame: UIScreen.main.bounds)
     
-    fileprivate var lastRouteType: RouteType?
-}
+    private var lastRouteType: RouteType?
 
-// MARK: - Main window
-
-extension Router {
+    // MARK: - Main window
     
     func createMainWindow(rootViewController: ViewController?  = nil) {
         mainWindow.backgroundColor = .white
@@ -38,9 +35,6 @@ extension Router {
             animations: { self.mainWindow.rootViewController = navigation },
             completion: nil)
     }
-}
-
-extension Router {
     
     func push(route: Route, from navigation: NavigationController?) {
         let viewController = route.viewController
@@ -55,7 +49,9 @@ extension Router {
     }
     
     func back() {
-        guard let lastRouteType = lastRouteType else { return }
+        guard let lastRouteType = lastRouteType else {
+            return
+        }
         switch lastRouteType {
         case .push(let navigation):
             _ = navigation?.popViewController(animated: true)
@@ -65,6 +61,8 @@ extension Router {
         self.lastRouteType = nil
     }
 }
+
+// MARK: - Route
 
 extension Router {
     

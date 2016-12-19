@@ -24,13 +24,13 @@ class HomeViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView?.delegate = self
-        WebClient.instance.loadGroups(
+        GroupsConfiguration().task.resume(
             success: { groups in
                 log.d(groups)
             },
             failure: { error in
                 log.e(error)
-        })
+            })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +41,10 @@ class HomeViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
 }
 

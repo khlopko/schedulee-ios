@@ -9,7 +9,7 @@
 import CustomUI
 import Tools
 
-class TimetableViewController: ViewController {
+final class TimetableViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,27 +19,21 @@ class TimetableViewController: ViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-}
 
-// MARK: - Actions
-
-extension TimetableViewController {
+    // MARK: - Actions
     
     func handle(back: UIButton) {
         router?.back()
     }
-}
 
-// MARK: - Private support
-
-private extension TimetableViewController {
+    // MARK: - Private support
     
-    func initView() {
+    private func initView() {
         view.backgroundColor = .white
         setupNavigation()
     }
     
-    func setupNavigation() {
+    private func setupNavigation() {
         let backgroundColor = Color.doublePearlLusta
         let font = Font.regular.withSize(21)
         let color = Color.bossanova

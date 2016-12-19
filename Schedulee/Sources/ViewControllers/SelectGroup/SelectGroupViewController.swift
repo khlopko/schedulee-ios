@@ -53,18 +53,16 @@ final class SelectGroupViewController: ViewController {
         navigationItem.title = "Выберите группу"
         navigationController?.navigationBar.decorateTitle(
             font: Font.regular.withSize(21), color: Color.mainDark)
-        let save = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44)) ->> {
-            $0.setTitle("Сохранить", for: .normal)
-            $0.sizeToFit()
-            $0.setTitleColor(Color.mainDark, for: .normal)
-            $0.titleLabel?.font = Font.regular.withSize(14)
-        }
+        let save = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        save.setTitle("Сохранить", for: .normal)
+        save.sizeToFit()
+        save.setTitleColor(Color.mainDark, for: .normal)
+        save.titleLabel?.font = Font.regular.withSize(14)
         save.addTarget(self, action: #selector(handle(save:)), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: save)
         navigationItem.rightBarButtonItem?.isEnabled = false
-        
         indicator?.startAnimating()
-        WebClient.instance.loadGroups(
+        GroupsConfiguration().task.resume(
             success: { [weak self] groups in
                 self?.groups = groups
                 self?.table?.reloadData()

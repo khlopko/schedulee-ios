@@ -27,12 +27,14 @@ class LectorsViewController: ViewController {
         super.viewDidLoad()
         initView()
         table?.contentInset.top = 64
-        WebClient.instance.loadLectors(
+        LectorsConfiguration().task.resume(
             success: { [weak self] in
                 self?.lectors = $0
                 self?.table?.reloadData()
             },
-            failure: { log.e($0) })
+            failure: {
+                log.e($0)
+            })
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

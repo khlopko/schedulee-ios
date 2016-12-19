@@ -38,13 +38,14 @@ class LessonsViewController: ViewController {
         super.viewDidLoad()
         initView()
         indicator?.startAnimating()
-        WebClient.instance.loadLessons(
-            groupId: UserSettings.default.currentGroupID,
+        LessonsConfiguration(groupID: UserSettings.default.currentGroupID).task.resume(
             success: { [weak self] lessons in
                 self?.handleLessons(lessons)
                 self?.indicator?.stopAnimating()
             },
-            failure: { log.e($0) })
+            failure: {
+                log.e($0)
+            })
     }
     
     private func handleLessons(_ lessons: [Lesson]) {
@@ -142,10 +143,9 @@ private extension LessonsViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.bossanova
+        navigationController?.navigationBar.barTintColor = Color.unnamed15
         navigationController?.navigationBar.decorateTitle(
-            font: Font.regular.withSize(21),
-            color: Color.doublePearlLusta)
+            font: Font.regular.withSize(21), color: Color.unnamed14)
         navigationItem.setLeftButton(
             withTitle: "Назад", target: self, action: #selector(handle(back:)))
     }

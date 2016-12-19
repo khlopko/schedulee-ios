@@ -21,16 +21,16 @@ fileprivate struct Constant {
 
 class DayCell: UICollectionViewCell {
     
-    fileprivate let scroll = UIScrollView() ->> DayCell.initialize(scroll:)
+    fileprivate let scroll = DayCell.makeScroll()
     fileprivate let items = [
-        LessonView() ->> DayCell.initialize(lessonView:),
-        LessonView() ->> DayCell.initialize(lessonView:),
-        LessonView() ->> DayCell.initialize(lessonView:),
-        LessonView() ->> DayCell.initialize(lessonView:),
-        LessonView() ->> DayCell.initialize(lessonView:),
-        LessonView() ->> DayCell.initialize(lessonView:),
+        DayCell.makeLessonView(),
+        DayCell.makeLessonView(),
+        DayCell.makeLessonView(),
+        DayCell.makeLessonView(),
+        DayCell.makeLessonView(),
+        DayCell.makeLessonView(),
     ]
-    private let emptyLabel = UILabel() ->> DayCell.initialize(emptyLabel:)
+    private let emptyLabel = DayCell.makeEmptyLabel()
     
     fileprivate var lessons: [Lesson] = []
     
@@ -91,23 +91,29 @@ class DayCell: UICollectionViewCell {
 
 private extension DayCell {
     
-    static func initialize(scroll: UIScrollView) {
+    static func makeScroll() -> UIScrollView {
+        let scroll = UIScrollView()
         scroll.backgroundColor = Color.clear
+        return scroll
     }
     
-    static func initialize(lessonView: LessonView) {
+    static func makeLessonView() -> LessonView {
+        let lessonView = LessonView()
         lessonView.isHidden = true
         lessonView.viewModel = CurrentLessonViewModel(
-            titleColor: Color.bossanova, inscriptionColor: Color.eastBay,
-            backgroundColor: Color.doublePearlLusta , progressColor: Color.zanah,
+            titleColor: Color.unnamed15, inscriptionColor: Color.unnamed15,
+            backgroundColor: Color.unnamed13 , progressColor: Color.unnamed15,
             titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
+        return lessonView
     }
     
-    static func initialize(emptyLabel: UILabel) {
+    static func makeEmptyLabel() -> UILabel {
+        let emptyLabel = UILabel()
         emptyLabel.isHidden = true
         emptyLabel.font = Font.regular.withSize(19)
-        emptyLabel.textColor = Color.beige.withAlphaComponent(0.85)
+        emptyLabel.textColor = Color.unnamed14.withAlphaComponent(0.85)
         emptyLabel.textAlignment = .center
         emptyLabel.text = "Занятий нет."
+        return emptyLabel
     }
 }

@@ -24,7 +24,6 @@
 		A223FDA61D5F63BF00B6ECEF /* Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = A223FD961D5F63BF00B6ECEF /* Tools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A223FDA91D5F63BF00B6ECEF /* Tools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A223FD941D5F63BF00B6ECEF /* Tools.framework */; };
 		A223FDAA1D5F63BF00B6ECEF /* Tools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A223FD941D5F63BF00B6ECEF /* Tools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A223FDB31D5F63E000B6ECEF /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223FDB21D5F63E000B6ECEF /* Global.swift */; };
 		A223FDB51D5F6B9800B6ECEF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223FDB41D5F6B9800B6ECEF /* HomeViewController.swift */; };
 		A223FDB71D5F7C1000B6ECEF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223FDB61D5F7C1000B6ECEF /* Color.swift */; };
 		A223FDB91D5F907300B6ECEF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223FDB81D5F907300B6ECEF /* HomeView.swift */; };
@@ -216,7 +215,6 @@
 		A223FD941D5F63BF00B6ECEF /* Tools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A223FD961D5F63BF00B6ECEF /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		A223FD971D5F63BF00B6ECEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A223FDB21D5F63E000B6ECEF /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		A223FDB41D5F6B9800B6ECEF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A223FDB61D5F7C1000B6ECEF /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		A223FDB81D5F907300B6ECEF /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -414,7 +412,6 @@
 		A223FDB11D5F63D700B6ECEF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A223FDB21D5F63E000B6ECEF /* Global.swift */,
 				A223FE6D1D5FFADC00B6ECEF /* String+bounds.swift */,
 				A2C025921D65AC00001865EC /* DateDecorator.swift */,
 				A2C025961D65B881001865EC /* Logger.swift */,
@@ -995,7 +992,6 @@
 			files = (
 				A2E713951D68328A00B5F6C3 /* Cancellable.swift in Sources */,
 				A2C025931D65AC00001865EC /* DateDecorator.swift in Sources */,
-				A223FDB31D5F63E000B6ECEF /* Global.swift in Sources */,
 				A223FE6E1D5FFADC00B6ECEF /* String+bounds.swift in Sources */,
 				A25DE5631DAC1268004EA46F /* StringKey.swift in Sources */,
 				A25DE5651DAC12A0004EA46F /* Parse.swift in Sources */,
