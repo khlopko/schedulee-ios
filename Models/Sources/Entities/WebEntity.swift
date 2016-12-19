@@ -9,5 +9,5 @@
 import Tools
 
 public protocol WebEntity {
-    init(_ json: JSON)
+    init(_ data: Any?)
 }

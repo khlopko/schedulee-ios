@@ -9,16 +9,41 @@
 import Tools
 
 public enum Result<Data> {
-    
+
     case success(Data)
     case failure(Error)
+    
+    public var data: Data? {
+        switch self {
+        case let .success(data):
+            return data
+        case .failure(_):
+            return nil
+        }
+    }
+    public var error: Error? {
+        switch self {
+        case .success(_):
+            return nil
+        case let .failure(error):
+            return error
+        }
+    }
+    public var isSuccess: Bool {
+        if case .success(_) = self {
+            return true
+        }
+        return false
+    }
+    public var isFailure: Bool {
+        return !isSuccess
+    }
 }
 
 // MARK: - Map operator
 
 precedencegroup Map {
     associativity: left
-    higherThan: Specify
 }
 
 infix operator => : Map

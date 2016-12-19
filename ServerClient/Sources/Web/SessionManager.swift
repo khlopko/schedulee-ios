@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SessionManager {
+public final class SessionManager {
     
     static let `default` = SessionManager()
     

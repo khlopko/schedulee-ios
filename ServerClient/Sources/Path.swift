@@ -11,12 +11,12 @@ import Models
 
 private let serverURLString = "http://localhost:5000/api/"
 
-enum Path {
+public enum Path {
     
     case groups
     case lectors
     case lector(id: Int)
-    case lessons(groupId: Int)
+    case lessons(groupID: Int)
     
     var full: String {
         return serverURLString + route

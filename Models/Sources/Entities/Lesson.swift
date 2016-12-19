@@ -18,11 +18,12 @@ public struct Lesson: WebEntity {
     public let weekNumber: Int
     public let position: Int
     
-    public init(_ json: JSON) {
+    public init(_ data: Any?) {
+        let json: JSON = parse(data)
         id = parse(json[.id])
         title = parse(json[.title])
         room = parse(json[.room])
-        lector = Lector(parse(json[.lector]))
+        lector = Lector(json[.lector])
         weekNumber = parse(json[.weekNumber])
         position = parse(json[.position])
         guard let dayOfWeek = DayOfWeek(rawValue: parse(json[.dayOfWeek])) else {

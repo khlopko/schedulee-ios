@@ -10,6 +10,7 @@ import Tools
 
 public enum WebKey: String {
     
+    case course = "course"
     case dayOfWeek = "dayOfWeek"
     case firstname = "firstname"
     case groups = "groups"

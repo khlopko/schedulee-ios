@@ -8,7 +8,7 @@
 
 import Tools
 
-open class DataRequest {
+open class DataRequest: Request {
     
     private(set) var task: URLSessionTask?
     var request: URLRequest? { return task?.originalRequest }
@@ -22,14 +22,12 @@ open class DataRequest {
     var parameters: [String: String] = [:]
     var headers: [String: String] = [:]
     
-    var resultClosure: ((Result<JSON>) -> ())?
-    
     init(session: URLSession = SessionManager.default.session, urlString: String) {
         self.session = session
         self.urlString = urlString
     }
     
-    func resume() {
+    public func resume(completion: @escaping (Result<Any>) -> ()) {
         guard let url = URL(string: urlString) else {
             fatalError("Incorrect URL string: \(urlString)")
         }
@@ -39,20 +37,20 @@ open class DataRequest {
         headers["Content-Type"] = contentType.rawValue
         request.allHTTPHeaderFields = headers
         task = session.dataTask(with: request) { [weak self] data, _, error in
-            self?.handleCompletion(data: data, error: error)
+            self?.handleCompletion(data: data, error: error, completion: completion)
         }
         task?.resume()
     }
     
-    func cancel() {
+    public func cancel() {
         task?.cancel()
         task = nil
     }
-    
-    private func handleCompletion(data: Data?, error: Error?) {
-        jsonResult(data: data, error: error) { [weak self] result in
+        
+    private func handleCompletion(data: Data?, error: Error?, completion: @escaping (Result<Any>) -> ()) {
+        jsonResult(data: data, error: error) { result in
             DispatchQueue.main.async {
-                self?.resultClosure?(result)
+                completion(result)
             }
         }
     }

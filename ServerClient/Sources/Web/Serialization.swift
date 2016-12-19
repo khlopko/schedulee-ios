@@ -16,14 +16,14 @@ enum SerializationError: Error {
 
 protocol ResponseSerializerProtocol {
     associatedtype Serialized
-    var serialize: (HTTPURLResponse?, Data?, Error?) -> (Result<Serialized>) { get }
+    var serialize: (HTTPURLResponse?, Data?, Error?) -> Result<Serialized> { get }
 }
 
 struct ResponseSerializer<Value>: ResponseSerializerProtocol {
     
     typealias Serialized = Value
     
-    var serialize: (HTTPURLResponse?, Data?, Error?) -> (Result<Value>)
+    var serialize: (HTTPURLResponse?, Data?, Error?) -> Result<Value>
     
     init(_ serialize: @escaping (HTTPURLResponse?, Data?, Error?) -> (Result<Value>)) {
         self.serialize = serialize
@@ -32,8 +32,8 @@ struct ResponseSerializer<Value>: ResponseSerializerProtocol {
 
 extension DataRequest {
     
-    func jsonResult(data: Data?, error: Error?, completion: (Result<JSON>) -> ()) {
-        let serializer = ResponseSerializer<JSON> { response, data, error in
+    func jsonResult(data: Data?, error: Error?, completion: (Result<Any>) -> ()) {
+        let serializer = ResponseSerializer<Any> { response, data, error in
             if let error = error {
                 return Result.failure(error)
             }
@@ -41,11 +41,7 @@ extension DataRequest {
             do {
                 let object = try JSONSerialization
                     .jsonObject(with: data, options: [.mutableContainers, .allowFragments])
-                if let json = object as? JSON {
-                    return Result.success(json)
-                } else {
-                    return Result.failure(SerializationError.dataEmptyOrNil)
-                }
+                return Result.success(object)
             } catch let excpError {
                 return Result.failure(excpError)
             }

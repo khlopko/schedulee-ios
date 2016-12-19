@@ -12,9 +12,12 @@ public struct Group: WebEntity {
     
     public let id: Int
     public let title: String
+    public let course: Int
     
-    public init(_ json: JSON) {
+    public init(_ data: Any?) {
+        let json: JSON = parse(data)
         id = parse(json[.id])
         title = parse(json[.title])
+        course = parse(json[.course])
     }
 }

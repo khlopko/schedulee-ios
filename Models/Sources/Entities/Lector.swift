@@ -15,7 +15,8 @@ public struct Lector: WebEntity {
     public let lastname: String
     public let sorname: String
     
-    public init(_ json: JSON) {
+    public init(_ data: Any?) {
+        let json: JSON = parse(data)
         id = parse(json[.id])
         firstname = parse(json[.firstname])
         lastname = parse(json[.lastname])

@@ -14,8 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate let router = Router()
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        router.createMainWindow(rootViewController: SplashViewController())
+                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        router.createMainWindow(rootViewController: SplashViewController<SplashViewImplementation>())
         return true
     }
 }
@@ -26,4 +26,3 @@ extension UIViewController {
         return (UIApplication.shared.delegate as? AppDelegate)?.router
     }
 }
-
