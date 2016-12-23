@@ -10,7 +10,7 @@ import Tools
 
 public extension UINavigationBar {
     
-    func decorateTitle(font: UIFont, color: UIColor){
+    func decorateTitle(font: UIFont, color: UIColor) {
         titleTextAttributes = [
             NSFontAttributeName: font,
             NSForegroundColorAttributeName: color,
@@ -23,7 +23,7 @@ public extension UINavigationBar {
 public extension UINavigationItem {
 
     func setLeftButton(withTitle title: String,
-                       style: Style = .light,
+                       style: Style = .dark,
                        target: AnyObject,
                        action: Selector) {
         leftBarButtonItem = UIBarButtonItem(customView:
@@ -31,7 +31,7 @@ public extension UINavigationItem {
     }
     
     func setRightButton(withTitle title: String,
-                        style: Style = .light,
+                        style: Style = .dark,
                         target: AnyObject, 
                         action: Selector) {
         rightBarButtonItem = UIBarButtonItem(customView:
@@ -50,8 +50,8 @@ public extension UINavigationItem {
         
         var color: UIColor {
             switch self {
-            case .dark: return Color.eastBay
-            case .light: return Color.beige
+            case .dark: return .unnamed14
+            case .light: return .unnamed15
             }
         }
     }

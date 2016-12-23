@@ -13,24 +13,19 @@ import Tools
 
 class HomeViewController: ViewController {
     
-    fileprivate weak var contentView: HomeView?
+    fileprivate var contentView: HomeView {
+        return view as! HomeView
+    }
     
     override func loadView() {
-        let contentView = HomeView()
-        self.contentView = contentView
-        view = contentView
+        view = HomeView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView?.delegate = self
-        GroupsConfiguration().task.resume(
-            success: { groups in
-                log.d(groups)
-            },
-            failure: { error in
-                log.e(error)
-            })
+        contentView.header.settings.addTarget(
+            self, action: #selector(handle(settings:)), for: .touchUpInside)
+        contentView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,13 +33,14 @@ class HomeViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+    }
+    
+    // MARK: - Actions
+    
+    func handle(settings: UIButton) {
+        router?.present(route: .settings)
     }
 }
 
@@ -53,15 +49,15 @@ class HomeViewController: ViewController {
 extension HomeViewController: HomeViewDelegate {
     
     func handleTimetable(onHomeView view: HomeView) {
-        router?.push(route: .timetable, from: navigationController)
+        router?.push(route: .timetable)
     }
     
     func handleLectors(onHomeView view: HomeView) {
-        router?.push(route: .lectors, from: navigationController)
+        router?.push(route: .lectors)
     }
     
     func handleCurrentLesson(onHomeView view: HomeView) {
-        router?.push(route: .lessons(current: nil), from: navigationController)
+        router?.push(route: .lessons(current: nil))
     }
 }
 
@@ -70,6 +66,6 @@ extension HomeViewController: HomeViewDelegate {
 private extension HomeViewController {
     
     var currentLesson: LessonView? {
-        return contentView?.currentLesson
+        return contentView.currentLesson
     }
 }

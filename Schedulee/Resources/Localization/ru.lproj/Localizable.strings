@@ -1,0 +1,48 @@
+
+// B
+
+Back = "Назад";
+
+// F
+
+Friday = "Пятница";
+
+// L
+
+Lectors = "Лекторы";
+
+// M
+
+Monday = "Понедельник";
+
+// N
+
+NoLessonsText = "Нет занятий";
+Now = "Сейчас";
+
+// S
+
+Saturday = "Суббота";
+Save = "Сохранить";
+SelectGroupTitle = "Выберите группу";
+Sunday = "Воскресенье";
+
+// T
+
+Thursday = "Четверг";
+Timetable = "Рассписание";
+Today = "Сегодня";
+Tomorrow = "Завтра";
+Tuesday = "Вторник";
+
+// U
+
+UndefinedErrorText = "Упс, что-то пошло не так... Попробуйте еще раз позже";
+
+// W
+
+Wednesday = "Среда";
+
+// Y
+
+Yesterday = "Вчера";

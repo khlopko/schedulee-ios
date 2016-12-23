@@ -17,6 +17,7 @@ public struct Lesson: WebEntity {
     public let dayOfWeek: DayOfWeek
     public let weekNumber: Int
     public let position: Int
+    public let type: Type
     
     public init(_ data: Any?) {
         let json: JSON = parse(data)
@@ -30,8 +31,14 @@ public struct Lesson: WebEntity {
             fatalError("Field day of week is empty!")
         }
         self.dayOfWeek = dayOfWeek
+        guard let type = Type(rawValue: parse(json[.type])) else {
+            fatalError("Type is empty!")
+        }
+        self.type = type
     }
 }
+
+// MARK: - DayOfWeek
 
 public extension Lesson {
     
@@ -48,5 +55,17 @@ public extension Lesson {
         public static let all: [DayOfWeek] = [
             .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday,
         ]
+    }
+}
+
+// MARK: - Type
+
+public extension Lesson {
+    
+    enum `Type`: Int {
+        
+        case lecture = 0
+        case seminar = 1
+        case practical = 2
     }
 }

@@ -10,6 +10,7 @@ import CustomUI
 import Models
 import ServerClient
 import Tools
+import Localization
 
 class LessonsViewController: ViewController {
 
@@ -39,13 +40,19 @@ class LessonsViewController: ViewController {
         initView()
         indicator?.startAnimating()
         LessonsConfiguration(groupID: UserSettings.default.currentGroupID).task.resume(
-            success: { [weak self] lessons in
-                self?.handleLessons(lessons)
-                self?.indicator?.stopAnimating()
+            success: { lessons in
+                self.indicator?.stopAnimating()
+                self.handleLessons(lessons)
             },
-            failure: {
-                log.e($0)
+            failure: { error in
+                self.indicator?.stopAnimating()
+                ErrorNotification.show(with: error)
             })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func handleLessons(_ lessons: [Lesson]) {
@@ -60,11 +67,7 @@ class LessonsViewController: ViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    deinit {
-        log.d("exec")
+        return .default
     }
 }
 
@@ -113,7 +116,15 @@ extension LessonsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-let dayDescr = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+let dayDescr = [
+    Localized.monday,
+    Localized.tuesday,
+    Localized.wednesday,
+    Localized.thursday,
+    Localized.friday,
+    Localized.saturday,
+    Localized.sunday,
+]
 
 // MARK: - Private computed properties
 
@@ -143,10 +154,10 @@ private extension LessonsViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.unnamed15
+        navigationController?.navigationBar.barTintColor = .unnamed15
         navigationController?.navigationBar.decorateTitle(
-            font: Font.regular.withSize(21), color: Color.unnamed14)
+            font: Font.regular.withSize(21), color: .unnamed14)
         navigationItem.setLeftButton(
-            withTitle: "Назад", target: self, action: #selector(handle(back:)))
+            withTitle: .back, target: self, action: #selector(handle(back:)))
     }
 }

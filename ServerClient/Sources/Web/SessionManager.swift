@@ -15,10 +15,13 @@ public final class SessionManager {
     let session: URLSession
     
     private static let defaultHeaders: [String: String] = {
-        let acceptLanguage = Locale.preferredLanguages.prefix(6).enumerated().map { index, languageCode in
-            let quality = 1.0 - (Double(index) * 0.1)
+        let languages = Locale.preferredLanguages.prefix(6).enumerated()
+        let mapped: [String] = languages.map { index, languageCode in
+            let d = Double(index)
+            let quality = 1.0 - (d * 0.1)
             return "\(languageCode);q=\(quality)"
-            }.joined(separator: ", ")
+        }
+        let acceptLanguage = mapped.joined(separator: ", ")
         return [
             "Accept-Language": acceptLanguage,
         ]

@@ -10,6 +10,7 @@ import CustomUI
 import Models
 import ServerClient
 import Tools
+import Localization
 
 class LectorsViewController: ViewController {
     
@@ -32,13 +33,14 @@ class LectorsViewController: ViewController {
                 self?.lectors = $0
                 self?.table?.reloadData()
             },
-            failure: {
-                log.e($0)
+            failure: { error in
+                ErrorNotification.show(with: error)
             })
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
@@ -93,15 +95,15 @@ private extension LectorsViewController {
     }
     
     func setupNavigation() {
-        let backgroundColor = Color.zanah
-        let title = Text.lectors.rawValue
+        let backgroundColor: UIColor = .zanah
+        let title = Localized.lectors
         let font = Font.regular.withSize(21)
-        let color = Color.beige
+        let color: UIColor = .beige
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = backgroundColor
         navigationController?.navigationBar.decorateTitle(font: font, color: color)
         navigationItem.title = title
         navigationItem.setLeftButton(
-            withTitle: "Назад", style: .light, target: self, action: #selector(handle(back:)))
+            withTitle: .back, style: .light, target: self, action: #selector(handle(back:)))
     }
 }

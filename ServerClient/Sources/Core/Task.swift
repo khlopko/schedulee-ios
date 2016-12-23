@@ -13,8 +13,9 @@ public final class Task<Value>: Cancellable {
     public typealias Success = (Value) -> ()
     public typealias Failure = (Error) -> ()
     
+    private let map: (Any?) -> Value
+
     private var request: Request?
-    private let map: (Any?) -> (Value)
     private var success: Success?
     private var failure: Failure?
     

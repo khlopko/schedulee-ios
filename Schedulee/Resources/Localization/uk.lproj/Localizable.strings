@@ -1,0 +1,48 @@
+
+// B
+
+Back = "Повернутися";
+
+// F
+
+Friday = "П'ятниця";
+
+// L
+
+Lectors = "Лектори";
+
+// M
+
+Monday = "Понеділок";
+
+// N
+
+NoLessonsText = "Немає занять";
+Now = "Зараз";
+
+// S
+
+Saturday = "Субота";
+Save = "Зберегти";
+SelectGroupTitle = "Виберіть групу";
+Sunday = "Неділя";
+
+// T
+
+Thursday = "Четвер";
+Timetable = "Розклад";
+Today = "Сьогодні";
+Tomorrow = "Завтра";
+Tuesday = "Вівторок";
+
+// U
+
+UndefinedErrorText = "На жаль, трапилось щось непередбачуване... Спробуйте знову пізніше";
+
+// W
+
+Wednesday = "Середа";
+
+// Y
+
+Yesterday = "Вчора";

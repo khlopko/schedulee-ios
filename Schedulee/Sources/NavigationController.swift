@@ -13,7 +13,7 @@ class NavigationController: UINavigationController {
     fileprivate let slideAnimator = SlideAnimator()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return viewControllers.last?.preferredStatusBarStyle ?? .lightContent
+        return viewControllers.last?.preferredStatusBarStyle ?? .default
     }
     
     override init(rootViewController: UIViewController) {
@@ -34,6 +34,11 @@ class NavigationController: UINavigationController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        router?.currentNavigation = self
     }
 }
 

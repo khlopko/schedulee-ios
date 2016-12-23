@@ -8,6 +8,7 @@
 
 import CustomUI
 import Tools
+import Localization
 
 final class TimetableViewController: ViewController {
     
@@ -34,15 +35,15 @@ final class TimetableViewController: ViewController {
     }
     
     private func setupNavigation() {
-        let backgroundColor = Color.doublePearlLusta
+        let backgroundColor: UIColor = .doublePearlLusta
         let font = Font.regular.withSize(21)
-        let color = Color.bossanova
-        let text = Text.timetable.rawValue
+        let color: UIColor = .bossanova
+        let text = Localized.timetable
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = backgroundColor
         navigationController?.navigationBar.decorateTitle(font: font, color: color)
         navigationItem.title = text
         navigationItem.setLeftButton(
-            withTitle: "Назад", style: .dark, target: self, action: #selector(handle(back:)))
+            withTitle: .back, style: .dark, target: self, action: #selector(handle(back:)))
     }
 }

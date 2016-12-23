@@ -9,24 +9,25 @@
 import CustomUI
 import Models
 import Tools
+import Localization
 
 fileprivate struct Constant {
     
     static let inset: CGFloat = 20
     static let smallInset: CGFloat = 10
-    static let nowText = "сейчас".uppercased()
-    static let tomorrowText = "завтра".uppercased()
+    static let nowText = Localized.now.uppercased()
+    static let tomorrowText = Localized.tomorrow.uppercased()
 }
 
 class LessonView: UIView {
 
     private let titleLabel = LessonView.makeTitleLabel()
-    private let roomLabel = LessonView.makeRoomLabel()
-    private let lectorLabel = LessonView.makeLectorLabel()
-    private let startTime = LessonView.makePeriodLabel()
-    private let endTime = LessonView.makePeriodLabel()
-    private let indicatorLabel = LessonView.makeIndicatorLabel()
-    private let progressLine = LessonView.makeProgressLine()
+    private let roomLabel = ViewFactory.Label.make(textColor: .beige)
+    private let lectorLabel = ViewFactory.Label.make(textColor: .beige)
+    private let startTime = ViewFactory.Label.make(textColor: .beige)
+    private let endTime = ViewFactory.Label.make(textColor: .beige)
+    private let indicatorLabel = ViewFactory.Label.make(text: Constant.nowText, textColor: .beige)
+    private let progressLine: UIView = ViewFactory.make(filledWith: .doublePearlLusta)
     private let lineRounder = LessonView.makeLineRounder()
 
     var viewModel: CurrentLessonViewModel? {
@@ -51,7 +52,7 @@ class LessonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.white
+        backgroundColor = .white
         all.forEach(addSubview)
         progressLine.addSubview(lineRounder)
     }
@@ -113,19 +114,16 @@ class LessonView: UIView {
     }
     
     private func layoutProgressLine() {
-//        let pastPercents = CGFloat(lesson?.pastPercents ?? 0)
-//        let height: CGFloat = 20
-//        let side = pastPercents > 0 ? height : 0
-//        progressLine.frame = CGRect(
-//            x: 0,
-//            y: bounds.height - height,
-//            width: bounds.width * pastPercents,
-//            height: height)
-//        lineRounder.frame = CGRect(
-//            x: progressLine.frame.width - height * 0.5,
-//            y: 0,
-//            width: side,
-//            height: side)
+        let pastPercents: CGFloat = 0 //CGFloat(lesson?.pastPercents ?? 0)
+        let height: CGFloat = 20
+        let side = pastPercents > 0 ? height : 0
+        progressLine.frame = CGRect(
+            x: 0,
+            y: bounds.height - height,
+            width: bounds.width * pastPercents,
+            height: height)
+        lineRounder.frame = CGRect(
+            x: progressLine.frame.width - height * 0.5, y: 0, width: side, height: side)
     }
     
     private func layoutStartEndTime() {
@@ -172,47 +170,15 @@ class LessonView: UIView {
     // MARK: - Init subviews
     
     private static func makeTitleLabel() -> UILabel {
-        let titleLabel = UILabel()
-        titleLabel.textColor = Color.doublePearlLusta
+        let titleLabel = ViewFactory.Label.make(textColor: .doublePearlLusta)
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
         return titleLabel
     }
     
-    private static func makeRoomLabel() -> UILabel {
-        let roomLabel = UILabel()
-        roomLabel.textColor = Color.beige
-        return roomLabel
-    }
-    
-    private static func makeLectorLabel() -> UILabel {
-        let lectorLabel = UILabel()
-        lectorLabel.textColor = Color.beige
-        return lectorLabel
-    }
-    
-    private static func makePeriodLabel() -> UILabel {
-        let periodLabel = UILabel()
-        periodLabel.textColor = Color.beige
-        return periodLabel
-    }
-    
-    private static func makeIndicatorLabel() -> UILabel {
-        let indicatorLabel = UILabel()
-        indicatorLabel.textColor = Color.beige
-        indicatorLabel.text = Constant.nowText
-        return indicatorLabel
-    }
-    
-    private static func makeProgressLine() -> UIView {
-        let progressLine = UIView()
-        progressLine.backgroundColor = Color.doublePearlLusta
-        return progressLine
-    }
-    
     private static func makeLineRounder() -> CircleView {
         let lineRounder = CircleView()
-        lineRounder.fillColor = Color.doublePearlLusta
+        lineRounder.fillColor = .doublePearlLusta
         return lineRounder
     }
 }

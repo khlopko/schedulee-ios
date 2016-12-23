@@ -15,7 +15,7 @@ final class SelectCell: UITableViewCell {
         didSet {
             textLabel?.text = group?.title
             textLabel?.font = Font.regular.withSize(16)
-            textLabel?.textColor = Color.secondaryDark
+            textLabel?.textColor = .secondaryDark
         }
     }
     
@@ -30,7 +30,7 @@ final class SelectCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        contentView.backgroundColor = selected ? Color.secondaryDark : .clear
-        textLabel?.textColor = selected ? Color.mainLight : Color.secondaryDark
+        contentView.backgroundColor = selected ? .secondaryDark : .clear
+        textLabel?.textColor = selected ? .mainLight : .secondaryDark
     }
 }

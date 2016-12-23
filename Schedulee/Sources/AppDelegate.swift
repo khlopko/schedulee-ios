@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CustomUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        router.createMainWindow(rootViewController: SplashViewController<SplashViewImplementation>())
+        ErrorNotification.isAutohideEnabled = true
+        ErrorNotification.showTimeInterval = 7
+        if UserSettings.default.isAnimatedSplash {
+            UserSettings.default.isAnimatedSplash = false
+        }
+        let viewController = UserSettings.default.isAnimatedSplash
+            ? SplashViewController()
+            : NavigationController(rootViewController: HomeViewController())
+        router.createMainWindow(rootViewController: viewController)
         return true
     }
 }

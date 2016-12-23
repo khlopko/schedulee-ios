@@ -15,7 +15,7 @@ class LectorsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.beige
+        backgroundColor = .beige
         all.forEach(addSubview)
     }
     
@@ -38,7 +38,7 @@ class LectorsView: UIView {
         table.backgroundColor = .clear
         table.tableFooterView = UIView()
         table.separatorInset = .zero
-        table.separatorColor = Color.zanah
+        table.separatorColor = .zanah
         return table
     }
 }

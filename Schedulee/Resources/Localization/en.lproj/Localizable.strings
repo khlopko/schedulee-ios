@@ -1,0 +1,48 @@
+
+// B
+
+Back = "Back";
+
+// F
+
+Friday = "Friday";
+
+// L
+
+Lectors = "Lectors";
+
+// M
+
+Monday = "Monday";
+
+// N
+
+NoLessonsText = "No lessons";
+Now = "Now";
+
+// S
+
+Saturday = "Saturday";
+Save = "Save";
+SelectGroupTitle = "Select group";
+Sunday = "Sunday";
+
+// T
+
+Thursday = "Thursday";
+Timetable = "Timetable";
+Today = "Today";
+Tomorrow = "Tomorrow";
+Tuesday = "Tuesday";
+
+// U
+
+UndefinedErrorText = "Someting goes wrong... Please, try again or later";
+
+// W
+
+Wednesday = "Wednesday";
+
+// Y
+
+Yesterday = "Yesterday";

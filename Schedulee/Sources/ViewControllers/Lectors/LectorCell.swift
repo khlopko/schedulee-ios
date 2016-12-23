@@ -21,7 +21,7 @@ private struct Constant {
 class LectorCell: UITableViewCell {
     
     private let photoView = LectorCell.makePhotoView()
-    private let fullnameLabel = LectorCell.makeFullnameLabel()
+    private let fullnameLabel = ViewFactory.Label.make(textColor: .eastBay, font: Font.regular.withSize(18))
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,17 +69,9 @@ class LectorCell: UITableViewCell {
     // MARK: - Init subviews
     
     private static func makePhotoView() -> UIImageView {
-        let photoView = UIImageView()
+        let photoView: UIImageView = ViewFactory.make(filledWith: .zanah)
         photoView.contentMode = .center
         photoView.clipsToBounds = true
-        photoView.backgroundColor = Color.zanah
         return photoView
-    }
-    
-    private static func makeFullnameLabel() -> UILabel {
-        let fullnameLabel = UILabel()
-        fullnameLabel.font = Font.regular.withSize(18)
-        fullnameLabel.textColor = Color.eastBay
-        return fullnameLabel
     }
 }

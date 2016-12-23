@@ -14,15 +14,15 @@ final class SelectGroupView: UIView {
     let table: UITableView = {
         let table = UITableView()
         table.tableFooterView = UIView()
-        table.backgroundColor = Color.mainLight
+        table.backgroundColor = .mainLight
         table.separatorInset = .zero
-        table.separatorColor = Color.secondaryDark
+        table.separatorColor = .secondaryDark
         return table
     }()
     let indicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         view.hidesWhenStopped = true
-        view.color = Color.mainDark
+        view.color = .mainDark
         return view
     }()
 

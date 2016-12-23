@@ -10,27 +10,6 @@ import UIKit
 import CustomUI
 import Tools
 
-protocol View: class {
-    
-    associatedtype ViewClass: UIView = Self
-    var content: ViewClass { get }
-    
-    init()
-}
-
-extension View {
-    
-    var content: ViewClass {
-        return self as! ViewClass
-    }
-}
-
-protocol SplashView: View {
-    
-    var verticalLines: [UIView] { get }
-    var horizontalLines: [UIView] { get }
-}
-
 fileprivate struct Constant {
     
     static let verticalLineDistances: [CGFloat] = [50, 75, 175]
@@ -38,24 +17,24 @@ fileprivate struct Constant {
     static let horizontalLineDistance: CGFloat = 75
 }
 
-final class SplashViewImplementation: UIView, SplashView {
+final class SplashView: UIView {
 
     let verticalLines = [
-        SplashViewImplementation.makeLine(),
-        SplashViewImplementation.makeLine(),
-        SplashViewImplementation.makeLine(),
+        SplashView.makeLine(),
+        SplashView.makeLine(),
+        SplashView.makeLine(),
     ]
     let horizontalLines = [
-        SplashViewImplementation.makeLine(),
-        SplashViewImplementation.makeLine(),
-        SplashViewImplementation.makeLine(),
-        SplashViewImplementation.makeLine(),
+        SplashView.makeLine(),
+        SplashView.makeLine(),
+        SplashView.makeLine(),
+        SplashView.makeLine(),
     ]
     private var previousBounds: CGRect = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.unnamed14
+        backgroundColor = .unnamed14
         verticalLines.forEach(addSubview)
         horizontalLines.forEach(addSubview)
     }
@@ -97,8 +76,6 @@ final class SplashViewImplementation: UIView, SplashView {
     }
     
     private static func makeLine() -> UIView {
-        let view = UIView()
-        view.backgroundColor = Color.unnamed11
-        return view
+        return ViewFactory.make(filledWith: .unnamed11)
     }
 }

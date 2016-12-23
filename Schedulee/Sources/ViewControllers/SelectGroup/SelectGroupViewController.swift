@@ -13,13 +13,15 @@ import Tools
 
 final class SelectGroupViewController: ViewController {
 
-    fileprivate weak var contentView: SelectGroupView?
-    
-    fileprivate var table: UITableView? {
-        return contentView?.table
+    private var contentView: SelectGroupView {
+        return view as! SelectGroupView
     }
-    private var indicator: UIActivityIndicatorView? {
-        return contentView?.indicator
+    
+    private var table: UITableView {
+        return contentView.table
+    }
+    private var indicator: UIActivityIndicatorView {
+        return contentView.indicator
     }
     
     fileprivate var groups: [Group] = []
@@ -36,41 +38,39 @@ final class SelectGroupViewController: ViewController {
     }
     
     override func loadView() {
-        let contentView = SelectGroupView()
-        self.contentView = contentView
-        view = contentView
+        view = SelectGroupView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table?.register(SelectCell.self, forCellReuseIdentifier: SelectCell.reuseId)
-        table?.dataSource = self
-        table?.delegate = self
+        table.register(SelectCell.self, forCellReuseIdentifier: SelectCell.reuseId)
+        table.dataSource = self
+        table.delegate = self
         
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.barTintColor = Color.mainLight
-        navigationItem.title = "Выберите группу"
+        navigationController?.navigationBar.barTintColor = .mainLight
+        navigationItem.title = .selectGroup
         navigationController?.navigationBar.decorateTitle(
-            font: Font.regular.withSize(21), color: Color.mainDark)
+            font: Font.regular.withSize(21), color: .mainDark)
         let save = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        save.setTitle("Сохранить", for: .normal)
+        save.setTitle(.save, for: .normal)
         save.sizeToFit()
-        save.setTitleColor(Color.mainDark, for: .normal)
+        save.setTitleColor(.mainDark, for: .normal)
         save.titleLabel?.font = Font.regular.withSize(14)
         save.addTarget(self, action: #selector(handle(save:)), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: save)
         navigationItem.rightBarButtonItem?.isEnabled = false
-        indicator?.startAnimating()
+        indicator.startAnimating()
         GroupsConfiguration().task.resume(
             success: { [weak self] groups in
                 self?.groups = groups
-                self?.table?.reloadData()
-                self?.indicator?.stopAnimating()
+                self?.table.reloadData()
+                self?.indicator.stopAnimating()
             },
             failure: { [weak self] error in
-                self?.indicator?.stopAnimating()
-                log.e(error)
+                self?.indicator.stopAnimating()
+                ErrorNotification.show(with: error)
         })
     }
     

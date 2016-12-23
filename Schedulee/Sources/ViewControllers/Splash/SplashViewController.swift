@@ -9,11 +9,14 @@
 import UIKit
 import Tools
 
-final class SplashViewController<Splash: SplashView>: ViewController {
+final class SplashViewController: ViewController {
 
-    private weak var contentView: Splash?
+    private var contentView: SplashView {
+        return view as! SplashView
+    }
     
-    private let duration: TimeInterval = 0.75
+    private let duration: TimeInterval = 0.5
+    private let delay: TimeInterval = 0.25
     private var verticalLinesAnimated = 0 {
         didSet {
             if verticalLinesAnimated == verticalLines.count {
@@ -30,9 +33,7 @@ final class SplashViewController<Splash: SplashView>: ViewController {
     }
     
     override func loadView() {
-        let contentView = Splash()
-        self.contentView = contentView
-        view = contentView.content
+        view = SplashView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,7 +59,7 @@ final class SplashViewController<Splash: SplashView>: ViewController {
                 delay: delay,
                 animation: { line.frame.size.height = self.view.bounds.height },
                 completion: { self.verticalLinesAnimated += 1 })
-            delay += 0.3
+            delay += self.delay
         }
     }
     
@@ -70,7 +71,7 @@ final class SplashViewController<Splash: SplashView>: ViewController {
                 delay: delay,
                 animation: { line.frame.size.width = self.view.bounds.width },
                 completion: { self.horizontalLinesAnimated += 1 })
-            delay += 0.3
+            delay += self.delay
         }
     }
     
@@ -92,8 +93,8 @@ final class SplashViewController<Splash: SplashView>: ViewController {
     
     private func finalAnimation() {
         UIView.animate(
-            withDuration: 1,
-            delay: 1,
+            withDuration: 0.75,
+            delay: self.delay,
             options: [.curveEaseInOut],
             animations: {
                 self.verticalLines.forEach {
@@ -117,9 +118,9 @@ final class SplashViewController<Splash: SplashView>: ViewController {
     // MARK: - Computed properties
     
     private var verticalLines: [UIView] {
-        return contentView?.verticalLines ?? []
+        return contentView.verticalLines
     }
     private var horizontalLines: [UIView] {
-        return contentView?.horizontalLines ?? []
+        return contentView.horizontalLines
     }
 }

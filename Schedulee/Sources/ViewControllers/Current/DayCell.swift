@@ -9,10 +9,11 @@
 import CustomUI
 import Models
 import Tools
+import Localization
 
 // MARK: - File constants
 
-fileprivate struct Constant {
+private struct Constant {
     static let itemHeight: CGFloat = 210
     static let interItemSpace: CGFloat = 5
 }
@@ -21,8 +22,8 @@ fileprivate struct Constant {
 
 class DayCell: UICollectionViewCell {
     
-    fileprivate let scroll = DayCell.makeScroll()
-    fileprivate let items = [
+    private let scroll: UIScrollView = ViewFactory.make(filledWith: .clear)
+    private let items = [
         DayCell.makeLessonView(),
         DayCell.makeLessonView(),
         DayCell.makeLessonView(),
@@ -30,12 +31,17 @@ class DayCell: UICollectionViewCell {
         DayCell.makeLessonView(),
         DayCell.makeLessonView(),
     ]
-    private let emptyLabel = DayCell.makeEmptyLabel()
+    private let emptyLabel = UILabel()
     
-    fileprivate var lessons: [Lesson] = []
+    private var lessons: [Lesson] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        emptyLabel.textColor = UIColor.unnamed14.withAlphaComponent(0.85)
+        emptyLabel.font = Font.regular.withSize(19)
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = Localized.noLessons
+        emptyLabel.isHidden = true
         addSubview(scroll)
         items.forEach(scroll.addSubview)
         scroll.addSubview(emptyLabel)
@@ -85,35 +91,16 @@ class DayCell: UICollectionViewCell {
         let contentHeight = Constant.itemHeight * count + Constant.interItemSpace * (count - 1)
         scroll.contentSize = CGSize(width: bounds.width, height: contentHeight)
     }
-}
 
-// MARK: - Init subviews
+    // MARK: - Init subviews
 
-private extension DayCell {
-    
-    static func makeScroll() -> UIScrollView {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = Color.clear
-        return scroll
-    }
-    
-    static func makeLessonView() -> LessonView {
+    private static func makeLessonView() -> LessonView {
         let lessonView = LessonView()
         lessonView.isHidden = true
         lessonView.viewModel = CurrentLessonViewModel(
-            titleColor: Color.unnamed15, inscriptionColor: Color.unnamed15,
-            backgroundColor: Color.unnamed13 , progressColor: Color.unnamed15,
+            titleColor: .unnamed15, inscriptionColor: .unnamed15,
+            backgroundColor: .unnamed13 , progressColor: .unnamed15,
             titleFont: Font.regular.withSize(26), inscriptionFont: Font.regular.withSize(14))
         return lessonView
-    }
-    
-    static func makeEmptyLabel() -> UILabel {
-        let emptyLabel = UILabel()
-        emptyLabel.isHidden = true
-        emptyLabel.font = Font.regular.withSize(19)
-        emptyLabel.textColor = Color.unnamed14.withAlphaComponent(0.85)
-        emptyLabel.textAlignment = .center
-        emptyLabel.text = "Занятий нет."
-        return emptyLabel
     }
 }

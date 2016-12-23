@@ -12,7 +12,7 @@ public final class CircleView: UIView {
 
     private(set) var path: UIBezierPath!
     
-    public var fillColor = Color.clear {
+    public var fillColor: UIColor = .clear {
         didSet { setNeedsDisplay() }
     }
     
@@ -24,7 +24,7 @@ public final class CircleView: UIView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.clear
+        backgroundColor = .clear
     }
     
     public required init?(coder aDecoder: NSCoder) {

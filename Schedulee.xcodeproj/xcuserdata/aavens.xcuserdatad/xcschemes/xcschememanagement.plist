@@ -11,6 +11,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Localization.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Models.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -30,7 +35,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Tools.xcscheme</key>
 		<dict>
@@ -83,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>A22BDFEE1D5F5A8F00DCF8DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A22EAA5D1E0C9D130058C5D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

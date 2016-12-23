@@ -16,7 +16,7 @@ final class LessonsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.unnamed15
+        backgroundColor = .unnamed15
         indicator.hidesWhenStopped = true
         addSubview(collection)
         collection.addSubview(indicator)
@@ -39,7 +39,7 @@ final class LessonsView: UIView {
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.allowsMultipleSelection = false
-        view.backgroundColor = Color.clear
+        view.backgroundColor = .clear
         view.isPagingEnabled = true
         view.bounces = true
         view.showsHorizontalScrollIndicator = false

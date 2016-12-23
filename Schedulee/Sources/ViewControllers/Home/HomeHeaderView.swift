@@ -9,14 +9,10 @@
 import CustomUI
 import Tools
 
-private struct Constant {
-    static let inset: CGFloat = 10
-}
-
 final class HomeHeaderView: HeaderView {
 
-    private let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
-    private let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
+    let settings = HomeHeaderView.makeButton(imageName: "ic_keyboard_arrow_down")
+    let loop = HomeHeaderView.makeButton(imageName: "ic_loop")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,20 +26,20 @@ final class HomeHeaderView: HeaderView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let views = [settings, loop]
-        let side: CGFloat = 44
+        let side: CGFloat = 20
         var prevFrame: CGRect?
         var x: CGFloat
         for view in views {
-            x = (prevFrame?.minX ?? bounds.width) - side
-            view.frame = CGRect(x: x, y: 20, width: side, height: side)
+            x = (prevFrame?.minX ?? bounds.width) - side - 10
+            view.frame = CGRect(x: x, y: 32, width: side, height: side)
             prevFrame = view.frame
         }
     }
     
     private static func makeButton(imageName: String) -> UIButton {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: imageName), for: .normal)
-        button.tintColor = Color.unnamed3
+        button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.tintColor = .unnamed14
         return button
     }
 }

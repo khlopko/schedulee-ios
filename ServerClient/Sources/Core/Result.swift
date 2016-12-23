@@ -8,15 +8,15 @@
 
 import Tools
 
-public enum Result<Data> {
+public enum Result<Value> {
 
-    case success(Data)
+    case success(Value)
     case failure(Error)
     
-    public var data: Data? {
+    public var data: Value? {
         switch self {
-        case let .success(data):
-            return data
+        case let .success(value):
+            return value
         case .failure(_):
             return nil
         }
@@ -50,9 +50,9 @@ infix operator => : Map
 
 public func => <In, Out>(result: Result<In>, closure: (In) -> (Out)) -> Result<Out> {
     switch result {
-    case .success(let data):
-        return Result<Out>.success(closure(data))
+    case .success(let value):
+        return .success(closure(value))
     case .failure(let error):
-        return Result<Out>.failure(error)
+        return .failure(error)
     }
 }
